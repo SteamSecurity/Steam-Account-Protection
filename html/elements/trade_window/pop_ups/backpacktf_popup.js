@@ -12,7 +12,6 @@ let url_parts = url_params(window.location.href),
 	sap_extension;
 
 backpacktf();
-
 async function backpacktf() {
 	await get_sap_extension();
 	let response = JSON.parse(await xhr_send(`get`, `https://backpack.tf/api/IGetUsers/v3?steamid=${url_parts.steamid}`)).response.players[url_parts.steamid];
@@ -24,6 +23,7 @@ async function backpacktf() {
 	// User "reputation" votes ===========
 	page_elements.positive_votes.innerText = response.backpack_tf_trust.for;
 	page_elements.negative_votes.innerText = response.backpack_tf_trust.against;
+	
 	// Color ===
 	if (response.backpack_tf_trust.for > 0) {
 		page_elements.positive_votes.parentElement.style.backgroundColor = `#1c5d0c`;
