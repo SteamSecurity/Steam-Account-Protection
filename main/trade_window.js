@@ -18,6 +18,7 @@ function trade_window() {
 	if (!is_trade_window()) {
 		return;
 	}
+	
 	// Get Buddy data ==================================
 	sap_extension.data.user_profiles.buddies.find((buddy, index) => {
 		if (buddy.steamid === trade_window_data.partner.steamid) {
