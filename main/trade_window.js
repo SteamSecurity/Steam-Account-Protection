@@ -20,9 +20,9 @@ function trade_window() {
 	}
 	// Get Buddy data ==================================
 	sap_extension.data.user_profiles.buddies.find((buddy, index) => {
-		if (buddy.steamid === profile_data.user.steamid) {
-			profile_data.buddy_data.profile_information = buddy;
-			profile_data.buddy_data.index = index;
+		if (buddy.steamid === trade_window_data.partner.steamid) {
+			trade_window_data.buddy_data.profile_information = buddy;
+			trade_window_data.buddy_data.index = index;
 			return;
 		}
 	});
