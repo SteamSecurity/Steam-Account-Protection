@@ -18,11 +18,12 @@ function trade_window() {
 	if (!is_trade_window()) {
 		return;
 	}
+	
 	// Get Buddy data ==================================
 	sap_extension.data.user_profiles.buddies.find((buddy, index) => {
-		if (buddy.steamid === profile_data.user.steamid) {
-			profile_data.buddy_data.profile_information = buddy;
-			profile_data.buddy_data.index = index;
+		if (buddy.steamid === trade_window_data.partner.steamid) {
+			trade_window_data.buddy_data.profile_information = buddy;
+			trade_window_data.buddy_data.index = index;
 			return;
 		}
 	});
@@ -98,7 +99,7 @@ function trade_window() {
 				return;
 			}
 
-			// Otherwise, nuke all of the pannels...
+			// Otherwise, nuke all of the panels...
 			document.querySelectorAll(`.trade-toolbar-info-box`).forEach((element) => {
 				if (!element.classList.contains(`invisible`)) {
 					element.classList.add(`invisible`);

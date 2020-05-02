@@ -99,7 +99,6 @@ const api = {
 				// If there are no special tags, return
 				if (raw_response.reputation.tags !== ``) {
 					// Steamrep doesn't use an array for people with a single tag
-					// We already know `reputation.tags` isn't empty
 					if (!raw_response.reputation.tags[0]) {
 						if (raw_response.reputation.tags.tag.category == 'trusted') {
 							profile_data.good_tags.push(raw_response.reputation.tags.tag.name);
@@ -110,7 +109,7 @@ const api = {
 						}
 					}
 
-					// If we do have an array, we have more than one tag to catagorize
+					// If we do have an array, we have more than one tag to categorize
 					if (raw_response.reputation.tags[0]) {
 						raw_response.reputation.tags.tag.forEach(function (tag) {
 							if (tag.category == 'trusted') {
