@@ -7,7 +7,7 @@ const compare = {
 			});
 		});
 	},
-	//Compares two strings and returns a decimal between 0 and 1 based on how similer they are
+	//Compares two strings and returns a decimal between 0 and 1 based on how similar they are
 	string: (current, base) => {
 		let percent = 0;
 		for (x = 0; current.length > x; x++) {

@@ -98,7 +98,7 @@ function trade_window() {
 				return;
 			}
 
-			// Otherwise, nuke all of the pannels...
+			// Otherwise, nuke all of the panels...
 			document.querySelectorAll(`.trade-toolbar-info-box`).forEach((element) => {
 				if (!element.classList.contains(`invisible`)) {
 					element.classList.add(`invisible`);

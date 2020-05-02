@@ -7,11 +7,9 @@ var loc = {
 	result: ``
 };
 
-// The sap extension settings that all of the files will use
-var sap_extension = {};
+var sap_extension = {};	// The extension settings that all of the files will use
 
 main();
-
 async function main() {
 	await get_data();
 	find_window();
@@ -19,7 +17,7 @@ async function main() {
 
 async function get_data() {
 	return new Promise((resolve) => {
-		chrome.storage.local.get([ 'sap_extension' ], (response) => {
+		chrome.storage.local.get(['sap_extension'], (response) => {
 			// Check if the extensions data can be read
 			if (response.sap_extension === undefined || response.sap_extension.settings === undefined) {
 				resolve(1);
