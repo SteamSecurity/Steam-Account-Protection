@@ -1,0 +1,129 @@
+body {
+	margin: 0;
+	text-shadow: black 0px 0px 1px;
+	background-color: #4a5765 !important;
+	height: 100%;
+}
+
+nav {
+	padding: 0 !important;
+	margin-bottom: 50px;
+}
+nav .navbar-brand {
+	font-size: 1.5em !important;
+	margin-top: 8px;
+	margin-bottom: 8px;
+	margin-left: 8px;
+}
+nav .navbar-toggler {
+	margin-right: 20px;
+}
+.navbar-background {
+	background-color: #252b31 !important;
+	padding: .8rem;
+}
+
+.navbar-collapse .nav_item .nav-link {
+	position: relative;
+	display: block;
+	padding: 10px 15px;
+	color: #ffffffe6 !important;
+	font-size: 1.07em;
+	transition: background-color, 0.1s;
+}
+
+.navbar-collapse .nav_item .nav-link:hover {
+	color: white !important;
+	background-color: #3e4954 !important;
+}
+
+.navbar-collapse .nav_item {
+	width: 100% !important;
+	text-align: center;
+	min-width: 100px;
+
+	user-select: none;
+	cursor: pointer;
+}
+.navbar-collapse .nav-active {
+	color: #ffffffe6 !important;
+	background-color: #1c2025 !important;
+	box-shadow: inset #00b8ff 0px -4px 0px;
+}
+
+.body-main {
+	background-color: #252b31 !important;
+	box-shadow: #101010 0 0 1px;
+	padding: 10px;
+	margin-bottom: 20px;
+}
+
+.body-main .title-box {
+	color: white;
+	text-shadow: black 0 0 1px;
+	text-align: center;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.body-main .title {
+	font-size: 2.5em;
+}
+
+.body-main .desc {
+	font-size: 1.4em;
+}
+
+.text_line {
+	width: 90%;
+	height: 1px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #ffffff80 !important;
+	margin-top: 2px;
+	margin-bottom: 7px;
+}
+
+.info-container {
+	margin-bottom: 5px;
+}
+
+.info-box-container {
+	background-color: #252b31;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+	color: white;
+	padding: 15px;
+}
+
+.info-box-container .info-box {
+	background-color: #3b434c;
+	text-shadow: black 0 0 1px;
+	box-shadow: black 0 0 2px;
+	padding: 5px;
+}
+
+.info-box-container .title {
+	font-size: 1.5em;
+	text-decoration: underline;
+}
+
+.info-box a {
+	color: #00dcff;
+	text-shadow: #bff6ff 0 0 0.5px;
+}
+
+.info-box a:hover {
+	color: #00dcff;
+	text-shadow: #bff6ff 0 0 0.5px;
+}
+@media all and (max-width: 780px) {
+	.navbar-brand {
+        margin-left:auto !important;
+        margin-right:auto !important;
+    }
+    .navbar-toggler{
+        margin-left:auto !important;
+        margin-right:auto !important;
+    }
+}

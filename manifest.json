@@ -1,0 +1,42 @@
+{
+	"update_url": "https://clients2.google.com/service/update2/crx",
+
+	"name": "Steam Account Protection",
+	"version": "3.3.0",
+	"manifest_version": 2,
+	"description": "Help protect your Steam Account",
+	"background": {
+		"scripts": [ "main/background.js" ]
+	},
+	"externally_connectable": {
+		"matches": []
+	},
+	"icons": {
+		"16": "images/sap_16.png",
+		"32": "images/sap_32.png",
+		"64": "images/sap_64.png",
+		"128": "images/sap_128.png",
+		"512": "images/sap_512.png"
+	},
+	"content_scripts": [
+		{
+			"js": [
+				"thirdparty/jquery_3.4.1_slim.js",
+				"thirdparty/Resemble.js/Resemble.js",
+				"main/utilities.js",
+				"main/trade_window.js",
+				"main/profile.js",
+				"main/user_scanners.js",
+				"main/apis.js",
+				"html/elements/html_elements.js",
+				"main/main.js"
+			],
+			"matches": [ "https://steamcommunity.com/*", "https://backpack.tf/api/*", "https://marketplace.tf/api/*", "https://mannco.store/bots", "https://steamrep.com/api/beta4/*" ]
+		}
+	],
+	"permissions": [ "activeTab", "storage" ],
+	"web_accessible_resources": [ "images/*.png", "html/*" ],
+	"browser_action": {
+		"default": "images/sap_512.png"
+	}
+}

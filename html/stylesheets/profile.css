@@ -1,0 +1,23 @@
+/* <-- Reputation panel --> */
+#reputation-panel .reputation-panel-service {
+	display: flex;
+	margin: auto;
+	height: 20px;
+}
+#reputation-panel .reputation-panel-service img {
+	display: flex;
+	margin: auto;
+	margin-right: 5px;
+	width: auto;
+	height: 100%;
+}
+#reputation-panel .reputation-panel-service div {
+	display: flex;
+	margin: auto;
+}
+#reputation-panel #reputation-panel-pendingreports {
+	min-width: 20px;
+	display: inline-grid;
+	text-align: center;
+}
+/* <-- Buddy --> */
