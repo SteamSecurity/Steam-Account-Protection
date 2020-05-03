@@ -4,7 +4,7 @@ const api = {
 			return new Promise(async (resolve, reject) => {
 				let ban_data = {
 					steamid: steamid,
-					last_check: current_time(),
+					last_check: time.current_time(),
 					bans: {}
 				};
 				let profile_reputation;
@@ -17,7 +17,7 @@ const api = {
 				});
 
 				if (profile_reputation) {
-					if (current_time() <= profile_reputation.last_check + 3600) {
+					if (time.current_time() <= profile_reputation.last_check + 3600) {
 						log(`Using saved Reptf reputation of ${profile_reputation.steamid}`);
 						resolve(profile_reputation);
 						return;
@@ -81,7 +81,7 @@ const api = {
 				});
 
 				if (profile_reputation) {
-					if (current_time() <= profile_reputation.last_check + 3600) {
+					if (time.current_time() <= profile_reputation.last_check + 3600) {
 						log(`Using saved SteamRep reputation of ${profile_reputation.steamid}`);
 						resolve(profile_reputation);
 						return;
@@ -90,7 +90,7 @@ const api = {
 
 				let raw_response = JSON.parse(await xhr_send(`get`, `https://steamrep.com/api/beta4/reputation/${steamid}?extended=1&json=1&tagdetails=1`)).steamrep;
 				// Sets the check time. This will help prevent spamming requests
-				profile_data.last_check = current_time();
+				profile_data.last_check = time.current_time();
 
 				// Sets Pending Reports
 				profile_data.pending_reports = raw_response.stats.unconfirmedreports.reportcount;
@@ -146,7 +146,7 @@ const api = {
 					number: /[0-9]+/
 				}
 			};
-			if (sap_extension.data.bot_profiles.last_check + 86400 <= current_time()) {
+			if (sap_extension.data.bot_profiles.last_check + 86400 <= time.current_time()) {
 				marketplace();
 				mannco();
 				bitskins();
@@ -206,14 +206,14 @@ const api = {
 				let { marketplace, mannco, bitskins } = bot_update_data.request_status;
 				if (marketplace && mannco && bitskins) {
 					console.log(sap_extension.data.bot_profiles);
-					sap_extension.data.bot_profiles.last_check = current_time();
+					sap_extension.data.bot_profiles.last_check = time.current_time();
 					log(`Finished getting Bots!`);
 					save_settings();
 				}
 			}
 		},
 		user_profiles: async () => {
-			if (sap_extension.data.user_profiles.last_check + 86400 <= current_time()) {
+			if (sap_extension.data.user_profiles.last_check + 86400 <= time.current_time()) {
 				let bots = []; // Should be called "users", but it's not for consistency
 				let response = JSON.parse(await xhr_send(`get`, `https://backpack.tf/api/IGetUsers/GetImpersonatedUsers`));
 				response = response.results.filter(not_marketplace);
@@ -221,7 +221,7 @@ const api = {
 
 				log(`Got ${bots.length} Backpack.tf Impersonated users!`);
 				sap_extension.data.user_profiles.impersonated = bots;
-				sap_extension.data.user_profiles.last_check = current_time();
+				sap_extension.data.user_profiles.last_check = time.current_time();
 				save_settings();
 				return;
 			}
