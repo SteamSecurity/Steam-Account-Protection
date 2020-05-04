@@ -15,7 +15,7 @@ function trade_window() {
 		return;
 	}
 
-	profile_data.buddy_data = find_user.buddy(trade_window_data.partner.steamid);
+	trade_window_data.buddy_data = find_user.buddy(trade_window_data.partner.steamid);
 	handle_html();	// Inject our html
 	if (sap_extension.settings.trade_window.api_warning) {
 		api_warning();

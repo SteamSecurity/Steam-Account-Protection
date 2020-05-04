@@ -3,8 +3,7 @@ function profile() {
 		user: {
 			personaname: document.querySelector(`.profile_header_bg .persona_name .actual_persona_name`)?.innerText,
 			profile_picture: document.querySelector(`.profile_header_bg .playerAvatar img`)?.src,
-			url: `https://steamcommunity.com/profiles/${document.getElementsByName('abuseID')[0]?.value}`,
-			steamid: document.getElementsByName('abuseID')[0]?.value || /7[0-9]{16}/g.exec(document.querySelector(`.commentthread_area`).id)[0],
+			steamid: /7[0-9]{16}/g.exec(/"steamid":"7[0-9]{16}"/g.exec(document.querySelector(`.responsive_page_template_content script`).innerText)[0])[0],
 			level: document.querySelector(`.profile_header_badgeinfo_badge_area .friendPlayerLevelNum`)?.innerText || 0
 		},
 		buddy_data: {}
@@ -12,7 +11,6 @@ function profile() {
 
 	profile_data.buddy_data = find_user.buddy(profile_data.user.steamid);	// Get the saved buddy data
 	handle_html();
-
 	if (sap_extension.settings.profile.buddy_button && is_not_owner()) {
 		buddy();
 	}
@@ -45,11 +43,10 @@ function profile() {
 	function buddy() {
 		document.querySelector('.profile_header_actions').style.display = 'flex'; // Allows easy plug in for our buddy button
 		document.querySelector(`.profile_header_actions`).insertAdjacentHTML(`beforeend`, html_elements.profile.buddy_button);
-		log(profile_data.buddy_data);
 
 		// User is a buddy ========
 		if (profile_data.buddy_data.is_buddy()) {
-			log(`User is a Buddy`);
+			log(`${profile_data.user.personaname} is a Buddy`);
 			document.querySelector(`#buddy-button img`).src = chrome.extension.getURL('images/user_slash.png');
 			document.querySelector(`#buddy-button`).addEventListener(`click`, () => {
 				sap_extension.data.user_profiles.buddies.splice(profile_data.buddy_data.index, 1);
@@ -88,13 +85,12 @@ function profile() {
 		if (!document.querySelector(`.profile_customization_area`)) {
 			document.querySelector('.profile_leftcol').insertAdjacentHTML('afterbegin', '<div class="profile_customization_area"></div>');
 		}
-
 		document.querySelector(`.profile_customization_area`).insertAdjacentHTML(`afterbegin`, html_elements.profile.reputation_panel);
 
 		// Set links and user data =======
 		document.querySelector(`#reputation-panel-title`).innerText = `${profile_data.user.personaname}'s SteamRep Reputation`;
-		// Stemrep ==
-		document.querySelector(`#reputation-panel-permlink`).innerText = profile_data.user.url;
+		// SteamRep ==
+		document.querySelector(`#reputation-panel-permlink`).innerText = `https://steamcommunity.com/profiles/${profile_data.user.steamid}`;
 		document.querySelector(`#reputation-panel-steamid`).value = profile_data.user.steamid;
 
 		// Other ====
