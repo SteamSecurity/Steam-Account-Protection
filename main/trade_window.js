@@ -7,37 +7,22 @@ function trade_window() {
 			url: document.querySelectorAll('.trade_partner_steam_level_desc,.trade_partner_info_text')[1].childNodes[1].href,
 			level: document.querySelectorAll('.trade_partner_info_text')[2].innerText.replace('has a Steam Level of ', '')
 		},
-		buddy_data: {
-			profile_information: {},
-			index: -1,
-			is_buddy: () => trade_window_data.buddy_data.index !== -1
-		}
+		buddy_data: {}
 	};
 
 	// Checks if the page is a valid trade window (One that is active and can be acted upon)
 	if (!is_trade_window()) {
 		return;
 	}
-	
-	// Get Buddy data ==================================
-	sap_extension.data.user_profiles.buddies.find((buddy, index) => {
-		if (buddy.steamid === trade_window_data.partner.steamid) {
-			trade_window_data.buddy_data.profile_information = buddy;
-			trade_window_data.buddy_data.index = index;
-			return;
-		}
-	});
 
-	// Inject our html
-	handle_html();
-
+	profile_data.buddy_data = find_user.buddy(trade_window_data.partner.steamid);
+	handle_html();	// Inject our html
 	if (sap_extension.settings.trade_window.api_warning) {
 		api_warning();
 	}
 	if (sap_extension.settings.trade_window.trade_toolbar) {
 		trade_toolbar();
 	}
-
 	if (sap_extension.settings.trade_window.tw_reputation_scanner) {
 		reputation_scanner();
 	} else {
@@ -45,11 +30,8 @@ function trade_window() {
 			document.querySelector(`#trade-toolbar-disabled-notice`).style.display = `block`;
 		}
 	}
-
-	if (sap_extension.settings.trade_window.tw_impersonator_scanner) {
-		if (!trade_window_data.buddy_data.is_buddy()) {
-			impersonator_scanner(trade_window_data.partner);
-		}
+	if (sap_extension.settings.trade_window.tw_impersonator_scanner && !trade_window_data.buddy_data.is_buddy()) {
+		impersonator_scanner(trade_window_data.partner);
 	}
 
 	// Load Stylesheets files ==========================
@@ -58,7 +40,7 @@ function trade_window() {
 		document.getElementsByTagName('head')[0].insertAdjacentHTML('beforeend', `<script src="https://steamcommunity-a.akamaihd.net/public/shared/css/shared_global.css?v=O5W-K8wVvTcv"></script>`);
 	}
 
-	// API Key =========================================
+	//  Check for API Key ==============================
 	async function api_warning() {
 		if ((await xhr_send(`get`, `https://steamcommunity.com/dev/apikey`)).includes(`Key: `)) {
 			document.querySelector(`.trade_partner_header`).lastChild.remove();

@@ -245,7 +245,18 @@ const api = {
 	},
 	filter: {
 		profiles: () => {
-			sap_extension.data.user_profiles;
+			sap_extension.data.user_profiles.steamrep_profiles.forEach((profile, index) => {
+				if (time.current_time() >= profile.last_check + 3600) {
+					sap_extension.data.user_profiles.steamrep_profiles.splice(index, 1);
+					save_settings();
+				}
+			});
+			sap_extension.data.user_profiles.reptf_profiles.forEach((profile, index) => {
+				if (time.current_time() >= profile.last_check + 3600) {
+					sap_extension.data.user_profiles.reptf_profiles.splice(index, 1);
+					save_settings();
+				}
+			});
 		}
 	}
 };

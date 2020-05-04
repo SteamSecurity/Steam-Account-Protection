@@ -28,6 +28,18 @@ const time = {
 		return new Date(new Date(utc_time).getTime()).toLocaleString();
 	}
 };
+const find_user = {
+	buddy: (steamid) => {
+		let data = { response: ``, index: -1, is_buddy: () => data.index !== -1 };
+		sap_extension.data.user_profiles.buddies.find((buddy, index) => {
+			if (buddy.steamid === steamid) {
+				data.response = buddy;
+				data.index = index;
+			}
+		});
+		return data;
+	}
+};
 
 // Reads the params from a url
 function url_params(url) {

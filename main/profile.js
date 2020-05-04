@@ -4,25 +4,13 @@ function profile() {
 			personaname: document.querySelector(`.profile_header_bg .persona_name .actual_persona_name`)?.innerText,
 			profile_picture: document.querySelector(`.profile_header_bg .playerAvatar img`)?.src,
 			url: `https://steamcommunity.com/profiles/${document.getElementsByName('abuseID')[0]?.value}`,
-			steamid: document.getElementsByName('abuseID')[0]?.value,
+			steamid: document.getElementsByName('abuseID')[0]?.value || /7[0-9]{16}/g.exec(document.querySelector(`.commentthread_area`).id)[0],
 			level: document.querySelector(`.profile_header_badgeinfo_badge_area .friendPlayerLevelNum`)?.innerText || 0
 		},
-		buddy_data: {
-			profile_information: {},
-			index: -1,
-			is_buddy: () => profile_data.buddy_data.index !== -1
-		}
+		buddy_data: {}
 	};
 
-	// Get Buddy data ==================================
-	sap_extension.data.user_profiles.buddies.find((buddy, index) => {
-		if (buddy.steamid === profile_data.user.steamid) {
-			profile_data.buddy_data.profile_information = buddy;
-			profile_data.buddy_data.index = index;
-			return;
-		}
-	});
-
+	profile_data.buddy_data = find_user.buddy(profile_data.user.steamid);	// Get the saved buddy data
 	handle_html();
 
 	if (sap_extension.settings.profile.buddy_button && is_not_owner()) {
@@ -31,10 +19,8 @@ function profile() {
 	if (sap_extension.settings.profile.pr_reputation_scanner) {
 		reputation_scanner();
 	}
-	if (sap_extension.settings.profile.pr_impersonator_scanner) {
-		if (!profile_data.buddy_data.is_buddy()) {
-			impersonator_scanner(profile_data.user);
-		}
+	if (sap_extension.settings.profile.pr_impersonator_scanner && !profile_data.buddy_data.is_buddy()) {
+		impersonator_scanner(profile_data.user);
 	}
 
 	// Update any buddy data ===========================
@@ -52,12 +38,12 @@ function profile() {
 
 	// Checks if Profile is the user ===================
 	function is_not_owner() {
-		return document.querySelector(`.profile_header_actions .btn_profile_action`).children[0].innerText !== `Edit Profile`;
+		return document.querySelector(`.profile_header_actions .btn_profile_action`)?.children[0].innerText !== `Edit Profile` || false;
 	}
 
 	// Handle the Buddy settings =======================
 	function buddy() {
-		document.querySelector('.profile_header_actions').style.display = 'flex'; // Alows easy plug in for our buddy button
+		document.querySelector('.profile_header_actions').style.display = 'flex'; // Allows easy plug in for our buddy button
 		document.querySelector(`.profile_header_actions`).insertAdjacentHTML(`beforeend`, html_elements.profile.buddy_button);
 		log(profile_data.buddy_data);
 
