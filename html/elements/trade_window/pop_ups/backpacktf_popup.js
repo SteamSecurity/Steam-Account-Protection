@@ -1,3 +1,4 @@
+
 let p_elem = {
 	profile_picture: document.querySelector(`#user-profile-picture`),
 	personaname: document.querySelector(`#user-persona-name`),
@@ -14,7 +15,7 @@ async function backpacktf_popup() {
 	let sap_extension = await get_sap_extension();
 	let { steamid, profile_picture } = url_params(window.location.href);
 	let bp_response = JSON.parse(await xhr_send(`get`, `https://backpack.tf/api/IGetUsers/v3?steamid=${steamid}`)).response.players[steamid];
-
+  
 	// Basic user info ===================
 	p_elem.profile_picture.src = profile_picture;
 	p_elem.personaname.innerText = bp_response.name;
@@ -47,6 +48,22 @@ async function backpacktf_popup() {
 }
 
 // Functions =====================================================
+
+//Sends XHR request ==================
+function xhr_send(type, url, data) {
+	return new Promise((resolve) => {
+		var newXHR = new XMLHttpRequest() || new window.ActiveXObject('Microsoft.XMLHTTP');
+		newXHR.open(type, url.replace('http://', 'https://'), true);
+		newXHR.send(data);
+		newXHR.onreadystatechange = function () {
+			if (this.status === 200 && this.readyState === 4) {
+				resolve(this.response);
+			} else if (this.readyState === 4) {
+				resolve(``);
+			}
+		};
+	});
+}
 // Gets SAP settings =================
 function get_sap_extension() {
 	return new Promise((resolve) => {
