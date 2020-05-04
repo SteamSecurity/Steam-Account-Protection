@@ -2,7 +2,7 @@ const compare = {
 	//Compare two images using thirdparty Resemble.js
 	image: (current, base) => {
 		return new Promise((resolve) => {
-			resemble(current).compareTo(base).ignoreAlpha().ignoreColors().ignoreAntialiasing().onComplete(function(data) {
+			resemble(current).compareTo(base).ignoreAlpha().ignoreColors().ignoreAntialiasing().onComplete(function (data) {
 				resolve(100 - data.rawMisMatchPercentage);
 			});
 		});
@@ -18,6 +18,37 @@ const compare = {
 		return Math.round(percent / current.length * 100);
 	}
 };
+const time = {
+	//Returns the current time in seconds
+	current_time: () => {
+		return Math.floor(Date.now() / 1000);
+	},
+	//Converts UTC to plain time
+	utc_to_string: (utc_time) => {
+		return new Date(new Date(utc_time).getTime()).toLocaleString();
+	}
+};
+const find_user = {
+	buddy: (steamid) => {
+		let data = { response: ``, index: -1, is_buddy: () => data.index !== -1 };
+		sap_extension.data.user_profiles.buddies.find((buddy, index) => {
+			if (buddy.steamid === steamid) {
+				data.response = buddy;
+				data.index = index;
+			}
+		});
+		return data;
+	}
+};
+
+// Reads the params from a url
+function url_params(url) {
+	var vars = {};
+	url.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+		vars[key] = value;
+	});
+	return vars;
+}
 
 //Sends XHR request
 function xhr_send(type, url) {
@@ -25,7 +56,7 @@ function xhr_send(type, url) {
 		var newXHR = new XMLHttpRequest() || new window.ActiveXObject('Microsoft.XMLHTTP');
 		newXHR.open(type, url.replace('http://', 'https://'), true);
 		newXHR.send();
-		newXHR.onreadystatechange = function() {
+		newXHR.onreadystatechange = function () {
 			if (this.status === 200 && this.readyState === 4) {
 				resolve(this.response);
 			} else if (this.readyState === 4) {
@@ -37,7 +68,7 @@ function xhr_send(type, url) {
 
 //Generate class name for steam levels
 function steam_level_class(n) {
-	var e = (function(n) {
+	var e = (function (n) {
 		if ((n.toString(), n)) {
 			var e = {
 				Thousand: '0',
@@ -49,16 +80,6 @@ function steam_level_class(n) {
 		}
 	})('' + n);
 	return '0' != e.Thousand ? 'lvl_' + e.Thousand + e.Hundred + '00 lvl_plus_' + e.Ten + '0' : '0' != e.Hundred ? 'lvl_' + e.Hundred + '00 lvl_plus_' + e.Ten + '0' : '0' != e.Ten ? 'lvl_' + e.Ten + '0' : 'lvl_' + n;
-}
-
-//Converts UTC to plain time
-function utc_to_time(utc_time) {
-	return new Date(new Date(utc_time).getTime()).toLocaleString();
-}
-
-//Returns the current time in seconds
-function current_time() {
-	return Math.floor(Date.now() / 1000);
 }
 
 //Custom console.log format
