@@ -30,7 +30,7 @@ function trade_window() {
 			document.querySelector(`#trade-toolbar-disabled-notice`).style.display = `block`;
 		}
 	}
-	if (sap_extension.settings.trade_window.tw_impersonator_scanner && !trade_window_data.buddy_data.is_buddy()) {
+	if (sap_extension.settings.trade_window.tw_impersonator_scanner) {
 		impersonator_scanner(trade_window_data.partner);
 	}
 

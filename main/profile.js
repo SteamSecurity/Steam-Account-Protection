@@ -17,10 +17,9 @@ function profile() {
 	if (sap_extension.settings.profile.pr_reputation_scanner) {
 		reputation_scanner();
 	}
-	if (sap_extension.settings.profile.pr_impersonator_scanner && !profile_data.buddy_data.is_buddy()) {
+	if (sap_extension.settings.profile.pr_impersonator_scanner) {
 		impersonator_scanner(profile_data.user);
 	}
-
 	// Update any buddy data ===========================
 	if (profile_data.buddy_data.is_buddy()) {
 		sap_extension.data.user_profiles.buddies.splice(profile_data.buddy_data.index, 1);
