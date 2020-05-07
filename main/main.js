@@ -13,6 +13,7 @@ main();
 async function main() {
 	await get_data();
 	find_window();
+	api.filter.profiles();
 }
 
 async function get_data() {

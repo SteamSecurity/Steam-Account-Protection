@@ -17,8 +17,11 @@ async function impersonator_scanner(profile_data) {
 	// User Scanner ========
 	let { impersonated, buddies } = sap_extension.data.user_profiles;
 
-	//Combine buddies and impersonated
-	let impersonated_list = [ ...impersonated, ...buddies ];
+	// Combine buddies and impersonated
+	let impersonated_list = impersonated;
+	if (sap_extension.settings.profile.buddy_button) {
+		impersonated_list = [...impersonated, ...buddies];
+	}
 
 	for (let a = 0; impersonated_list.length > a; a++) {
 		let username_similarity = compare.string(profile_data.personaname, impersonated_list[a].personaname),
@@ -34,7 +37,6 @@ async function impersonator_scanner(profile_data) {
 					document.querySelector(`#trade-toolbar-warning-user-impostor`).style.display = `block`;
 				}
 			}
-			break; // Saves us from continuing if the user could have been a potential impostor
 		}
 	}
 
@@ -68,22 +70,22 @@ async function impersonator_scanner(profile_data) {
 
 			// Trade partner ======
 			document.querySelector(`#impersonator-partner-profile-picture`).src = profile_data.profile_picture;
-			document.querySelector(`#impersonator-partner-url`).href = profile_data.url;
+			document.querySelector(`#impersonator-partner-url`).href = `https://steamcommunity.com/profiles/${profile_data.steamid}`;
 			document.querySelector(`#impersonator-partner-personaname`).innerText = profile_data.personaname;
 			document.querySelector(`#impersonator-partner-steamid`).innerText = profile_data.steamid;
 			document.querySelector(`#impersonator-partner-level`).innerText = profile_data.level;
-			document.querySelector(`#impersonator-partner-level`).parentElement.classList.add(steam_level_class(profile_data.level));
+			document.querySelector(`#impersonator-partner-level`).parentElement.className += ` ${steam_level_class(profile_data.level)}`;
 
 			// Impersonated =======
 			document.querySelector(`#impersonator-impersonated-profile-picture`).src = impersonated_user.profile_picture;
-			document.querySelector(`#impersonator-impersonated-url`).href = impersonated_user.url;
+			document.querySelector(`#impersonator-impersonated-url`).href = `https://steamcommunity.com/profiles/${impersonated_user.steamid}`;
 			document.querySelector(`#impersonator-impersonated-personaname`).innerText = impersonated_user.personaname;
 			document.querySelector(`#impersonator-impersonated-steamid`).innerText = impersonated_user.steamid;
 		}
 	}
 	async function levels(impersonated_user) {
 		// We need to make a request to steam to get the impersonated's level
-		let raw_data = await xhr_send(`get`, impersonated_user.url);
+		let raw_data = await xhr_send(`get`, `https://steamcommunity.com/profiles/${impersonated_user.steamid}`);
 		let level_pattern = /<span class="friendPlayerLevelNum">[0-9]+<\/span><\/div><\/div>/g.exec(raw_data);
 		let level = /[0-9]+/g.exec(level_pattern);
 		document.querySelector(`#impersonator-impersonated-level`).innerText = Number(level);
