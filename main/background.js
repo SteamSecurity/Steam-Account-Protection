@@ -11,7 +11,7 @@ chrome.runtime.onInstalled.addListener(function(details) {
 		});
 	}
 	if (details.reason == 'update') {
-		let default_settings = {
+		const default_settings = {
 			settings: {
 				trade_window: {
 					api_warning: true,

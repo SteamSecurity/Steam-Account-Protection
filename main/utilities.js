@@ -95,11 +95,10 @@ function log(data, type) {
 // Saves the internal settings
 async function save_settings(set_default) {
 	if (!set_default) {
-		log(`Saving settings`);
 		chrome.storage.local.set({ sap_extension: sap_extension });
+		log(`Saved settings`);
 		return;
 	}
-	log(`Saving default settings`);
 	sap_extension = {
 		settings: {
 			trade_window: {
@@ -137,5 +136,6 @@ async function save_settings(set_default) {
 		}
 	};
 	chrome.storage.local.set({ sap_extension: sap_extension });
+	log(`Saved default settings`);
 	return;
 }

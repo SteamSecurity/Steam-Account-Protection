@@ -109,7 +109,7 @@ function trade_window() {
 
 		function display_rep(rep_array) {
 			rep_array.forEach((rep_object) => {
-				let community_name = Object.keys(rep_object)[0];
+				const community_name = Object.keys(rep_object)[0];
 
 				if (rep_object[community_name].banned === true) {
 					// Reputation popup ====================

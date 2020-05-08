@@ -25,14 +25,14 @@ const api = {
 				}
 
 				// Sends request to reptf
-				let raw_response = JSON.parse(await xhr_send(`post`, `https://rep.tf/api/bans?str=${steamid.toString()}`));
+				const raw_response = JSON.parse(await xhr_send(`post`, `https://rep.tf/api/bans?str=${steamid.toString()}`));
 
 				if (raw_response.success !== true) {
 					reject(raw_response.message);
 				}
 
 				// Filters the Object Keys in the response to only include communities
-				let communities = Object.keys(raw_response).filter(is_community);
+				const communities = Object.keys(raw_response).filter(is_community);
 
 				// Saves data to a more simple object
 				communities.forEach((community_name) => {
@@ -88,7 +88,7 @@ const api = {
 					}
 				}
 
-				let raw_response = JSON.parse(await xhr_send(`get`, `https://steamrep.com/api/beta4/reputation/${steamid}?extended=1&json=1&tagdetails=1`)).steamrep;
+				const raw_response = JSON.parse(await xhr_send(`get`, `https://steamrep.com/api/beta4/reputation/${steamid}?extended=1&json=1&tagdetails=1`)).steamrep;
 				// Sets the check time. This will help prevent spamming requests
 				profile_data.last_check = time.current_time();
 
@@ -152,24 +152,25 @@ const api = {
 				bitskins();
 				return;
 			}
-			log(`Not updating Bot list`);
+			log(`Bot list: Not updated`);
 			return;
+
 			async function marketplace() {
-				let response = JSON.parse(await xhr_send(`get`, `https://marketplace.tf/api/Bots/GetBots/v2`));
+				const response = JSON.parse(await xhr_send(`get`, `https://marketplace.tf/api/Bots/GetBots/v2`));
 				if (response.success) {
 					let bots = []; // Array of SteamID64s
 					response.bots.forEach((bot) => {
 						bots.push(bot.steamid);
 					});
 					sap_extension.data.bot_profiles.marketplace = bots;
-					log(`Got ${response.bots.length} Marketplace.tf bots!`);
+					log(`Got ${response.bots.length} Marketplace.tf bots`);
 				}
 				bot_update_data.request_status.marketplace = true;
 				check_states();
 			}
 			async function mannco() {
-				let request = await xhr_send(`get`, `https://mannco.store/bots`);
-				let bots_raw = request.match(bot_update_data.pattern.steamid);
+				const request = await xhr_send(`get`, `https://mannco.store/bots`);
+				const bots_raw = request.match(bot_update_data.pattern.steamid);
 				let bots = [];
 				// Remove duplicates from our request
 				bots_raw.forEach((bot) => {
@@ -179,7 +180,7 @@ const api = {
 				});
 				sap_extension.data.bot_profiles.mannco = bots;
 				bot_update_data.request_status.mannco = true;
-				log(`Got ${bots.length} Mannco.Store bots!`);
+				log(`Got ${bots.length} Mannco.Store bots`);
 				check_states();
 			}
 			async function bitskins() {
@@ -187,7 +188,6 @@ const api = {
 				let page = 1;
 
 				while (true) {
-					log(`Getting Bitskins page ${page}`);
 					let page_data = await xhr_send(`get`, `https://steamcommunity.com/groups/bitskinsbots/memberslistxml/?xml=1&p=${page}`);
 					page_data.match(bot_update_data.pattern.steamid).map((steamid) => bots.push(steamid));
 					if (page_data.match(bot_update_data.pattern.xml_next_page) && page <= 15) {
@@ -199,15 +199,13 @@ const api = {
 
 				sap_extension.data.bot_profiles.bitskins = bots;
 				bot_update_data.request_status.bitskins = true;
-				log(`Got ${bots.length} Bitskins bots!`);
+				log(`Got ${bots.length} Bitskins bots`);
 				check_states();
 			}
 			function check_states() {
-				let { marketplace, mannco, bitskins } = bot_update_data.request_status;
+				const { marketplace, mannco, bitskins } = bot_update_data.request_status;
 				if (marketplace && mannco && bitskins) {
-					console.log(sap_extension.data.bot_profiles);
 					sap_extension.data.bot_profiles.last_check = time.current_time();
-					log(`Finished getting Bots!`);
 					save_settings();
 				}
 			}
@@ -219,13 +217,13 @@ const api = {
 				response = response.results.filter(not_marketplace);
 				response.forEach((user) => bots.push(format_user(user)));
 
-				log(`Got ${bots.length} Backpack.tf Impersonated users!`);
+				log(`Got ${bots.length} Backpack.tf Impersonated users`);
 				sap_extension.data.user_profiles.impersonated = bots;
 				sap_extension.data.user_profiles.last_check = time.current_time();
 				save_settings();
 				return;
 			}
-			log(`Not updating impersonated list`);
+			log(`Impersonated list: Not Updated`);
 			return;
 
 			// Makes sure the user is not from Marketplace.tf

@@ -24,7 +24,7 @@ async function impersonator_scanner(profile_data) {
 	}
 
 	for (let a = 0; impersonated_list.length > a; a++) {
-		let username_similarity = compare.string(profile_data.personaname, impersonated_list[a].personaname),
+		const username_similarity = compare.string(profile_data.personaname, impersonated_list[a].personaname),
 			profile_picture_similarity = await compare.image(profile_data.profile_picture, impersonated_list[a].profile_picture);
 
 		if (username_similarity >= 80 || profile_picture_similarity >= 87) {
@@ -85,9 +85,9 @@ async function impersonator_scanner(profile_data) {
 	}
 	async function levels(impersonated_user) {
 		// We need to make a request to steam to get the impersonated's level
-		let raw_data = await xhr_send(`get`, `https://steamcommunity.com/profiles/${impersonated_user.steamid}`);
-		let level_pattern = /<span class="friendPlayerLevelNum">[0-9]+<\/span><\/div><\/div>/g.exec(raw_data);
-		let level = /[0-9]+/g.exec(level_pattern);
+		const raw_data = await xhr_send(`get`, `https://steamcommunity.com/profiles/${impersonated_user.steamid}`);
+		const level_pattern = /<span class="friendPlayerLevelNum">[0-9]+<\/span><\/div><\/div>/g.exec(raw_data);
+		const level = /[0-9]+/g.exec(level_pattern);
 		document.querySelector(`#impersonator-impersonated-level`).innerText = Number(level);
 		document.querySelector(`#impersonator-impersonated-level`).parentElement.className += ` ${steam_level_class(Number(level))}`;
 	}
