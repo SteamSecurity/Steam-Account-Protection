@@ -13,7 +13,7 @@ const html_elements = {
 				<div class="title">Impersonator Warning</div>
 				<div class="desc">${body_data.subtitle}</div>
 				<div class="body">
-					<div class="header-desc">${body_data.partner_header}</div> <a id="impersonator-partner-url" target="__blank"
+					<div class="header-desc">${body_data.partner_header}</div> <a id="impersonator-partner-url" target="_blank"
 						class="box-desc"> <img id="impersonator-partner-profile-picture" title="This user's Profile Picture"
 							src="">
 						<div class="box-main">
@@ -28,7 +28,7 @@ const html_elements = {
 						</div>
 					</a>
 					<div class="header-desc">${body_data.main_user_header}</div> <a id="impersonator-impersonated-url"
-						target="__blank" class="box-desc" href="https://steamcommunity.com"> <img
+						target="_blank" class="box-desc" href="https://steamcommunity.com"> <img
 							id="impersonator-impersonated-profile-picture" title="This user's Profile Picture" src="">
 						<div class="box-main">
 							<div id="impersonator-impersonated-personaname" title="This user's Persona name"></div>
@@ -59,7 +59,7 @@ const html_elements = {
 				<div class="desc">${body_data.subtitle}</div>
 				<div class="body">
 					<div class="header-desc">${body_data.partner_header}</div>
-					<a id="bot-impersonator-partner-url" target="__blank" class="box-desc">
+					<a id="bot-impersonator-partner-url" target="_blank" class="box-desc">
 						<img id="bot-impersonator-partner-profile-picture" title="This user's Profile Picture" src="">
 						<div class="box-main">
 							<div id="bot-impersonator-partner-personaname" title="This user's Persona name"></div>
@@ -86,7 +86,7 @@ const html_elements = {
 			return `<div class="buddy-container">
 			<div class="profile_picture"><img
 					src="${buddy.profile_picture.replace('_full.jpg', '_medium.jpg')}" alt="PFP"></div>
-			<a class="identifiers" href="https://steamcommunity.com/profiles/${buddy.steamid}" target="__blank">
+			<a class="identifiers" href="https://steamcommunity.com/profiles/${buddy.steamid}" target="_blank">
 				<span>${buddy.personaname}</span>
 				<span>${buddy.steamid}</span>
 			</a>

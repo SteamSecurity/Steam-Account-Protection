@@ -45,19 +45,19 @@ async function impersonator_scanner(profile_data) {
 
 	if ((await compare.image(profile_data.profile_picture, patterns.marketplace.profile_picture)) >= 85 || patterns.marketplace.personaname.test(profile_data.personaname)) {
 		if (!marketplace.includes(profile_data.steamid)) {
-			impersonator_overlay(`marketplace`);
+			bot_overlay(`marketplace`);
 		}
 		return;
 	}
 	if ((await compare.image(profile_data.profile_picture, patterns.mannco.profile_picture)) >= 85 || patterns.mannco.personaname.test(profile_data.personaname)) {
 		if (!mannco.includes(profile_data.steamid)) {
-			impersonator_overlay(`mannco`);
+			bot_overlay(`mannco`);
 		}
 		return;
 	}
 	if ((await compare.image(profile_data.profile_picture, patterns.bitskins.profile_picture)) >= 85 || patterns.bitskins.personaname.test(profile_data.personaname)) {
 		if (!bitskins.includes(profile_data.steamid)) {
-			impersonator_overlay(`bitskins`);
+			bot_overlay(`bitskins`);
 		}
 		return;
 	}
@@ -93,7 +93,7 @@ async function impersonator_scanner(profile_data) {
 	}
 
 	// Bot Impersonator overlay ========
-	function impersonator_overlay(community) {
+	function bot_overlay(community) {
 		document.querySelector(`body`).insertAdjacentHTML(`beforebegin`, html_elements.multi.bot_impersonator_warning());
 		document.querySelector(`#bot-impersonator-close`).addEventListener(`click`, () => document.querySelector(`#bot-impersonator-warning`).parentElement.remove());
 
