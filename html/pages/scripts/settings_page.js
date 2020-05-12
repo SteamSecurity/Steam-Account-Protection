@@ -82,7 +82,6 @@ async function change_setting(setting, state) {
 function refined_metal_price(event) {
    event.srcElement.value = Number(event.srcElement.value).toFixed(2); // Pads the number to two decimal places
    sap_extension.data.backpacktf.refined.usd = Number(event.srcElement.value).toFixed(2);
-   log(sap_extension.data.backpacktf);
    save_settings();// Saves the new settings
 }
 
@@ -90,32 +89,30 @@ function refined_metal_price(event) {
 // Insert buddies to the overlay =
 function insert_buddies() {
    let container = document.querySelector(`#buddies-overlay .content`);
-   if (sap_extension.data.user_profiles.buddies.length > 0) {
-      document.querySelector(`#no-buddy-warning`).remove();
-   }
+   if (sap_extension.data.user_profiles.buddies.length > 0) document.querySelector(`#no-buddy-warning`).remove();
+
    sap_extension.data.user_profiles.buddies.forEach((buddy) => {
       container.insertAdjacentHTML(`beforeend`, html_elements.settings.buddy_container(buddy));
    });
    document.querySelectorAll(`#buddies-overlay, .close-popup`).forEach((close_button) => {
       close_button.addEventListener(`click`, (element) => remove_buddy(element.srcElement));
-
-      function remove_buddy(element) {
-         sap_extension.data.user_profiles.buddies.find((buddy, index) => {
-            if (buddy?.steamid === element.dataset.steamid) {
-               sap_extension.data.user_profiles.buddies.splice(index, 1);
-               element.parentElement.remove();
-               save_settings();
-               return;
-            }
-         });
-      }
    });
+   function remove_buddy(element) {
+    sap_extension.data.user_profiles.buddies.find((buddy, index) => {
+       if (buddy?.steamid === element.dataset.steamid) {
+          sap_extension.data.user_profiles.buddies.splice(index, 1);
+          element.parentElement.remove();
+          save_settings();
+          return;
+       }
+    });
+ }
 }
 
 // Raw Settings controller
 var raw_settings_counter = 1;
 document.querySelector(`.title-bar .title`).addEventListener(`click`, raw_settings_click);
-// Click the page title 5 times to unlock the Raw Settings option
+// Click the page title 5 times to unlock the Raw Settings option. This should only be used as a debug and NEVER to manually set settings.
 function raw_settings_click() {
    if (raw_settings_counter++ >= 5) {
       document.querySelector(`#settings-overlay textarea`).value = JSON.stringify(sap_extension, null, 2);

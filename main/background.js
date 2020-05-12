@@ -47,10 +47,10 @@ chrome.runtime.onInstalled.addListener(function(details) {
 					last_check: 0
 				}
 			}
-		};
+    };
 		// Get the current user settings
 		chrome.storage.local.get(['sap_extension'], (response) => {
-			let new_settings = response.sap_extension;
+      let new_settings = response.sap_extension;
 			update_object(new_settings, default_settings);
 			chrome.storage.local.set({ sap_extension: new_settings });
 
