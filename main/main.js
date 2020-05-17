@@ -2,57 +2,49 @@
 
 // Quick location
 var loc = {
-	full: window.location.href,
-	origin: window.location.origin,
-	result: ``
+  full: window.location.href,
+  origin: window.location.origin,
+  result: ``
 };
 
 var sap_extension = {};	// The extension settings that all of the files will use
 
 main();
 async function main() {
-	await get_data();
-	find_window();
-	api.filter.profiles();
+  await get_data();
+  find_window();
+  api.filter.profiles();
 }
 
 async function get_data() {
-	return new Promise((resolve) => {
-		chrome.storage.local.get(['sap_extension'], (response) => {
-			// Check if the extensions data can be read
-			if (response.sap_extension === undefined || response.sap_extension.settings === undefined) {
-				resolve(1);
-				return;
-			}
-			// Saves the user settings to the internal settings
-			sap_extension = response.sap_extension;
-			resolve(1);
-		});
-	});
+  return new Promise((resolve) => {
+    chrome.storage.local.get(['sap_extension'], (response) => {
+      if (!response.sap_extension || !response.sap_extension.settings) return resolve(1); // Check if the extensions data can be read
+      else resolve(sap_extension = response.sap_extension); // Saves the user settings to the internal settings
+    });
+  });
 }
 
 function find_window() {
-	// If the window is on a SteamCommunity webpage
-	if (loc.origin === `https://steamcommunity.com`) {
-		// Profiles page.
-		if ((loc.full.split(`/`)[3] === `id` || loc.full.split(`/`)[3] === `profiles`) && !loc.full.split(`/`)[5]) {
-			loc.result = `profile`;
-			profile();
-			return;
-		}
+  if (loc.origin !== `https://steamcommunity.com`) return;
 
-		// Trade offers page
-		if (loc.full.split(`/`)[5] === `tradeoffers`) {
-			loc.result = `trade_offer_page`;
-			log(`tradeoffers Page`);
-			return;
-		}
+  const url_parts = loc.full.split(`/`);
+  const
+    a = url_parts[3],
+    b = url_parts[5];
 
-		//Live trade offer
-		if (loc.full.split(`/`)[3] === `tradeoffer`) {
-			loc.result = `trade_offer`;
-			trade_window();
-			return;
-		}
-	}
+  const controller = (result, callback) => {
+    loc.result = result;
+    callback();
+  };
+
+  if (!b && ['id', 'profiles'].includes(a))
+    return controller('profiles', profile);
+
+  /*if (b === 'tradeoffers')
+    return controller('trade_offers_page', () => log('tradeoffers page'));*/
+
+  if (a === 'tradeoffer')
+    return controller('trade_offers', trade_window);
+
 }

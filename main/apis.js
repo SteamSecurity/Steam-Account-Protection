@@ -65,7 +65,7 @@ const api = {
 
         const raw_response = JSON.parse(await xhr_send(`get`, `https://steamrep.com/api/beta4/reputation/${steamid}?extended=1&json=1&tagdetails=1`)).steamrep;
         if (!raw_response) return reject(`No/bad response.`);
-        
+
         // Sets the check time. This will help prevent spamming requests
         profile_data.last_check = time.current_time();
 

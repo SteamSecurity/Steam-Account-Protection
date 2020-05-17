@@ -11,9 +11,7 @@ function trade_window() {
   };
 
   // Checks if the page is a valid trade window (One that is active and can be acted upon)
-  if (!is_trade_window()) {
-    return;
-  }
+  if (!is_trade_window()) return;
 
   trade_window_data.buddy_data = find_user.buddy(trade_window_data.partner.steamid);
   handle_html();	// Inject our html
@@ -25,13 +23,13 @@ function trade_window() {
     if (document.querySelector(`#trade-toolbar`)) document.querySelector(`#trade-toolbar-disabled-notice`).style.display = `block`;
   }
 
-  // Load Stylesheets files ==========================
+  // Load Stylesheets files
   function handle_html() {
     document.getElementsByTagName('head')[0].insertAdjacentHTML('beforeend', `<link type="text/css" rel="stylesheet" href="${chrome.extension.getURL(`html/stylesheets/trade_window.css`)}">`);
     document.getElementsByTagName('head')[0].insertAdjacentHTML('beforeend', `<script src="https://steamcommunity-a.akamaihd.net/public/shared/css/shared_global.css?v=O5W-K8wVvTcv"></script>`);
   }
 
-  //  Check for API Key ==============================
+  // Check for API Key 
   async function api_warning() {
     if ((await xhr_send(`get`, `https://steamcommunity.com/dev/apikey`)).includes(`Key: `)) {
       document.querySelector(`.trade_partner_header`).lastChild.remove();
@@ -40,7 +38,7 @@ function trade_window() {
     }
   }
 
-  // Trade Toolbar ====================================
+  // Trade Toolbar 
   function trade_toolbar() {
     // Inject the Trade Toolbar
     document.querySelector(`.trade_partner_header`).lastChild.remove();
@@ -74,16 +72,15 @@ function trade_window() {
 
       // Otherwise, nuke all of the panels...
       document.querySelectorAll(`.trade-toolbar-info-box`).forEach((element) => {
-        if (!element.classList.contains(`invisible`)) {
-          element.classList.add(`invisible`);
-        }
+        if (!element.classList.contains(`invisible`)) element.classList.add(`invisible`);
       });
+
       // ... and open the selected one
       document.querySelector(`#trade-toolbar-${box}`).classList.remove('invisible');
     }
   }
 
-  // Reputation scanner ===============================
+  // Reputation scanner 
   async function reputation_scanner() {
     api.reputation.reptf(trade_window_data.partner.steamid).then(to_array).then(display_rep).catch(error_rep);
 
@@ -129,9 +126,7 @@ function trade_window() {
   }
 }
 
-// If these two elements exist, the trade window is valid
 function is_trade_window() {
-  if (document.getElementsByClassName('offerheader')[1] && document.getElementsByClassName('avatarIcon')[1]) {
-    return true;
-  }
+  // If these two elements exist, the trade window is valid
+  return document.getElementsByClassName('offerheader')[1] && document.getElementsByClassName('avatarIcon')[1];
 }

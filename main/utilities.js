@@ -41,6 +41,7 @@ const find_user = {
     return data;
   }
 };
+const qs = (tag) => document.querySelector(tag);
 
 // Reads the params from a url
 function url_params(url) {
@@ -58,8 +59,10 @@ function xhr_send(type, url) {
     newXHR.open(type, url, true);
     newXHR.send();
     newXHR.onreadystatechange = function () {
-      if (this.status === 200 && this.readyState === 4) resolve(this.response);
-      else if (this.readyState === 4) resolve(null);
+      if (this.readyState === 4) {
+        if (this.status === 200) return resolve(this.response);
+        else return resolve(null);
+      }
     };
   });
 }
