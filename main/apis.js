@@ -102,26 +102,14 @@ const api = {
   },
   update: {
     bots: () => {
-      let bot_update_data = {
-        request_status: {
-          marketplace: false,
-          mannco: false,
-          bitskins: false
-        },
-        pattern: {
-          steamid: /7[0-9]{16}/g,
-          xml_next_page: /<nextPageLink>[!-z]+<\/nextPageLink>/g,
-          xml_total_pages: /<totalPages>[0-9]+<\/totalPages>/g,
-          number: /[0-9]+/
-        }
-      };
-      if (sap_extension.data.bot_profiles.last_check + time.hours_to_seconds(24) <= time.current_time()) {
-        marketplace();
-        mannco();
-        bitskins();
-        return;
-      }
-      log(`Bot list: Not updated`);
+      if (sap_extension.data.bot_profiles.last_check + time.hours_to_seconds(24) > time.current_time()) return log(`Bot list: Not updated`);
+
+      let request_status = { marketplace: false, mannco: false, bitskins: false };
+      const pattern = { steamid: /7[0-9]{16}/g, xml_next_page: /<nextPageLink>[!-z]+<\/nextPageLink>/g, xml_total_pages: /<totalPages>[0-9]+<\/totalPages>/g, number: /[0-9]+/ };
+
+      marketplace();
+      mannco();
+      bitskins();
       return;
 
       async function marketplace() {
@@ -136,13 +124,13 @@ const api = {
           sap_extension.data.bot_profiles.marketplace = bots;
           log(`Got ${response.bots.length} Marketplace.tf bots`);
         }
-        bot_update_data.request_status.marketplace = true;
+        request_status.marketplace = true;
         check_states();
       }
       async function mannco() {
         const response = await xhr_send(`get`, `https://mannco.store/bots`);
         if (!response) return;
-        const bots_raw = response.match(bot_update_data.pattern.steamid);
+        const bots_raw = response.match(pattern.steamid);
 
         let bots = [];
         // Remove duplicates from our request
@@ -152,7 +140,7 @@ const api = {
           }
         });
         sap_extension.data.bot_profiles.mannco = bots;
-        bot_update_data.request_status.mannco = true;
+        request_status.mannco = true;
         log(`Got ${bots.length} Mannco.Store bots`);
         check_states();
       }
@@ -162,8 +150,8 @@ const api = {
 
         while (true) {
           let page_data = await xhr_send(`get`, `https://steamcommunity.com/groups/bitskinsbots/memberslistxml/?xml=1&p=${page}`);
-          page_data.match(bot_update_data.pattern.steamid).map((steamid) => bots.push(steamid));
-          if (page_data.match(bot_update_data.pattern.xml_next_page) && page <= 15) {
+          page_data.match(pattern.steamid).map((steamid) => bots.push(steamid));
+          if (page_data.match(pattern.xml_next_page) && page <= 15) {
             page++;
             continue;
           }
@@ -171,12 +159,12 @@ const api = {
         }
 
         sap_extension.data.bot_profiles.bitskins = bots;
-        bot_update_data.request_status.bitskins = true;
+        request_status.bitskins = true;
         log(`Got ${bots.length} Bitskins bots`);
         check_states();
       }
       function check_states() {
-        const { marketplace, mannco, bitskins } = bot_update_data.request_status;
+        const { marketplace, mannco, bitskins } = request_status;
         if (marketplace && mannco && bitskins) {
           sap_extension.data.bot_profiles.last_check = time.current_time();
           save_settings();

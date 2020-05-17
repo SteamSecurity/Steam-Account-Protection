@@ -42,7 +42,7 @@ const find_user = {
   }
 };
 const qs = (tag) => document.querySelector(tag);
-
+const qsa = (tag) => document.querySelectorAll(tag);
 // Reads the params from a url
 function url_params(url) {
   var vars = {};

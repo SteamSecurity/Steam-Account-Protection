@@ -9,22 +9,16 @@ function profile() {
     buddy_data: {}
   };
 
-  inject_stylesheets();
+  inject_stylesheets();  // Load Stylesheets files 
   profile_data.buddy_data = find_user.buddy(profile_data.user.steamid);	// Get the saved buddy data
   if (sap_extension.settings.profile.buddy_button && is_not_owner()) buddy();
   if (sap_extension.settings.profile.pr_reputation_scanner) reputation_scanner();
   if (sap_extension.settings.profile.pr_impersonator_scanner) impersonator_scanner(profile_data.user);
 
-  // Load Stylesheets files 
   function inject_stylesheets() {
     qs('head').insertAdjacentHTML('beforeend', `<link type="text/css" rel="stylesheet" href="${chrome.extension.getURL(`html/stylesheets/profile.css`)}">`);
     qs('head').insertAdjacentHTML('beforeend', `<link type="text/css" rel="stylesheet" href="${chrome.extension.getURL(`html/stylesheets/trade_window.css`)}">`);
   }
-  // Checks if Profile is the user 
-  function is_not_owner() {
-    return qs(`.profile_header_actions .btn_profile_action`)?.children[0].innerText !== `Edit Profile` || false;
-  }
-  // Handle the Buddy settings 
   function buddy() {
     const { profile_picture, personaname, steamid, level } = profile_data.user;
     const set_overlay_value = (args) => { qs('#buddy-partner-' + args.name)[args.type] = args.value; }; // Quickly change the value of an element
@@ -53,7 +47,7 @@ function profile() {
         qs(`body`).insertAdjacentHTML(`beforebegin`, html_elements.profile.buddy_add_warning); // Inserts the overlay into the page
         qs(`#buddy-add`).addEventListener(`click`, add_user_as_buddy); // Adds the user to the buddy list & reloads the page
         qs(`#buddy-close`).addEventListener(`click`, close_overlay); // Closes the window and does not add them to the buddy list.
-        
+
         [
           { name: `profile-picture`, type: `src`, value: profile_picture },
           { name: `personaname`, type: `innerText`, value: personaname },
@@ -81,7 +75,6 @@ function profile() {
     const set_elm_value = (args) => { qs('#reputation-panel-' + args.name)[args.type] = args.value; }; // Quickly change the value of an element
     const set_elm_link = (args) => { set_elm_value({ name: args.name, type: 'href', value: args.href }); }; // enhance() with the "type" predefined as "href"
 
-    //
     // Sets the user's data on the reputation panel
     [
       { name: 'title', type: 'innerText', value: `${personaname}'s SteamRep Reputation` },
@@ -89,8 +82,6 @@ function profile() {
       { name: 'steamid', type: 'value', value: steamid }
     ].forEach(set_elm_value);
 
-
-    //
     // Sets the "resources" links
     [
       { name: 'reptf', url: 'rep.tf/' },
@@ -106,10 +97,8 @@ function profile() {
     }));
     set_elm_link({ name: 'google', href: `https://google.com/search?q="${steamid}"` });    // This link requires a character after the steamid.
 
-    //
-    // Get and set User reputation
-    api.reputation.steamrep(steamid)
-      .then(set_reputation)
+    api.reputation.steamrep(steamid) // Get the user's reputation
+      .then(set_reputation) // Set the users reputation on the panel
       .catch(error);
 
     function set_reputation(reputation_data) {
@@ -143,10 +132,14 @@ function profile() {
       alert(`Error getting SteamRep reputation information!\n${err}`);
     }
   }
-
   function update_buddy() {
     sap_extension.data.user_profiles.buddies.splice(profile_data.buddy_data.index, 1);
     sap_extension.data.user_profiles.buddies.push(profile_data.user);
     save_settings();
+  }
+
+  // Checks if Profile is the user 
+  function is_not_owner() {
+    return qs(`.profile_header_actions .btn_profile_action`)?.children[0].innerText !== `Edit Profile` || false;
   }
 }
