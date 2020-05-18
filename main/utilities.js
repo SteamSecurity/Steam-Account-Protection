@@ -43,6 +43,7 @@ const find_user = {
 };
 const qs = (tag) => document.querySelector(tag);
 const qsa = (tag) => document.querySelectorAll(tag);
+
 // Reads the params from a url
 function url_params(url) {
   var vars = {};
@@ -87,9 +88,7 @@ function log(data, type) {
 
 // Saves the internal settings
 async function save_settings(set_default) {
-  // Save the current settings
-  if (!set_default) return chrome.storage.local.set({ sap_extension: sap_extension });
-
+  if (!set_default) return chrome.storage.local.set({ sap_extension: sap_extension });  // Save the current settings
   // Save the default settings
   sap_extension = {
     settings: {

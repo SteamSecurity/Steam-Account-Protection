@@ -11,9 +11,9 @@ function profile() {
 
   inject_stylesheets();  // Load Stylesheets files 
   profile_data.buddy_data = find_user.buddy(profile_data.user.steamid);	// Get the saved buddy data
-  if (sap_extension.settings.profile.buddy_button && is_not_owner()) buddy();
-  if (sap_extension.settings.profile.pr_reputation_scanner) reputation_scanner();
-  if (sap_extension.settings.profile.pr_impersonator_scanner) impersonator_scanner(profile_data.user);
+  if (sap_extension.settings.profile.buddy_button && is_not_owner()) buddy();   // If the profile is not the chrome extension users profile
+  if (sap_extension.settings.profile.pr_reputation_scanner) reputation_scanner(); // Scan the user's reputation and display it
+  if (sap_extension.settings.profile.pr_impersonator_scanner) impersonator_scanner(profile_data.user); // Checks if the user is a potential impersonator
 
   function inject_stylesheets() {
     qs('head').insertAdjacentHTML('beforeend', `<link type="text/css" rel="stylesheet" href="${chrome.extension.getURL(`html/stylesheets/profile.css`)}">`);
@@ -137,8 +137,6 @@ function profile() {
     sap_extension.data.user_profiles.buddies.push(profile_data.user);
     save_settings();
   }
-
-  // Checks if Profile is the user 
   function is_not_owner() {
     return qs(`.profile_header_actions .btn_profile_action`)?.children[0].innerText !== `Edit Profile` || false;
   }

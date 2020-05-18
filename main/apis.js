@@ -14,7 +14,7 @@ const api = {
           if (reptf_data.steamid === steamid) profile_reputation = reptf_data;
         });
 
-        if (profile_reputation && time.current_time() <= profile_reputation.last_check + time.hours_to_seconds(1)) resolve(profile_reputation);
+        if (profile_reputation && time.current_time() <= profile_reputation.last_check + time.hours_to_seconds(1)) return resolve(profile_reputation);
 
         // Sends request to reptf
         const raw_response = JSON.parse(await xhr_send(`post`, `https://rep.tf/api/bans?str=${steamid.toString()}`));
@@ -61,7 +61,7 @@ const api = {
           if (steamrep_data.steamid === steamid) profile_reputation = steamrep_data;
         });
 
-        if (profile_reputation && time.current_time() <= profile_reputation.last_check + time.hours_to_seconds(1)) resolve(profile_reputation);
+        if (profile_reputation && time.current_time() <= profile_reputation.last_check + time.hours_to_seconds(1)) return resolve(profile_reputation);
 
         const raw_response = JSON.parse(await xhr_send(`get`, `https://steamrep.com/api/beta4/reputation/${steamid}?extended=1&json=1&tagdetails=1`)).steamrep;
         if (!raw_response) return reject(`No/bad response.`);
@@ -103,46 +103,37 @@ const api = {
   update: {
     bots: () => {
       if (sap_extension.data.bot_profiles.last_check + time.hours_to_seconds(24) > time.current_time()) return log(`Bot list: Not updated`);
-
-      let request_status = { marketplace: false, mannco: false, bitskins: false };
       const pattern = { steamid: /7[0-9]{16}/g, xml_next_page: /<nextPageLink>[!-z]+<\/nextPageLink>/g, xml_total_pages: /<totalPages>[0-9]+<\/totalPages>/g, number: /[0-9]+/ };
 
-      marketplace();
-      mannco();
-      bitskins();
+      marketplace();  // Get Marketplace.tf bots
+      mannco();  // Get Mannco.Store bots
+      bitskins();  // Get Bitskins bots
       return;
 
       async function marketplace() {
         const response = JSON.parse(await xhr_send(`get`, `https://marketplace.tf/api/Bots/GetBots/v2`));
         if (!response) return;
+        if (!response.success) return;
 
-        if (response.success) {
-          let bots = []; // Array of SteamID64s
-          response.bots.forEach((bot) => {
-            bots.push(bot.steamid);
-          });
-          sap_extension.data.bot_profiles.marketplace = bots;
-          log(`Got ${response.bots.length} Marketplace.tf bots`);
-        }
-        request_status.marketplace = true;
-        check_states();
+        let bots = []; // Array of SteamID64s
+
+        response.bots.forEach((bot) => bots.push(bot.steamid)); // Push only the SteamIDs of the bots
+        sap_extension.data.bot_profiles.marketplace = bots; // Update internal settings
+
+        log(`Got ${response.bots.length} Marketplace.tf bots`); // Log to console
+        sap_extension.data.bot_profiles.last_check = time.current_time();
+        save_settings();
       }
       async function mannco() {
         const response = await xhr_send(`get`, `https://mannco.store/bots`);
         if (!response) return;
-        const bots_raw = response.match(pattern.steamid);
 
-        let bots = [];
-        // Remove duplicates from our request
-        bots_raw.forEach((bot) => {
-          if (!bots.includes(bot)) {
-            bots.push(bot);
-          }
-        });
+        const bots = [...new Set(response.match(pattern.steamid))];  // Remove duplicates from our request
         sap_extension.data.bot_profiles.mannco = bots;
-        request_status.mannco = true;
+
         log(`Got ${bots.length} Mannco.Store bots`);
-        check_states();
+        sap_extension.data.bot_profiles.last_check = time.current_time();
+        save_settings();
       }
       async function bitskins() {
         let bots = [];
@@ -150,25 +141,15 @@ const api = {
 
         while (true) {
           let page_data = await xhr_send(`get`, `https://steamcommunity.com/groups/bitskinsbots/memberslistxml/?xml=1&p=${page}`);
-          page_data.match(pattern.steamid).map((steamid) => bots.push(steamid));
-          if (page_data.match(pattern.xml_next_page) && page <= 15) {
-            page++;
-            continue;
-          }
-          break;
+          bots = [...bots, ...page_data.match(pattern.steamid)];
+          if (page_data.match(pattern.xml_next_page) && page++ <= 15) continue;
+          else break;
         }
-
         sap_extension.data.bot_profiles.bitskins = bots;
-        request_status.bitskins = true;
+
         log(`Got ${bots.length} Bitskins bots`);
-        check_states();
-      }
-      function check_states() {
-        const { marketplace, mannco, bitskins } = request_status;
-        if (marketplace && mannco && bitskins) {
-          sap_extension.data.bot_profiles.last_check = time.current_time();
-          save_settings();
-        }
+        sap_extension.data.bot_profiles.last_check = time.current_time();
+        save_settings();
       }
     },
     user_profiles: async () => {
@@ -176,21 +157,18 @@ const api = {
 
       let users = [];
       let response = JSON.parse(await xhr_send(`get`, `https://backpack.tf/api/IGetUsers/GetImpersonatedUsers`));
-      response = response.results.filter(not_marketplace);
-      response.forEach((user) => users.push(format_user(user)));
+
+      response = response.results.filter(not_marketplace);  // Makes sure the user is not a Marketplace.tf bot
+      response.forEach((user) => users.push(format_user(user)));  // Returns the user in an object that is properly formatted 
 
       log(`Got ${users.length} Backpack.tf Impersonated users`);
       sap_extension.data.user_profiles.impersonated = users;
       sap_extension.data.user_profiles.last_check = time.current_time();
       save_settings();
-      return;
 
-
-      // Makes sure the user is not a Marketplace.tf bot
       function not_marketplace(user) {
         return !/Marketplace.TF \| Bot ([0-9]+)/i.test(user.personaname);
       }
-      // Returns a user object properly formatted for SAP
       function format_user(user) {
         return {
           steamid: user.steamid,
@@ -203,6 +181,8 @@ const api = {
   },
   filter: {
     profiles: () => {
+      if (loc.origin.includes(`chrome-extension://`)) return;
+      
       sap_extension.data.user_profiles.steamrep_profiles.forEach((profile, index) => {
         if (time.current_time() >= profile.last_check + time.hours_to_seconds(1)) sap_extension.data.user_profiles.steamrep_profiles.splice(index, 1);
       });

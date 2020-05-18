@@ -11,7 +11,6 @@ chrome.runtime.onInstalled.addListener(function (details) {
     });
   }
   if (details.reason == 'update') {
-    //TODO: This is broken. fixitfixitfixitfixitfixit
     const default_settings = {
       settings: {
         trade_window: {
@@ -49,25 +48,21 @@ chrome.runtime.onInstalled.addListener(function (details) {
         }
       }
     };
-    // Get the current user settings
     chrome.storage.local.get(['sap_extension'], (response) => {
-      //let new_settings = response.sap_extension;
-      console.log(response)
-      /*
-      update_object(new_settings, default_settings);
-      chrome.storage.local.set({ sap_extension: new_settings });
-
-      // Updates object. The "destination" object will be updated
-      function update_object(destination, source) {
-        for (var property in source) {
-          if (typeof source[property] === 'object' && source[property] !== null) {
-            destination[property] = destination[property] || {};
-            arguments.callee(destination[property], source[property]);
-          } else {
-            destination[property] = source[property];
-          }
-        }
-      }*/
+      let new_settings = default_settings;
+      update_object(new_settings, response.sap_extension);  // Adds new things to the users settings using default_settings without resetting the settings
+      chrome.storage.local.set({ sap_extension: new_settings });  // Save the new settings
     });
+
+    function update_object(destination, source) {
+      for (var property in source) {
+        if (typeof source[property] === 'object' && source[property] !== null) {
+          destination[property] = destination[property] || {};
+          arguments.callee(destination[property], source[property]);
+        } else {
+          destination[property] = source[property];
+        }
+      }
+    }
   }
 });

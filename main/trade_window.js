@@ -63,10 +63,10 @@ function trade_window() {
       make_visible(element_box);  // Opens selected one
 
       function make_visible(element) {
-        element.classList.remove(`invisible`)
+        element.classList.remove(`invisible`);
       }
       function make_invisible(element) {
-        element.classList.add(`invisible`)
+        element.classList.add(`invisible`);
       }
     }
   }
@@ -113,6 +113,7 @@ function trade_window() {
       community.style.opacity = `1`;
       community.style.display = `block`;
       community.title = `Banned!`; // When the user hovers over it, it will display this
+      qs(`#trade-toolbar-warning-community-bans`).style.display = `block`; // Display the warning on the trade toolbar
     }
   }
 }
