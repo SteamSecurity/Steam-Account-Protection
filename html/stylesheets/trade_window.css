@@ -8,7 +8,8 @@
 }
 
 .invisible {
-	display: none !important;
+  max-height: 0px !important;
+  margin-top: 0px !important;
 }
 
 /*<--  Trade Toolbar  -->*/
@@ -50,11 +51,13 @@
 #trade-toolbar .trade-toolbar-info-box {
 	background-color: #1d242f;
 	width: 100%;
-	min-height: 50px;
+  max-height: 200px;
+  overflow:hidden;
 	justify-content: center;
 	margin-top: 10px;
 	display: flex;
-	flex-wrap: wrap;
+  flex-wrap: wrap;
+  transition: max-height 0.3s, margin-top 0.3s;
 }
 
 #trade-toolbar .community-container {

@@ -1,115 +1,93 @@
-// Impersonator Scanner =============================
-async function impersonator_scanner(profile_data) {
-	const patterns = {
-		marketplace: {
-			personaname: /^Marketplace.TF \| Bot ([0-9]*|)$/,
-			profile_picture: 'https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/c5/c50215efc86d85386d4e963589c175a48e74a647_full.jpg'
-		},
-		mannco: {
-			personaname: /^Mannco.store \| Bot (|#)([ 0-9]{1,4}|)$/i,
-			profile_picture: 'https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/4b/4b2b43c016a3fa7d915f99df1ef9436b7ad4a0ad_full.jpg'
-		},
-		bitskins: {
-			personaname: /^BitSkins #([0-9]{1,5})( \[[0-9]{3}\]|)$/i,
-			profile_picture: 'https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/8d/8dcad7f2f549bb502bc7268dc476ddb3ff3d04df_full.jpg'
-		}
-	};
-	// User Scanner ========
-	let { impersonated, buddies } = sap_extension.data.user_profiles;
+function impersonator_scanner(profile_data) {
+  const patterns = {
+    marketplace: {
+      personaname: `Marketplace.TF | Bot `,
+      profile_picture: 'https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/c5/c50215efc86d85386d4e963589c175a48e74a647_full.jpg'
+    },
+    mannco: {
+      personaname: `Mannco.store | Bot `,
+      profile_picture: 'https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/4b/4b2b43c016a3fa7d915f99df1ef9436b7ad4a0ad_full.jpg'
+    },
+    bitskins: {
+      personaname: `BitSkins `,
+      profile_picture: 'https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/8d/8dcad7f2f549bb502bc7268dc476ddb3ff3d04df_full.jpg'
+    }
+  };
+  const { personaname, steamid, profile_picture } = profile_data; // The user we are checking for
+  const { impersonated, buddies } = sap_extension.data.user_profiles; // Impersonator scanner
 
-	// Combine buddies and impersonated
-	let impersonated_list = impersonated;
-	if (sap_extension.settings.profile.buddy_button) {
-		impersonated_list = [...impersonated, ...buddies];
-	}
+  let impersonated_list = impersonated;
+  if (sap_extension.settings.profile.buddy_button) impersonated_list = [...impersonated, ...buddies];
 
-	for (let a = 0; impersonated_list.length > a; a++) {
-		let username_similarity = compare.string(profile_data.personaname, impersonated_list[a].personaname),
-			profile_picture_similarity = await compare.image(profile_data.profile_picture, impersonated_list[a].profile_picture);
+  impersonated_list.forEach(check_against_profile); // Check the user using the impersonated list. This uses real people
+  [`marketplace`, `mannco`, `bitskins`].forEach(check_against_bot); // Check the user against supported services. This uses bots
 
-		if (username_similarity >= 80 || profile_picture_similarity >= 87) {
-			if (impersonated_list[a].steamid !== profile_data.steamid) {
-				overlay(impersonated_list[a]);
-				levels(impersonated_list[a]);
+  async function check_against_profile(impersonated_user) {
+    const personaname_similarity = compare.string(personaname.slice(0, impersonated_user.personaname.length), impersonated_user.personaname);
 
-				// Trade Toolbar Warning
-				if (document.querySelector(`#trade-toolbar`)) {
-					document.querySelector(`#trade-toolbar-warning-user-impostor`).style.display = `block`;
-				}
-			}
-		}
-	}
+    if (personaname_similarity < 70) return;
+    if (impersonated_user.steamid === steamid) return;
 
-	// Bot Scanner =========
-	let { marketplace, mannco, bitskins } = sap_extension.data.bot_profiles;
+    overlay(impersonated_user);   // Impersonator overlay 
+    levels(impersonated_user); // Get the level of the impersonated user
 
-	if ((await compare.image(profile_data.profile_picture, patterns.marketplace.profile_picture)) >= 85 || patterns.marketplace.personaname.test(profile_data.personaname)) {
-		if (!marketplace.includes(profile_data.steamid)) {
-			impersonator_overlay(`marketplace`);
-		}
-		return;
-	}
-	if ((await compare.image(profile_data.profile_picture, patterns.mannco.profile_picture)) >= 85 || patterns.mannco.personaname.test(profile_data.personaname)) {
-		if (!mannco.includes(profile_data.steamid)) {
-			impersonator_overlay(`mannco`);
-		}
-		return;
-	}
-	if ((await compare.image(profile_data.profile_picture, patterns.bitskins.profile_picture)) >= 85 || patterns.bitskins.personaname.test(profile_data.personaname)) {
-		if (!bitskins.includes(profile_data.steamid)) {
-			impersonator_overlay(`bitskins`);
-		}
-		return;
-	}
+    if (qs(`#trade-toolbar`)) qs(`#trade-toolbar-warning-user-impostor`).style.display = `block`; // Trade Toolbar Warning
+  }
 
-	// Impersonator overlay ==============
-	async function overlay(impersonated_user) {
-		if (!document.querySelector(`#impersonator-warning`)) {
-			document.querySelector(`body`).insertAdjacentHTML(`beforebegin`, html_elements.multi.impersonator_warning());
-			document.querySelector(`#impersonator-close`).addEventListener(`click`, () => document.querySelector(`#impersonator-warning`).parentElement.remove());
+  async function check_against_bot(service) {
+    const personaname_similarity = compare.string(personaname.slice(0, patterns[service].personaname.length), patterns[service].personaname); // Compare only to the length of the patterns[service] length
 
-			// Trade partner ======
-			document.querySelector(`#impersonator-partner-profile-picture`).src = profile_data.profile_picture;
-			document.querySelector(`#impersonator-partner-url`).href = `https://steamcommunity.com/profiles/${profile_data.steamid}`;
-			document.querySelector(`#impersonator-partner-personaname`).innerText = profile_data.personaname;
-			document.querySelector(`#impersonator-partner-steamid`).innerText = profile_data.steamid;
-			document.querySelector(`#impersonator-partner-level`).innerText = profile_data.level;
-			document.querySelector(`#impersonator-partner-level`).parentElement.className += ` ${steam_level_class(profile_data.level)}`;
+    if (personaname_similarity < 50) return;
+    if (sap_extension.data.bot_profiles[service].includes(steamid)) return;
 
-			// Impersonated =======
-			document.querySelector(`#impersonator-impersonated-profile-picture`).src = impersonated_user.profile_picture;
-			document.querySelector(`#impersonator-impersonated-url`).href = `https://steamcommunity.com/profiles/${impersonated_user.steamid}`;
-			document.querySelector(`#impersonator-impersonated-personaname`).innerText = impersonated_user.personaname;
-			document.querySelector(`#impersonator-impersonated-steamid`).innerText = impersonated_user.steamid;
-		}
-	}
-	async function levels(impersonated_user) {
-		// We need to make a request to steam to get the impersonated's level
-		let raw_data = await xhr_send(`get`, `https://steamcommunity.com/profiles/${impersonated_user.steamid}`);
-		let level_pattern = /<span class="friendPlayerLevelNum">[0-9]+<\/span><\/div><\/div>/g.exec(raw_data);
-		let level = /[0-9]+/g.exec(level_pattern);
-		document.querySelector(`#impersonator-impersonated-level`).innerText = Number(level);
-		document.querySelector(`#impersonator-impersonated-level`).parentElement.className += ` ${steam_level_class(Number(level))}`;
-	}
+    bot_overlay(service);  // Bot Impersonator overlay 
+  }
 
-	// Bot Impersonator overlay ========
-	function impersonator_overlay(community) {
-		document.querySelector(`body`).insertAdjacentHTML(`beforebegin`, html_elements.multi.bot_impersonator_warning());
-		document.querySelector(`#bot-impersonator-close`).addEventListener(`click`, () => document.querySelector(`#bot-impersonator-warning`).parentElement.remove());
+  function overlay(impersonated_user) {
+    if (qs(`#impersonator-warning`)) return;
+    const set_overlay_value = (args) => { qs(`#impersonator-${args.user}-${args.name}`)[args.type] = args.value; };  // Quickly change the value of an overlay element
+    
+    qs(`body`).insertAdjacentHTML(`beforebegin`, html_elements.multi.impersonator_warning());
+    qs(`#impersonator-close`).addEventListener(`click`, () => qs(`#impersonator-warning`).parentElement.remove());
 
-		// Trade partner ======
-		document.querySelector(`#bot-impersonator-partner-profile-picture`).src = profile_data.profile_picture;
-		document.querySelector(`#bot-impersonator-partner-url`).href = profile_data.url;
-		document.querySelector(`#bot-impersonator-partner-personaname`).innerText = profile_data.personaname;
-		document.querySelector(`#bot-impersonator-partner-steamid`).innerText = profile_data.steamid;
+    [
+      { user: `partner`, name: `profile-picture`, type: `src`, value: profile_picture },
+      { user: `partner`, name: `url`, type: `href`, value: `https://steamcommunity.com/profiles/${steamid}` },
+      { user: `partner`, name: `personaname`, type: `innerText`, value: personaname },
+      { user: `partner`, name: `steamid`, type: `innerText`, value: steamid },
+      { user: `partner`, name: `level`, type: `innerText`, value: profile_data.level },
+      { user: `impersonated`, name: `profile-picture`, type: `src`, value: impersonated_user.profile_picture },
+      { user: `impersonated`, name: `url`, type: `href`, value: `https://steamcommunity.com/profiles/${impersonated_user.steamid}` },
+      { user: `impersonated`, name: `personaname`, type: `innerText`, value: impersonated_user.personaname },
+      { user: `impersonated`, name: `steamid`, type: `innerText`, value: impersonated_user.steamid }
+    ].forEach(set_overlay_value);
+    qs(`#impersonator-partner-level`).parentElement.className += ` ${steam_level_class(profile_data.level)}`;
 
-		// Impersonated =======
-		document.querySelector(`#bot-impersonator-impersonated-profile-picture`).src = patterns[community].profile_picture;
-		document.querySelector(`#bot-impersonator-impersonated-personaname`).innerText = `${community.charAt(0).toUpperCase() + community.slice(1)} Bots`;
+  }
+  async function levels(impersonated_user) {
+    const raw_data = await xhr_send(`get`, `https://steamcommunity.com/profiles/${impersonated_user.steamid}`);
+    const level_pattern = /<span class="friendPlayerLevelNum">[0-9]+<\/span><\/div><\/div>/g.exec(raw_data);
+    const level = /[0-9]+/g.exec(level_pattern);
+    if (!qs(`#impersonator-warning`)) return; // If the user closes the popup immediately, it won't set the level data
 
-		// Trade Toolbar Warning
-		if (document.querySelector(`#trade-toolbar`)) {
-			document.querySelector(`#trade-toolbar-warning-bot-impostor`).style.display = `block`;
-		}
-	}
+    qs(`#impersonator-impersonated-level`).innerText = level;
+    qs(`#impersonator-impersonated-level`).parentElement.className += ` ${steam_level_class(Number(level))}`;
+  }
+  function bot_overlay(community) {
+    const set_overlay_value = (args) => { qs(`#bot-impersonator-${args.user}-${args.name}`)[args.type] = args.value; };  // Quickly change the value of an overlay element
+    qs(`body`).insertAdjacentHTML(`beforebegin`, html_elements.multi.bot_impersonator_warning());
+    qs(`#bot-impersonator-close`).addEventListener(`click`, () => qs(`#bot-impersonator-warning`).parentElement.remove());
+
+    [
+      { user: `partner`, name: `profile-picture`, type: `src`, value: profile_picture },
+      { user: `partner`, name: `url`, type: `href`, value: `https://steamcommunity.com/profiles/${steamid}` },
+      { user: `partner`, name: `personaname`, type: `innerText`, value: personaname },
+      { user: `partner`, name: `steamid`, type: `innerText`, value: steamid },
+      { user: `impersonated`, name: `profile-picture`, type: `src`, value: patterns[community].profile_picture },
+      { user: `impersonated`, name: `personaname`, type: `innerText`, value: `${community.charAt(0).toUpperCase() + community.slice(1)} Bots` },
+    ].forEach(set_overlay_value);
+
+    // Trade Toolbar Warning
+    if (qs(`#trade-toolbar`)) qs(`#trade-toolbar-warning-bot-impostor`).style.display = `block`;
+  }
 }

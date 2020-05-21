@@ -1,144 +1,143 @@
 function profile() {
-	var profile_data = {
-		user: {
-			personaname: document.querySelector(`.profile_header_bg .persona_name .actual_persona_name`)?.innerText,
-			profile_picture: document.querySelector(`.profile_header_bg .playerAvatar img`)?.src,
-			steamid: /7[0-9]{16}/g.exec(/"steamid":"7[0-9]{16}"/g.exec(document.querySelector(`.responsive_page_template_content script`).innerText)[0])[0],
-			level: document.querySelector(`.profile_header_badgeinfo_badge_area .friendPlayerLevelNum`)?.innerText || 0
-		},
-		buddy_data: {}
-	};
+  var profile_data = {
+    user: {
+      personaname: qs(`.profile_header_bg .persona_name .actual_persona_name`)?.innerText,
+      profile_picture: qs(`.profile_header_bg .playerAvatar img`)?.src,
+      steamid: /7[0-9]{16}/g.exec(/"steamid":"7[0-9]{16}"/g.exec(qs(`.responsive_page_template_content script`).innerText)[0])[0],
+      level: qs(`.profile_header_badgeinfo_badge_area .friendPlayerLevelNum`)?.innerText || 0
+    },
+    buddy_data: {}
+  };
 
-	profile_data.buddy_data = find_user.buddy(profile_data.user.steamid);	// Get the saved buddy data
-	handle_html();
-	if (sap_extension.settings.profile.buddy_button && is_not_owner()) {
-		buddy();
-	}
-	if (sap_extension.settings.profile.pr_reputation_scanner) {
-		reputation_scanner();
-	}
-	if (sap_extension.settings.profile.pr_impersonator_scanner) {
-		impersonator_scanner(profile_data.user);
-	}
-	// Update any buddy data ===========================
-	if (profile_data.buddy_data.is_buddy()) {
-		sap_extension.data.user_profiles.buddies.splice(profile_data.buddy_data.index, 1);
-		sap_extension.data.user_profiles.buddies.push(profile_data.user);
-		save_settings();
-	}
+  inject_stylesheets();  // Load Stylesheets files 
+  profile_data.buddy_data = find_user.buddy(profile_data.user.steamid);	// Get the saved buddy data
+  if (sap_extension.settings.profile.buddy_button && is_not_owner()) buddy();   // If the profile is not the chrome extension users profile
+  if (sap_extension.settings.profile.pr_reputation_scanner) reputation_scanner(); // Scan the user's reputation and display it
+  if (sap_extension.settings.profile.pr_impersonator_scanner) impersonator_scanner(profile_data.user); // Checks if the user is a potential impersonator
 
-	// Load Stylesheets files ==========================
-	function handle_html() {
-		document.getElementsByTagName('head')[0].insertAdjacentHTML('beforeend', `<link type="text/css" rel="stylesheet" href="${chrome.extension.getURL(`html/stylesheets/profile.css`)}">`);
-		document.getElementsByTagName('head')[0].insertAdjacentHTML('beforeend', `<link type="text/css" rel="stylesheet" href="${chrome.extension.getURL(`html/stylesheets/trade_window.css`)}">`);
-	}
+  function inject_stylesheets() {
+    qs('head').insertAdjacentHTML('beforeend', `<link type="text/css" rel="stylesheet" href="${chrome.extension.getURL(`html/stylesheets/profile.css`)}">`);
+    qs('head').insertAdjacentHTML('beforeend', `<link type="text/css" rel="stylesheet" href="${chrome.extension.getURL(`html/stylesheets/trade_window.css`)}">`);
+  }
+  function buddy() {
+    const { profile_picture, personaname, steamid, level } = profile_data.user;
+    const set_overlay_value = (args) => { qs('#buddy-partner-' + args.name)[args.type] = args.value; }; // Quickly change the value of an element
 
-	// Checks if Profile is the user ===================
-	function is_not_owner() {
-		return document.querySelector(`.profile_header_actions .btn_profile_action`)?.children[0].innerText !== `Edit Profile` || false;
-	}
+    qs('.profile_header_actions').style.display = 'flex'; // Allows easy plug in for our buddy button
+    qs(`.profile_header_actions`).insertAdjacentHTML(`beforeend`, html_elements.profile.buddy_button); // Inserts the buddy button
 
-	// Handle the Buddy settings =======================
-	function buddy() {
-		document.querySelector('.profile_header_actions').style.display = 'flex'; // Allows easy plug in for our buddy button
-		document.querySelector(`.profile_header_actions`).insertAdjacentHTML(`beforeend`, html_elements.profile.buddy_button);
+    if (profile_data.buddy_data.is_buddy()) return is_buddy();
+    else return is_not_buddy();
 
-		// User is a buddy ========
-		if (profile_data.buddy_data.is_buddy()) {
-			log(`${profile_data.user.personaname} is a Buddy`);
-			document.querySelector(`#buddy-button img`).src = chrome.extension.getURL('images/user_slash.png');
-			document.querySelector(`#buddy-button`).addEventListener(`click`, () => {
-				sap_extension.data.user_profiles.buddies.splice(profile_data.buddy_data.index, 1);
-				save_settings();
-				window.location.reload(false);
-			});
-			return;
-		}
-		// User IS NOT a buddy ====
-		document.querySelector(`#buddy-button`).addEventListener(`click`, () => {
-			document.querySelector(`body`).insertAdjacentHTML(`beforebegin`, html_elements.profile.buddy_add_warning);
+    function is_buddy() {
+      qs(`#buddy-button img`).src = chrome.extension.getURL('images/user_slash.png'); // Updates the displayed icon to a user slash
+      qs(`#buddy-button`).addEventListener(`click`, remove_buddy); // Removes the user from the buddy list
+      update_buddy(); // Updates the user's internal buddy information
 
-			// Set overlay data
-			document.querySelector(`#buddy-partner-profile-picture`).src = profile_data.user.profile_picture;
-			document.querySelector(`#buddy-partner-personaname`).innerText = profile_data.user.personaname;
-			document.querySelector(`#buddy-partner-steamid`).innerText = profile_data.user.steamid;
-			document.querySelector(`#buddy-partner-level`).innerText = profile_data.user.level;
-			document.querySelector(`#buddy-partner-level`).parentElement.className += ` ${steam_level_class(profile_data.user.level)}`;
+      function remove_buddy() {
+        sap_extension.data.user_profiles.buddies.splice(profile_data.buddy_data.index, 1);
+        save_settings();
+        window.location.reload(false);
+      }
+    }
+    function is_not_buddy() {
+      qs(`#buddy-button`).addEventListener(`click`, build_overlay);
 
-			// Buttons on the overlay
-			document.querySelector(`#buddy-add`).addEventListener(`click`, () => {
-				sap_extension.data.user_profiles.buddies.push(profile_data.user);
-				save_settings();
-				window.location.reload(false);
-			});
-			document.querySelector(`#buddy-close`).addEventListener(`click`, () => {
-				document.querySelector(`#buddy-warning`).parentElement.remove();
-			});
-		});
-		return;
-	}
+      function build_overlay() {
+        qs(`body`).insertAdjacentHTML(`beforebegin`, html_elements.profile.buddy_add_warning); // Inserts the overlay into the page
+        qs(`#buddy-add`).addEventListener(`click`, add_user_as_buddy); // Adds the user to the buddy list & reloads the page
+        qs(`#buddy-close`).addEventListener(`click`, close_overlay); // Closes the window and does not add them to the buddy list.
 
+        [
+          { name: `profile-picture`, type: `src`, value: profile_picture },
+          { name: `personaname`, type: `innerText`, value: personaname },
+          { name: `steamid`, type: `innerText`, value: steamid },
+          { name: `level`, type: `innerText`, value: level },
+          { name: `level`, type: `parentElement.className`, value: ` ${steam_level_class(level)}` }
+        ].forEach(set_overlay_value);
+      }
+      function close_overlay() {
+        qs(`#buddy-warning`).parentElement.remove();
+      }
+      function add_user_as_buddy() {
+        sap_extension.data.user_profiles.buddies.push(profile_data.user);
+        save_settings();
+        window.location.reload(false);
+      }
+    }
+  }
+  function reputation_scanner() {
+    const { steamid, personaname } = profile_data.user;
 
-	function reputation_scanner() {
-		// Insert reputation panel ======
-		if (!document.querySelector(`.profile_customization_area`)) {
-			document.querySelector('.profile_leftcol').insertAdjacentHTML('afterbegin', '<div class="profile_customization_area"></div>');
-		}
-		document.querySelector(`.profile_customization_area`).insertAdjacentHTML(`afterbegin`, html_elements.profile.reputation_panel);
+    !qs('.profile_customization_area') && qs('.profile_leftcol').insertAdjacentHTML('afterbegin', '<div class="profile_customization_area"></div>'); // If there is not a profile customization area, add it.
+    qs('.profile_customization_area').insertAdjacentHTML('afterbegin', html_elements.profile.reputation_panel); // Adds the reputation panel
 
-		// Set links and user data =======
-		document.querySelector(`#reputation-panel-title`).innerText = `${profile_data.user.personaname}'s SteamRep Reputation`;
-		// SteamRep ==
-		document.querySelector(`#reputation-panel-permlink`).innerText = `https://steamcommunity.com/profiles/${profile_data.user.steamid}`;
-		document.querySelector(`#reputation-panel-steamid`).value = profile_data.user.steamid;
+    const set_elm_value = (args) => { qs('#reputation-panel-' + args.name)[args.type] = args.value; }; // Quickly change the value of an element
+    const set_elm_link = (args) => { set_elm_value({ name: args.name, type: 'href', value: args.href }); }; // enhance() with the "type" predefined as "href"
 
-		// Other ====
-		document.querySelector(`#reputation-panel-reptf`).href = `https://rep.tf/${profile_data.user.steamid}`;
-		document.querySelector(`#reputation-panel-backpacktf`).href = `https://backpack.tf/profiles/${profile_data.user.steamid}`;
-		document.querySelector(`#reputation-panel-bazaartf`).href = `https://bazaar.tf/profiles/${profile_data.user.steamid}`;
-		document.querySelector(`#reputation-panel-scraptf`).href = `https://scrap.tf/profile/${profile_data.user.steamid}`;
-		document.querySelector(`#reputation-panel-marketplacetf`).href = `https://marketplace.tf/shop/${profile_data.user.steamid}`;
-		document.querySelector(`#reputation-panel-steamiduk`).href = `https://steamid.eu/profile/${profile_data.user.steamid}`;
-		document.querySelector(`#reputation-panel-steamtrades`).href = `https://www.steamtrades.com/user/${profile_data.user.steamid}`;
-		document.querySelector(`#reputation-panel-google`).href = `https://www.google.com/search?q="${profile_data.user.steamid}"`;
+    // Sets the user's data on the reputation panel
+    [
+      { name: 'title', type: 'innerText', value: `${personaname}'s SteamRep Reputation` },
+      { name: 'permlink', type: 'innerText', value: `https://steamcommunity.com/profiles/${steamid}` },
+      { name: 'steamid', type: 'value', value: steamid }
+    ].forEach(set_elm_value);
 
-		// Request reputation data =======
-		api.reputation.steamrep(profile_data.user.steamid).then((reputation_data) => {
-			steamrep_tags(reputation_data);
-			steamrep_pending_reports(reputation_data);
-		});
+    // Sets the "resources" links
+    [
+      { name: 'reptf', url: 'rep.tf/' },
+      { name: 'backpacktf', url: 'backpack.tf/profiles/' },
+      { name: 'bazaartf', url: 'bazaar.tf/profiles/' },
+      { name: 'scraptf', url: 'scrap.tf/profile/' },
+      { name: 'marketplacetf', url: 'marketplace.tf/shop/' },
+      { name: 'steamiduk', url: 'steamid.eu/profile/' },
+      { name: 'steamtrades', url: 'steamtrades.com/user/' }
+    ].forEach(args => set_elm_link({
+      name: args.name,
+      href: 'https://' + args.url + steamid
+    }));
+    set_elm_link({ name: 'google', href: `https://google.com/search?q="${steamid}"` });    // This link requires a character after the steamid.
 
-		function steamrep_tags(reputation_data) {
-			document.querySelector(`#reputation-panel-steamrep`).href = `https://steamrep.com/profiles/${profile_data.user.steamid}`;
-			// Evil tags =============
-			if (reputation_data.bad_tags.length > 0) {
-				let text = ``;
-				reputation_data.bad_tags.forEach((tag) => {
-					text += `${tag}, `;
-				});
-				document.querySelector(`#reputation-panel-steamrep`).style.color = `#ff4c4c`;
-				document.querySelector(`#reputation-panel-steamrep`).innerText = text.slice(0, -2);
-				return;
-			}
-			// Good tags =============
-			if (reputation_data.good_tags.length > 0) {
-				let text = ``;
-				reputation_data.good_tags.forEach((tag) => {
-					text += `${tag}, `;
-				});
-				document.querySelector(`#reputation-panel-steamrep`).style.color = `#26ff00`;
-				document.querySelector(`#reputation-panel-steamrep`).innerText = text.slice(0, -2);
-				return;
-			}
-			document.querySelector(`#reputation-panel-steamrep`).innerText = `Normal`;
-		}
+    api.reputation.steamrep(steamid) // Get the user's reputation
+      .then(set_reputation) // Set the users reputation on the panel
+      .catch(error);
 
-		function steamrep_pending_reports(reputation_data) {
-			document.querySelector(`#reputation-panel-pendingreports`).href = reputation_data.pending_reports_link;
-			document.querySelector(`#reputation-panel-pendingreports`).innerText = `${reputation_data.pending_reports} Pending reports`;
-			if (reputation_data.pending_reports > 0) {
-				document.querySelector(`#reputation-panel-pendingreports`).style.color = `#ffe100`;
-			}
-		}
-	}
+    function set_reputation(reputation_data) {
+      // Sets the pending reports area on the panel
+      const pending_reports = qs(`#reputation-panel-pendingreports`);
+      pending_reports.href = reputation_data.pending_reports_link;
+      pending_reports.innerText = `${reputation_data.pending_reports} Pending reports`;
+      if (reputation_data.pending_reports > 0) pending_reports.style.color = `#ffe100`;
+
+      const reputation_panel = qs('#reputation-panel-steamrep');
+      reputation_panel.href = `https://steamrep.com/profiles/${steamid}`;
+
+      const set_tag = (status, color) => {
+        reputation_panel.style.color = color;
+        reputation_panel.innerText = reputation_data[status].toString().replace(/\,/g, `, `);
+      };
+
+      switch (true) {
+        //  If there is a bad tag, display only the bad tag
+        case reputation_data.bad_tags.length > 0:
+          return set_tag('bad_tags', '#ff4c4c');
+        //  If there is no bad tags, display any good ones
+        case reputation_data.good_tags.length > 0:
+          return set_tag('good_tags', '#26ff00');
+        //  If there is no tags at all, display normal text
+        default:
+          set_elm_value({ name: 'steamrep', type: 'innerText', value: 'Normal' });
+      }
+    }
+    function error(err) {
+      alert(`Error getting SteamRep reputation information!\n${err}`);
+    }
+  }
+  function update_buddy() {
+    sap_extension.data.user_profiles.buddies.splice(profile_data.buddy_data.index, 1);
+    sap_extension.data.user_profiles.buddies.push(profile_data.user);
+    save_settings();
+  }
+  function is_not_owner() {
+    return qs(`.profile_header_actions .btn_profile_action`)?.children[0].innerText !== `Edit Profile` || false;
+  }
 }

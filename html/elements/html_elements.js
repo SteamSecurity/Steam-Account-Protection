@@ -13,7 +13,7 @@ const html_elements = {
 				<div class="title">Impersonator Warning</div>
 				<div class="desc">${body_data.subtitle}</div>
 				<div class="body">
-					<div class="header-desc">${body_data.partner_header}</div> <a id="impersonator-partner-url" target="__blank"
+					<div class="header-desc">${body_data.partner_header}</div> <a id="impersonator-partner-url" target="_blank"
 						class="box-desc"> <img id="impersonator-partner-profile-picture" title="This user's Profile Picture"
 							src="">
 						<div class="box-main">
@@ -28,7 +28,7 @@ const html_elements = {
 						</div>
 					</a>
 					<div class="header-desc">${body_data.main_user_header}</div> <a id="impersonator-impersonated-url"
-						target="__blank" class="box-desc" href="https://steamcommunity.com"> <img
+						target="_blank" class="box-desc" href="https://steamcommunity.com"> <img
 							id="impersonator-impersonated-profile-picture" title="This user's Profile Picture" src="">
 						<div class="box-main">
 							<div id="impersonator-impersonated-personaname" title="This user's Persona name"></div>
@@ -59,7 +59,7 @@ const html_elements = {
 				<div class="desc">${body_data.subtitle}</div>
 				<div class="body">
 					<div class="header-desc">${body_data.partner_header}</div>
-					<a id="bot-impersonator-partner-url" target="__blank" class="box-desc">
+					<a id="bot-impersonator-partner-url" target="_blank" class="box-desc">
 						<img id="bot-impersonator-partner-profile-picture" title="This user's Profile Picture" src="">
 						<div class="box-main">
 							<div id="bot-impersonator-partner-personaname" title="This user's Persona name"></div>
@@ -86,7 +86,7 @@ const html_elements = {
 			return `<div class="buddy-container">
 			<div class="profile_picture"><img
 					src="${buddy.profile_picture.replace('_full.jpg', '_medium.jpg')}" alt="PFP"></div>
-			<a class="identifiers" href="https://steamcommunity.com/profiles/${buddy.steamid}" target="__blank">
+			<a class="identifiers" href="https://steamcommunity.com/profiles/${buddy.steamid}" target="_blank">
 				<span>${buddy.personaname}</span>
 				<span>${buddy.steamid}</span>
 			</a>
@@ -152,23 +152,22 @@ const html_elements = {
 				<button class="button" id="trade-toolbar-open-backpacktf" ><span>Backpack.TF</span></button>
 				<button class="button bpanel"id="trade-toolbar-open-warnings"><span>Warnings</span></button>
 			</div>
-				<div id="trade-toolbar-reputation" class="trade-toolbar-info-box invisible">
-				<div id="trade-toolbar-disabled-notice" class="warning" style="display:none;">Reputation Scanner Disabled!</div>
-				<div id="trade-toolbar-rep-steamBans" class="community-container"> <div class="community-title">Steam</div> </div> 
-				<div id="trade-toolbar-rep-stfBans" class="community-container"> <div class="community-title">Scrap.tf</div> </div> 
-				<div id="trade-toolbar-rep-mpBans" class="community-container"> <div class="community-title">Marketplace.tf</div> </div> 
-				<div id="trade-toolbar-rep-bzBans" class="community-container"> <div class="community-title">Bazaar.tf</div> </div> 
-				<div id="trade-toolbar-rep-ppmBans" class="community-container"> <div class="community-title">PPM</div> </div> 
-				<div id="trade-toolbar-rep-hgBans" class="community-container"> <div class="community-title">Harpoon</div> </div> 
-				<div id="trade-toolbar-rep-nhsBans" class="community-container"> <div class="community-title">Neon Heights</div> </div> 
-				<div id="trade-toolbar-rep-stBans" class="community-container"> <div class="community-title">SMT</div> </div> 
-				<div id="trade-toolbar-rep-fogBans"class="community-container"> <div class="community-title">FoG Trade</div> </div> 
-				<div id="trade-toolbar-rep-etf2lBans" class="community-container"> <div class="community-title">ETF2L</div> </div> 
-				<div id="trade-toolbar-rep-bptfBans" class="community-container"> <div class="community-title">Backpack.tf</div> </div> 
-				<div id="trade-toolbar-rep-srBans" class="community-container"> <div class="community-title">SteamRep</div> </div>
+      <div id="trade-toolbar-reputation" class="invisible trade-toolbar-info-box">
+        <div id="trade-toolbar-disabled-notice" class="warning" style="display:none;">Reputation Scanner Disabled!</div>
+        <div id="trade-toolbar-rep-steamBans" class="community-container"> <div class="community-title">Steam</div> </div> 
+        <div id="trade-toolbar-rep-stfBans" class="community-container"> <div class="community-title">Scrap.tf</div> </div> 
+        <div id="trade-toolbar-rep-mpBans" class="community-container"> <div class="community-title">Marketplace.tf</div> </div> 
+        <div id="trade-toolbar-rep-bzBans" class="community-container"> <div class="community-title">Bazaar.tf</div> </div> 
+        <div id="trade-toolbar-rep-ppmBans" class="community-container"> <div class="community-title">PPM</div> </div> 
+        <div id="trade-toolbar-rep-hgBans" class="community-container"> <div class="community-title">Harpoon</div> </div> 
+        <div id="trade-toolbar-rep-nhsBans" class="community-container"> <div class="community-title">Neon Heights</div> </div> 
+        <div id="trade-toolbar-rep-stBans" class="community-container"> <div class="community-title">SMT</div> </div> 
+        <div id="trade-toolbar-rep-fogBans"class="community-container"> <div class="community-title">FoG Trade</div> </div> 
+        <div id="trade-toolbar-rep-etf2lBans" class="community-container"> <div class="community-title">ETF2L</div> </div> 
+        <div id="trade-toolbar-rep-bptfBans" class="community-container"> <div class="community-title">Backpack.tf</div> </div> 
+        <div id="trade-toolbar-rep-srBans" class="community-container"> <div class="community-title">SteamRep</div> </div>
 			</div>
-			<div id="trade-toolbar-backpacktf" class="trade-toolbar-info-box invisible">Backpack.TF!</div>
-			<div id="trade-toolbar-warnings" class="trade-toolbar-info-box invisible">
+			<div id="trade-toolbar-warnings" class="invisible trade-toolbar-info-box">
 				<div id="trade-toolbar-warnings-list">
 					<div id="trade-toolbar-warning-community-bans" class="warning" style="display:none;">Banned from at least one community!</div>
 					<div id="trade-toolbar-warning-bot-impostor" class="warning" style="display:none;">May be impersonating a trading bot!</div>
