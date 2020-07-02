@@ -177,68 +177,68 @@ const html_elements = {
 		</div>`
 	},
 	profile: {
-		reputation_panel: `<div id="reputation-panel" class="profile_customization" style="height:auto;">
-		<div id="reputation-panel-title" class="profile_customization_header ellipsis">User Reputation</div>
+		reputation_panel: (profile) => `<div id="reputation-panel" class="profile_customization" style="height:auto;">
+		<div id="reputation-panel-title" class="profile_customization_header ellipsis">${profile.personaname}'s Reputation</div>
 		<div class="profile_customization_block">
 			<div class="customtext_showcase">
 				<div class="showcase_content_bg showcase_notes">
 					<div style="padding:2px; display:block">
 						<p>
 							<b>Steam Rep:</b>
-							<a id="reputation-panel-steamrep" target="_blank" href="https://steamrep.com/profiles/">Loading...</a>
+							<a id="reputation-panel-steamrep" target="_blank" href="https://steamrep.com/profiles/${profile.steamid}">Loading...</a>
 						</p>
 						<p>
 							<b>Pending Reports:</b>
-							<a id="reputation-panel-pendingreports" target="_blank" href="https://steamrep.com/profiles/">Loading...</a>
+							<a id="reputation-panel-pendingreports" target="_blank" href="https://steamrep.com/profiles/${profile.steamid}">Loading...</a>
 						</p>
 						<p>
 							<b>Perm Link:</b>
 							<a id="reputation-panel-permlink" href="javascript:;"
-								onclick="event.preventDefault(); let sel = window.getSelection(); let range = document.createRange(); range.selectNodeContents(this); sel.removeAllRanges(); sel.addRange(range); document.execCommand('copy')">Loading...</a>
+								onclick="event.preventDefault(); let sel = window.getSelection(); let range = document.createRange(); range.selectNodeContents(this); sel.removeAllRanges(); sel.addRange(range); document.execCommand('copy')">https://steamcommunity.com/profiles/${profile.steamid}</a>
 						</p>
 						<p>
 							<b>SteamID64:</b>
 							<input id="reputation-panel-steamid" type="text" style="text-align: center;" readonly
-								onclick="this.select(); document.execCommand('copy')" value="Loading..."/>
+								onclick="this.select(); document.execCommand('copy')" value="${profile.steamid}"/>
 						</p>
 						<div style="margin-top:15px;display:flex;">
 	
-							<a id="reputation-panel-reptf" target="_blank" href="" class="reputation-panel-service">
+							<a id="reputation-panel-reptf" target="_blank" href="https://rep.tf/${profile.steamid}" class="reputation-panel-service">
 								<img src=""/>
 								<div>Rep.tf</div>
 							</a>
 	
-							<a id="reputation-panel-backpacktf" target="_blank" href="" class="reputation-panel-service"><img
+							<a id="reputation-panel-backpacktf" target="_blank" href="https://backpack.tf/profiles/${profile.steamid}" class="reputation-panel-service"><img
 									src="" />
 								<div></span>Backpack.tf</div>
 							</a>
 	
-							<a id="reputation-panel-bazaartf" target="_blank" href="" class="reputation-panel-service"><img
+							<a id="reputation-panel-bazaartf" target="_blank" href="https://bazaar.tf/profiles/${profile.steamid}" class="reputation-panel-service"><img
 									src=""  />
 								<div>Bazaar.tf</div>
 							</a>
 	
-							<a id="reputation-panel-scraptf" target="_blank" href="" class="reputation-panel-service"><img
+							<a id="reputation-panel-scraptf" target="_blank" href="https://scrap.tf/profile/${profile.steamid}" class="reputation-panel-service"><img
 									src=""  />
 								<div>Scrap.tf</div>
 							</a>
 							
 						</div>
 						<div style="margin-top:15px;display:flex;">
-							<a id="reputation-panel-marketplacetf" target="_blank" href="" class="reputation-panel-service">
+							<a id="reputation-panel-marketplacetf" target="_blank" href="https://marketplace.tf/shop/${profile.steamid}" class="reputation-panel-service">
 								<img src=""/>
 								<div>Marketplace.tf</div>
 							</a>
 
-							<a id="reputation-panel-steamiduk" target="_blank" href="" class="reputation-panel-service">
+							<a id="reputation-panel-steamiduk" target="_blank" href="https://steamid.eu/profile/${profile.steamid}" class="reputation-panel-service">
 								<img src=""/>
 								<div>SteamID.uk</div>
 							</a>
-							<a id="reputation-panel-steamtrades" target="_blank" href="" class="reputation-panel-service">
+							<a id="reputation-panel-steamtrades" target="_blank" href="https://steamtrades.com/user/${profile.steamid}" class="reputation-panel-service">
 								<img src="" />
 								<div>Steam Trades</div>
 							</a>
-							<a id="reputation-panel-google" target="_blank" href="" class="reputation-panel-service">
+							<a id="reputation-panel-google" target="_blank" href="https://google.com/search?q=%22${profile.steamid}%22" class="reputation-panel-service">
 								<img src=""/>
 								<div>Google</div>
 							</a>

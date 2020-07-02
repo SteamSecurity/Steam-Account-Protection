@@ -126,6 +126,16 @@
 	filter: drop-shadow(1px 5px 10px rgba(0, 0, 0, 0.25));
 }
 
+/* --------------------------------- Colors --------------------------------- */
+.sap-good {
+	color: #26ff00;
+}
+.sap-warning {
+	color: #ffe100;
+}
+.sap-critical {
+	color: #ff4c4c;
+}
 /* ------------------------------- Adjustments ------------------------------ */
 @media all and (max-width: 550px) {
 	.sap-overlay .image-container {
