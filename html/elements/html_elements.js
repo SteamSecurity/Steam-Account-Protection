@@ -254,7 +254,11 @@ const html_elements = {
 			<div class="top-bar"></div>
 			<div class="title">Confirm Buddy</div>
 			<div class="profile-container">
-				<img class="profile-icon" src="${profile.profile_picture}">
+				<div class="image-container">
+					<img class="profile-icon" src="${profile.profile_picture}">
+					<img class="profile-icon frame" src="${profile.profile_frame}" alt="">
+				</div>
+
 				<div class="description">
 					<div>Persona: <span class="description-value">${profile.personaname}</span></div>
 					<div>Level: <span class="description-value">${profile.level}</span></div>

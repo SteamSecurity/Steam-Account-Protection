@@ -1,24 +1,23 @@
 function profile() {
 	/* ---------------------------- Declare variables --------------------------- */
 	const is_not_owner = () => qs(`.profile_header_actions .btn_profile_action`)?.children[0].innerText !== `Edit Profile` || false;
-	var profile_data = {
-		user: {
-			personaname: qs(`.profile_header_bg .persona_name .actual_persona_name`)?.innerText,
-			profile_picture: qs(`.profile_header_bg .playerAvatar img`)?.src,
-			steamid: /7[0-9]{16}/g.exec(/"steamid":"7[0-9]{16}"/g.exec(qs(`.responsive_page_template_content script`).innerText)[0])[0],
-			level: qs(`.profile_header_badgeinfo_badge_area .friendPlayerLevelNum`)?.innerText || 0
-		},
-		buddy_data: {}
+	const profile = {
+		personaname: qs(`.profile_header_bg .persona_name .actual_persona_name`)?.innerText,
+		profile_frame: qs(`.profile_header_bg .playerAvatar .playerAvatarAutoSizeInner .profile_avatar_frame img`)?.src,
+		profile_picture: qs(`.profile_header_bg .playerAvatar .playerAvatarAutoSizeInner`)?.children[1]?.src || qs(`.profile_header_bg .playerAvatar .playerAvatarAutoSizeInner`)?.children[0]?.src,
+		steamid: /7[0-9]{16}/g.exec(/"steamid":"7[0-9]{16}"/g.exec(qs(`.responsive_page_template_content script`).innerText)[0])[0],
+		level: qs(`.profile_header_badgeinfo_badge_area .friendPlayerLevelNum`)?.innerText || 0
 	};
+	var buddy_data = {};
 
 	/* ------------------------------- Controller ------------------------------- */
 	// Decide what functions to execute depending on the user settings
 
 	load_custom_content();
-	profile_data.buddy_data = find_user.buddy(profile_data.user.steamid);																	// Get the saved buddy data
-	if (sap_extension.settings.profile.buddy_button && is_not_owner()) buddy();   												// The Buddy system
-	if (sap_extension.settings.profile.pr_reputation_scanner) reputation_scanner(); 											// Scan the user's reputation and display it
-	if (sap_extension.settings.profile.pr_impersonator_scanner) impersonator_scanner(profile_data.user); 	// Checks if the user is a potential impersonator
+	buddy_data = find_user.buddy(profile.steamid);																							// Get the saved buddy data
+	if (sap_extension.settings.profile.buddy_button && is_not_owner()) buddy();   							// The Buddy system
+	if (sap_extension.settings.profile.pr_reputation_scanner) reputation_scanner(); 						// Scan the user's reputation and display it
+	if (sap_extension.settings.profile.pr_impersonator_scanner) impersonator_scanner(profile); 	// Checks if the user is a potential impersonator
 
 	/* -------------------------------- Functions ------------------------------- */
 	function load_custom_content() {
@@ -27,12 +26,12 @@ function profile() {
 		qs('head').insertAdjacentHTML('beforeend', `<link type="text/css" rel="stylesheet" href="${chrome.extension.getURL(`html/stylesheets/profile.css`)}">`);
 
 		// Overlays
-		qs(`body`).insertAdjacentHTML(`beforebegin`, html_elements.profile.buddy_add_warning(profile_data.user));
+		qs(`body`).insertAdjacentHTML(`beforebegin`, html_elements.profile.buddy_add_warning(profile));
 	}
 	function buddy() {
 		qs(`.profile_header_actions`).insertAdjacentHTML(`beforeend`, html_elements.profile.buddy_button);
 
-		if (profile_data.buddy_data.is_buddy()) return is_buddy();
+		if (buddy_data.is_buddy()) return is_buddy();
 		else return is_not_buddy();
 
 		// If the user is a buddy, update the button to show the buddy status.
@@ -43,13 +42,13 @@ function profile() {
 			qs(`#buddy-button`).addEventListener(`click`, remove_buddy);
 
 			function remove_buddy() {
-				sap_extension.data.user_profiles.buddies.splice(profile_data.buddy_data.index, 1);
+				sap_extension.data.user_profiles.buddies.splice(buddy_data.index, 1);
 				save_settings();
 				window.location.reload(false);
 			}
 			function update_buddy() {
-				sap_extension.data.user_profiles.buddies.splice(profile_data.buddy_data.index, 1);
-				sap_extension.data.user_profiles.buddies.push(profile_data.user);
+				sap_extension.data.user_profiles.buddies.splice(buddy_data.index, 1);
+				sap_extension.data.user_profiles.buddies.push(profile);
 				save_settings();
 			}
 		}
@@ -69,14 +68,14 @@ function profile() {
 				qs(`#sap-buddy-confirm-overlay`).style.display = `none`;
 			}
 			function add_user_as_buddy() {
-				sap_extension.data.user_profiles.buddies.push(profile_data.user);
+				sap_extension.data.user_profiles.buddies.push(profile);
 				save_settings();
 				window.location.reload(false);
 			}
 		}
 	}
 	function reputation_scanner() {
-		const { steamid, personaname } = profile_data.user;
+		const { steamid, personaname } = profile;
 
 		!qs('.profile_customization_area') && qs('.profile_leftcol').insertAdjacentHTML('afterbegin', '<div class="profile_customization_area"></div>'); // If there is not a profile customization area, add it.
 		qs('.profile_customization_area').insertAdjacentHTML('afterbegin', html_elements.profile.reputation_panel); // Adds the reputation panel
