@@ -15,7 +15,7 @@ async function backpacktf_popup() {
 	let sap_extension = await get_sap_extension();
 	let { steamid, profile_picture } = url_params(window.location.href);
 	let bp_response = JSON.parse(await xhr_send(`get`, `https://backpack.tf/api/IGetUsers/v3?steamid=${steamid}`)).response.players[steamid];
-  
+
 	// Basic user info ===================
 	p_elem.profile_picture.src = profile_picture;
 	p_elem.personaname.innerText = bp_response.name;

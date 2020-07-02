@@ -1,4 +1,13 @@
-/* <-- Reputation panel --> */
+/* ------------------------- Profile action buttons ------------------------- */
+.profile_header_actions {
+	display: flex;
+}
+.profile_header_actions .btn_medium,
+.profile_header_actions .popup_block {
+	margin-right: 5px;
+}
+
+/* --------------------------- Reputation scanner --------------------------- */
 #reputation-panel .reputation-panel-service {
 	display: flex;
 	margin: auto;
@@ -20,4 +29,3 @@
 	display: inline-grid;
 	text-align: center;
 }
-/* <-- Buddy --> */

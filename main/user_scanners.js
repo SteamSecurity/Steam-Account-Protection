@@ -61,7 +61,7 @@ function impersonator_scanner(profile_data) {
 			{ user: `impersonated`, name: `personaname`, type: `innerText`, value: impersonated_user.personaname },
 			{ user: `impersonated`, name: `steamid`, type: `innerText`, value: impersonated_user.steamid }
 		].forEach(set_overlay_value);
-		qs(`#impersonator-partner-level`).parentElement.className += ` ${steam_level_class(profile_data.level)}`;
+		qs(`#impersonator-partner-level`).parentElement.className += ` ${steam.level_class(profile_data.level)}`;
 
 	}
 	async function levels(impersonated_user) {
@@ -71,7 +71,7 @@ function impersonator_scanner(profile_data) {
 		if (!qs(`#impersonator-warning`)) return; // If the user closes the popup immediately, it won't set the level data
 
 		qs(`#impersonator-impersonated-level`).innerText = level;
-		qs(`#impersonator-impersonated-level`).parentElement.className += ` ${steam_level_class(Number(level))}`;
+		qs(`#impersonator-impersonated-level`).parentElement.className += ` ${steam.level_class(Number(level))}`;
 	}
 	function bot_overlay(community) {
 		const set_overlay_value = (args) => { qs(`#bot-impersonator-${args.user}-${args.name}`)[args.type] = args.value; };  // Quickly change the value of an overlay element

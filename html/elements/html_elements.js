@@ -81,7 +81,7 @@ const html_elements = {
 		</div>`;
 		}
 	},
-	settings:{
+	settings: {
 		buddy_container: (buddy) => {
 			return `<div class="buddy-container">
 			<div class="profile_picture"><img
@@ -91,7 +91,7 @@ const html_elements = {
 				<span>${buddy.steamid}</span>
 			</a>
 			<div class="actions" data-steamid="${buddy.steamid}">X</div>
-		</div>`
+		</div>`;
 		}
 	},
 	trade_window: {
@@ -249,26 +249,21 @@ const html_elements = {
 		</div>
 	</div>`,
 		buddy_button: `<div id="buddy-button" class="btn_profile_action btn_medium"><span style="display:flex; padding: 5px;"><img style="height: 20px;" src="${chrome.extension.getURL('images/user.png')}"></span></div>`,
-		buddy_add_warning: `<div class="overlay">
-		<div id="buddy-warning" class="overlay-content">
-			<div class="title">Buddy This User?</div>
-			<div class="body">
-				<div class="header-desc">This user:</div> <div 
-					class="box-desc"> <img id="buddy-partner-profile-picture" title="This user's Profile Picture"
-						src="">
-					<div class="box-main">
-						<div id="buddy-partner-personaname" title="This user's Persona name"></div>
-						<div id="buddy-partner-steamid" title="This user's Steam ID"></div>
-					</div>
-					<div class="box-level">
-						<div class="trade_partner_steam_level">
-							<div title="This user's Steam Level" class="friendPlayerLevel"> <span
-									id="buddy-partner-level" class="friendPlayerLevelNum"></span> </div>
-						</div>
-					</div>
+		buddy_add_warning: (profile = { personaname: 'none', level: 0, steamid: 0 }) => `<div style="display:none;" id="sap-buddy-confirm-overlay" class="sap-overlay">
+		<div class="overlay-content">
+			<div class="top-bar"></div>
+			<div class="title">Confirm Buddy</div>
+			<div class="profile-container">
+				<img class="profile-icon" src="${profile.profile_picture}">
+				<div class="description">
+					<div>Persona: <span class="description-value">${profile.personaname}</span></div>
+					<div>Level: <span class="description-value">${profile.level}</span></div>
+					<div>SteamID: <span class="description-value">${profile.steamid}</span></div>
 				</div>
-				<div id="buddy-add" class="close-overlay">Add user as buddy</div>
-				<div id="buddy-close" class="close-overlay">Close</div>
+			</div>
+			<div class="button-container">
+				<a class="button btn_good" id="confirm-buddy">Confirm</a>
+				<a class="button" id="close-buddy">Close</a>
 			</div>
 		</div>
 	</div>`

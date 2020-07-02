@@ -8,8 +8,8 @@
 }
 
 .invisible {
-  max-height: 0px !important;
-  margin-top: 0px !important;
+	max-height: 0px !important;
+	margin-top: 0px !important;
 }
 
 /*<--  Trade Toolbar  -->*/
@@ -43,21 +43,21 @@
 	font-size: 1.3em;
 	text-align: center;
 	margin-top: 5px;
-    margin-bottom: 5px;
+	margin-bottom: 5px;
 	width: 100%;
-	color:#e4e4e4;
+	color: #e4e4e4;
 }
 
 #trade-toolbar .trade-toolbar-info-box {
 	background-color: #1d242f;
 	width: 100%;
-  max-height: 200px;
-  overflow:hidden;
+	max-height: 200px;
+	overflow: hidden;
 	justify-content: center;
 	margin-top: 10px;
 	display: flex;
-  flex-wrap: wrap;
-  transition: max-height 0.3s, margin-top 0.3s;
+	flex-wrap: wrap;
+	transition: max-height 0.3s, margin-top 0.3s;
 }
 
 #trade-toolbar .community-container {
