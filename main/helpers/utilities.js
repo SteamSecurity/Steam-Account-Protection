@@ -50,50 +50,6 @@ function log(data, type) {
 	console.log(data);
 }
 
-// Saves the internal settings
-async function save_settings(set_default) {
-	if (!set_default) return chrome.storage.local.set({ sap_extension: sap_extension });  // Save the current settings
-	// Save the default settings
-	sap_extension = {
-		settings: {
-			trade_window: {
-				api_warning: true,
-				trade_toolbar: true,
-				tw_reputation_scanner: true,
-				tw_impersonator_scanner: true
-			},
-			trade_offers: {},
-			profile: {
-				buddy_button: true,
-				pr_reputation_scanner: true,
-				pr_impersonator_scanner: true
-			}
-		},
-		data: {
-			backpacktf: {
-				refined: {
-					usd: null
-				}
-			},
-			bot_profiles: {
-				marketplace: [],
-				mannco: [],
-				bitskins: [],
-				last_check: 0
-			},
-			user_profiles: {
-				impersonated: [],
-				buddies: [],
-				steamrep_profiles: [],
-				reptf_profiles: [],
-				last_check: 0
-			}
-		}
-	};
-	chrome.storage.local.set({ sap_extension: sap_extension });
-	log(`Saved default settings`);
-	return;
-}
 
 const find_user = {
 	buddy: (steamid) => {

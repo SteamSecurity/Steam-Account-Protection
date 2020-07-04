@@ -14,7 +14,7 @@ function profile() {
 	// Decide what functions to execute depending on the user settings
 
 	load_custom_content();
-	buddy_data = find_user.buddy(profile.steamid);																							// Get the saved buddy data
+	buddy_data = storage.find_buddy(profile.steamid);																							// Get the saved buddy data
 	if (sap_extension.settings.profile.buddy_button && is_not_owner()) buddy();   							// The Buddy system
 	if (sap_extension.settings.profile.pr_reputation_scanner) reputation_scanner(); 						// Scan the user`s reputation and display it
 	if (sap_extension.settings.profile.pr_impersonator_scanner) impersonator_scanner(profile); 	// Checks if the user is a potential impersonator
@@ -22,7 +22,7 @@ function profile() {
 	/* -------------------------------- Functions ------------------------------- */
 	function load_custom_content() {
 		// Stylesheets
-		qs(`head`).insertAdjacentHTML(`beforeend`, `<link type="text/css" rel="stylesheet" href="${chrome.extension.getURL(`html/elements/profile/css/overlay.css`)}">`);
+		qs(`head`).insertAdjacentHTML(`beforeend`, `<link type="text/css" rel="stylesheet" href="${chrome.extension.getURL(`html/stylesheets/overlay.css`)}">`);
 		qs(`head`).insertAdjacentHTML(`beforeend`, `<link type="text/css" rel="stylesheet" href="${chrome.extension.getURL(`html/stylesheets/profile.css`)}">`);
 	}
 	function buddy() {
@@ -41,13 +41,13 @@ function profile() {
 
 			function remove_buddy() {
 				sap_extension.data.user_profiles.buddies.splice(buddy_data.index, 1);
-				save_settings();
+				storage.save_settings();
 				window.location.reload(false);
 			}
 			function update_buddy() {
 				sap_extension.data.user_profiles.buddies.splice(buddy_data.index, 1);
 				sap_extension.data.user_profiles.buddies.push(profile);
-				save_settings();
+				storage.save_settings();
 			}
 		}
 
@@ -60,14 +60,13 @@ function profile() {
 				qs(`#confirm-buddy`).addEventListener(`click`, add_user_as_buddy); 					// Adds the user to the buddy list & reloads the page
 				qs(`#close-buddy`).addEventListener(`click`, close_overlay); 								// Closes the window and does not add them to the buddy list.
 
-
 			}
 			function close_overlay() {
 				qs(`#sap-buddy-confirm-overlay`).style.display = `none`;
 			}
 			function add_user_as_buddy() {
 				sap_extension.data.user_profiles.buddies.push(profile);
-				save_settings();
+				storage.save_settings();
 				window.location.reload(false);
 			}
 		}

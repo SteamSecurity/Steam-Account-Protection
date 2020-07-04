@@ -83,15 +83,17 @@ const html_elements = {
 	},
 	settings: {
 		buddy_container: (buddy) => {
-			return `<div class="buddy-container">
-			<div class="profile_picture"><img
-					src="${buddy.profile_picture.replace('_full.jpg', '_medium.jpg')}" alt="PFP"></div>
-			<a class="identifiers" href="https://steamcommunity.com/profiles/${buddy.steamid}" target="_blank">
-				<span>${buddy.personaname}</span>
-				<span>${buddy.steamid}</span>
-			</a>
-			<div class="actions" data-steamid="${buddy.steamid}">X</div>
-		</div>`;
+			return `<div class="profile-container">
+				<img class="profile-icon" src="${buddy.profile_picture}">
+				<div class="description">
+					<div>Persona: <span class="description-value">${buddy.personaname}</span></div>
+					<div>Level: <span class="description-value">${buddy.level}</span></div>
+					<div>SteamID: <span class="description-value">${buddy.steamid}</span></div>
+					<div class="button-container">
+						<a class="button btn_bad" data-function="remove_buddy" data-target="${buddy.steamid}">Remove</a>
+					</div>
+				</div>
+			</div>`;
 		}
 	},
 	trade_window: {

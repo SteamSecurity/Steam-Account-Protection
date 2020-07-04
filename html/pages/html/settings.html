@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>SAP | Settings</title>
+	<!--Stylesheets-->
+	<link rel="stylesheet" href="/html/stylesheets/overlay.css">
+	<link rel="stylesheet" href="/html/pages/css/welcome.css">
+	<link rel="stylesheet" href="/html/pages/css/settings.css">
+</head>
+
+<body>
+	<div id="sap-buddy-overlay" class="sap-overlay hidden">
+		<div class="overlay-content">
+			<div class="top-bar"></div>
+			<div class="title">All Buddies</div>
+			<input class="search" placeholder="Search">
+
+			<div class="button-container">
+				<a class="button" id="close-buddy">Close</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="title-box">
+		<div class="title">Steam Account Protection</div>
+	</div>
+	<div class="text-container">
+		<div class="navigation">
+			<a class="active" data-content="general" href="#">
+				<div>General</div>
+			</a>
+			<a data-content="profile" href="#">
+				<div>Profile</div>
+			</a>
+			<a data-content="trade" href="#">
+				<div>Trading</div>
+			</a>
+			<a class="bottom" data-content="help" href="#">
+				<div>Help</div>
+			</a>
+		</div>
+		<div id="content-general" class="text">
+			<div class="setting-container">
+				<div class="title">View buddies</div>
+				<div class="right">
+					<div id="btn-view-buddies" class="button">View buddies</div>
+				</div>
+			</div>
+			<div class="setting-container">
+				<div class="title">Set currency prices</div>
+				<div class="right">
+					<div id="btn-set-prices" class="button">Set prices
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="content-profile" class="text hidden">
+			<div class="setting-container">
+				<div class="title">Buddy System</div>
+				<div class="right">
+					<div data-category="profile" data-setting="buddy_button" id="setting-buddy-system" class="button btn_disable">
+					</div>
+				</div>
+			</div>
+			<div class="setting-container">
+				<div class="title">Reputation panel</div>
+				<div class="right">
+					<div data-category="profile" data-setting="pr_reputation_scanner" id="setting-reputation-panel-profile"
+						class="button btn_enable">
+					</div>
+				</div>
+			</div>
+			<div class="setting-container">
+				<div class="title">Impersonator checker</div>
+				<div class="right">
+					<div data-category="profile" data-setting="pr_impersonator_scanner" id="setting-impersonator-checker-profile"
+						class="button btn_disable">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="content-trade" class="text hidden">
+
+			<div class="setting-container">
+				<div class="title">API warning</div>
+				<div class="right">
+					<div data-category="trade_window" data-setting="api_warning" id="setting-api-warning"
+						class="button btn_disable"></div>
+				</div>
+			</div>
+			<div class="setting-container">
+				<div class="title">Trading Toolbar</div>
+				<div class="right">
+					<div data-category="trade_window" data-setting="trade_toolbar" id="setting-trading-toolbar"
+						class="button btn_disable">
+					</div>
+				</div>
+			</div>
+			<div class="setting-container">
+				<div class="title">Reputation checker</div>
+				<div class="right">
+					<div data-category="trade_window" data-setting="tw_reputation_scanner" id="setting-reputation-checker-trade"
+						class="button btn_disable"></div>
+				</div>
+			</div>
+			<div class="setting-container">
+				<div class="title">Impersonator checker</div>
+				<div class="right">
+					<div data-category="trade_window" data-setting="tw_impersonator_scanner"
+						id="setting-impersonator-checker-trade" class="button btn_disable">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="content-help" class="text hidden">
+			Visit the <a href="https://github.com/Space-Engineer/Steam-Account-Protection/wiki" target="_blank">Github
+				Wiki</a> for help!
+		</div>
+	</div>
+</body>
+
+<!--Scripts-->
+<script src="/main/helpers/storage.js"></script>
+<script src="/main/helpers/utilities.js"></script>
+<script src="/main/apis.js"></script>
+<script src="/html/elements/html_elements.js"></script>
+<script src="/html/pages/js/settings.js"></script>
+
+</html>

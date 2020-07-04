@@ -36,7 +36,7 @@ const api = {
 				});
 
 				sap_extension.data.user_profiles.reptf_profiles.push(ban_data);
-				save_settings();
+				storage.save_settings();
 				resolve(ban_data);
 
 				function is_community(string) {
@@ -77,7 +77,7 @@ const api = {
 
 				// Saves the data so we won't have to talk to steamrep until SAP registers the data as out of date
 				sap_extension.data.user_profiles.steamrep_profiles.push(profile_data);
-				save_settings();
+				storage.save_settings();
 
 				// Return the data
 				resolve(profile_data);
@@ -122,7 +122,7 @@ const api = {
 
 				log(`Got ${response.bots.length} Marketplace.tf bots`); // Log to console
 				sap_extension.data.bot_profiles.last_check = time.current_time();
-				save_settings();
+				storage.save_settings();
 			}
 			async function mannco() {
 				const response = await webrequest(`get`, `https://mannco.store/bots`);
@@ -133,7 +133,7 @@ const api = {
 
 				log(`Got ${bots.length} Mannco.Store bots`);
 				sap_extension.data.bot_profiles.last_check = time.current_time();
-				save_settings();
+				storage.save_settings();
 			}
 			async function bitskins() {
 				let bots = [];
@@ -149,7 +149,7 @@ const api = {
 
 				log(`Got ${bots.length} Bitskins bots`);
 				sap_extension.data.bot_profiles.last_check = time.current_time();
-				save_settings();
+				storage.save_settings();
 			}
 		},
 		user_profiles: async () => {
@@ -164,7 +164,7 @@ const api = {
 			log(`Got ${users.length} Backpack.tf Impersonated users`);
 			sap_extension.data.user_profiles.impersonated = users;
 			sap_extension.data.user_profiles.last_check = time.current_time();
-			save_settings();
+			storage.save_settings();
 
 			function not_marketplace(user) {
 				return !/Marketplace.TF \| Bot ([0-9]+)/i.test(user.personaname);
@@ -189,7 +189,7 @@ const api = {
 			sap_extension.data.user_profiles.reptf_profiles.forEach((profile, index) => {
 				if (time.current_time() >= profile.last_check + time.hours_to_seconds(1)) sap_extension.data.user_profiles.reptf_profiles.splice(index, 1);
 			});
-			save_settings();
+			storage.save_settings();
 		}
 	}
 };

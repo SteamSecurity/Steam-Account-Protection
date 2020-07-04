@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>SAP | Welcome</title>
+	<!--Stylesheets-->
+	<link rel="stylesheet" href="/html/pages/css/welcome.css">
+</head>
+
+<body>
+	<div class="title-box">
+		<div class="title">Steam Account Protection</div>
+	</div>
+	<div class="text-container">
+		<div class="navigation">
+			<a class="active" data-content="introduction" href="#">
+				<div>Introduction</div>
+			</a>
+			<!-- <a data-content="about" href="#">
+				<div>About</div>
+			</a> -->
+			<a data-content="help" href="#">
+				<div>Help</div>
+			</a>
+		</div>
+		<div id="content-introduction" class="text">
+			<div class="header">Welcome</div>
+			Steam Account Protection, or SAP, is a chrome extension that aims to protect you against several methods of
+			attack.<br>
+			Whether these are attacks targeting your Steam items or your Steam account, SAP helps you keep what belongs to
+			you.<br><br>
+			This extension is completely open-source and you can <a
+				href="https://github.com/Space-Engineer/Steam-Account-Protection" target="_blank">view the source code right now
+				on GitHub</a>!
+
+		</div>
+		<!--TODO: Find something to fill the about section. Or more tabs or something-->
+		<div id="content-about" class="text hidden">
+			<div class="header">About</div>
+			A Boot
+		</div>
+		<div id="content-help" class="text hidden">
+			<div class="header">Help</div>
+			If you are ever stuck or need help using SAP, you can visit the <a
+				href="https://github.com/Space-Engineer/Steam-Account-Protection/wiki" target="_blank">GitHub Wiki</a> for
+			basic usage. You can get to the
+			Wiki by
+			visiting the full settings page, accessible through clicking the extension icon.<br><br>
+			If you are having serious trouble, you can always get help through community channels such as our <a
+				href="https://discord.gg/KvtEQdD" target="_blank">Discord server</a>.
+		</div>
+	</div>
+</body>
+
+<!--Scripts-->
+<script src="/main/helpers/utilities.js"></script>
+<script src="/main/apis.js"></script>
+<script src="/html/pages/js/welcome.js"></script>
+
+</html>
