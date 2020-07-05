@@ -18,11 +18,6 @@ const storage = {
 				}
 			},
 			data: {
-				backpacktf: {
-					refined: {
-						usd: null
-					}
-				},
 				bot_profiles: {
 					marketplace: [],
 					mannco: [],

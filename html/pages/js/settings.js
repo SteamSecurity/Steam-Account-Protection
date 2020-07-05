@@ -1,3 +1,4 @@
+// TODO: Make requests to update bot and user profile data
 var sap_extension;
 storage.get_settings()
 	.then((response) => sap_extension = response)
@@ -22,42 +23,27 @@ function create_click_event(selected_tab) {
 	});
 }
 
-/* -------------------------------- Settings -------------------------------- */
-// Change settings
+/* ----------------------------- Event listeners ---------------------------- */
 function event_listeners() {
-	// This toggles the main settings. Such as the API warning and Impersonator checkers
-	qsa(`.text .button`).forEach((button) => {
-		if (!button.dataset.category || !button.dataset.setting) return;
-		button.addEventListener(`click`, () => toggle_setting(button.dataset.category, button.dataset.setting));
-	});
-	function toggle_setting(category, setting) {
-		sap_extension.settings[category][setting] = !sap_extension.settings[category][setting];
-		storage.save_settings();
-		display_settings();
-	}
+	// Setting buttons
+	qsa(`.text .button`).forEach((button) => setting_button(button));
 
 	// Builds the buddy overlay
-	qs(`#btn-view-buddies`).addEventListener(`click`, () => build_buddy_overlay());
-	qs(`#close-buddy`).addEventListener(`click`, () => close_buddy_overlay());
-
-	// Searching for the buddy overlay
-	qs(`#sap-buddy-overlay .search`).addEventListener(`keyup`, () => {
-		const buddies = qsa(`#sap-buddy-overlay .profile-container`);
-		const search = qs(`#sap-buddy-overlay .search`).value;
-
-		buddies.forEach((buddy) => {
-			const persona = buddy.children[1].children[0].innerText.replace(`Persona:\n`, ``).trim().toLowerCase();
-			const steamid = buddy.children[1].children[2].innerText.replace(`SteamID:\n`, ``).trim();
-
-			if (persona.includes(search.toLowerCase())) return buddy.classList.remove(`hidden`);
-			if (steamid.includes(search)) return buddy.classList.remove(`hidden`);
-
-			buddy.classList.add(`hidden`);
-		});
-	});
+	qs(`#btn-view-buddies`).addEventListener(`click`, build_buddy_overlay);
+	qs(`#close-buddy`).addEventListener(`click`, close_buddy_overlay);
+	qs(`#sap-buddy-overlay .search`).addEventListener(`keyup`, search_buddy);
 }
 
-// Display current settings
+// Settings
+function setting_button(button) {
+	if (!button.dataset.category || !button.dataset.setting) return;
+	button.addEventListener(`click`, () => toggle_setting(button.dataset.category, button.dataset.setting));
+}
+function toggle_setting(category, setting) {
+	sap_extension.settings[category][setting] = !sap_extension.settings[category][setting];
+	storage.save_settings();
+	display_settings();
+}
 function display_settings() {
 	const get_button = (name) => qs(`.text #setting-${name}`);
 	const get_classlist = (category, setting) => {
@@ -78,43 +64,44 @@ function display_settings() {
 	get_button(`impersonator-checker-trade`).classList = get_classlist(`trade_window`, `tw_impersonator_scanner`);
 }
 
-/* ------------------------------ Buddy overlay ----------------------------- */
+// Buddy overlay
 function build_buddy_overlay() {
 	qs(`#sap-buddy-overlay`).classList.remove(`hidden`);
 	const buddies = sap_extension.data.user_profiles.buddies;
 	const injection_target = qs(`#sap-buddy-overlay .overlay-content`).children[2];
+
 	buddies.forEach((buddy) => {
 		injection_target.insertAdjacentHTML(`afterend`, html_elements.settings.buddy_container(buddy));
 		const buttons = qsa(`#sap-buddy-overlay .profile-container .button-container .button`);
-		buttons.forEach((button) => {
-			button.addEventListener(`click`, () => {
-				if (button.dataset.function === `remove_buddy`) remove_buddy(button.parentElement.parentElement.parentElement, button.dataset.target);
-			});
-		});
+
+		buttons.forEach((button) => button.addEventListener(`click`, () => buddy_function_click(button.dataset.function)));
 	});
+}
+function search_buddy() {
+	const buddies = qsa(`#sap-buddy-overlay .profile-container`);
+	const search = qs(`#sap-buddy-overlay .search`).value;
+
+	buddies.forEach((buddy) => {
+		const persona = buddy.children[1].children[0].innerText.replace(`Persona:\n`, ``).trim().toLowerCase();
+		const steamid = buddy.children[1].children[2].innerText.replace(`SteamID:\n`, ``).trim();
+
+		if (persona.includes(search.toLowerCase())) return buddy.classList.remove(`hidden`);
+		if (steamid.includes(search)) return buddy.classList.remove(`hidden`);
+
+		buddy.classList.add(`hidden`);
+	});
+}
+function buddy_function_click(type) {
+	if (type === `remove_buddy`) return remove_buddy(button.parentElement.parentElement.parentElement, button.dataset.target);
 }
 function remove_buddy(buddy_listing, steamid) {
 	let buddy = storage.find_buddy(steamid);
 	if (buddy.index === -1) return;
 
-	console.log(buddy.index);
-	sap_extension.data.user_profiles.buddies.splice(buddy.index, 1);
 	buddy_listing.remove();
+	sap_extension.data.user_profiles.buddies.splice(buddy.index, 1);
 	storage.save_settings();
 }
-
-function search_buddy() {
-	qs(`#sap-buddy-overlay .search`).addEventListener(`keyup`, () => {
-		const buddies = qsa(`#sap-buddy-overlay .profile-container`);
-		const search = qs(`#sap-buddy-overlay .search`).innerText;
-		buddies.forEach((buddy) => {
-			if (buddy.children[1].children[0].innerText.includes(search)) return buddy.classList.remove(`hidden`);
-			if (buddy.children[1].children[2].innerText.includes(search)) return buddy.classList.remove(`hidden`);
-			buddy.classList.add(`hidden`);
-		});
-	});
-}
-
 function close_buddy_overlay() {
 	qs(`#sap-buddy-overlay`).classList.add(`hidden`);
 	const buddy_containers = qsa(`#sap-buddy-overlay .profile-container`);

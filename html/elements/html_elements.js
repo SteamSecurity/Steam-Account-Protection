@@ -250,7 +250,7 @@ const html_elements = {
 			</div>
 		</div>
 	</div>`,
-		buddy_button: `<div id="buddy-button" class="btn_profile_action btn_medium"><span style="display:flex; padding: 5px;"><img style="height: 20px;" src="${chrome.extension.getURL('images/user.png')}"></span></div>`,
+		buddy_button: `<div id="buddy-button" class="btn_profile_action btn_medium"><span style="display:flex; padding: 5px;"><img style="height: 20px;" src="${chrome.extension.getURL('images/icons/user.png')}"></span></div>`,
 		buddy_add_warning: (profile = { personaname: 'none', level: 0, steamid: 0 }) => `<div style="display:none;" id="sap-buddy-confirm-overlay" class="sap-overlay">
 		<div class="overlay-content">
 			<div class="top-bar"></div>

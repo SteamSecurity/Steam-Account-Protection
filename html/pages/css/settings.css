@@ -116,3 +116,45 @@
 	margin-bottom: 10px;
 	text-align: center;
 }
+
+#sap-currency-overlay .description {
+	margin-bottom: 10px;
+}
+
+/* -- Overlay additions -- */
+.sap-overlay .currency-container {
+	background-color: rgba(0, 0, 0, 0.3);
+	margin: auto;
+	width: 95%;
+	display: flex;
+	flex-direction: row;
+	padding: 5px 15px;
+	box-sizing: border-box;
+}
+
+.sap-overlay .currency-icon {
+	width: 75px;
+	height: 75px;
+	margin-right: 10px;
+}
+
+.sap-overlay .currency-text-container {
+	display: flex;
+	margin-right: 10px;
+}
+
+.sap-overlay .currency-text {
+	margin: auto;
+	font-size: 1.2em;
+}
+.sap-overlay .currency-value-input {
+	width: 100px;
+	height: 20px;
+	text-align: center;
+}
+
+.sap-overlay .container {
+	display: flex;
+	margin: auto;
+	margin-right: 0;
+}
