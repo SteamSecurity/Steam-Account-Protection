@@ -14,16 +14,16 @@ function profile() {
 	// Decide what functions to execute depending on the user settings
 
 	load_custom_content();
-	buddy_data = storage.find_buddy(profile.steamid);																							// Get the saved buddy data
+	buddy_data = storage.find_buddy(profile.steamid);																						// Get the saved buddy data
 	if (sap_extension.settings.profile.buddy_button && is_not_owner()) buddy();   							// The Buddy system
 	if (sap_extension.settings.profile.pr_reputation_scanner) reputation_scanner(); 						// Scan the user`s reputation and display it
 	if (sap_extension.settings.profile.pr_impersonator_scanner) impersonator_scanner(profile); 	// Checks if the user is a potential impersonator
 
 	/* -------------------------------- Functions ------------------------------- */
 	function load_custom_content() {
-		// Stylesheets
 		qs(`head`).insertAdjacentHTML(`beforeend`, `<link type="text/css" rel="stylesheet" href="${chrome.extension.getURL(`html/stylesheets/overlay.css`)}">`);
 		qs(`head`).insertAdjacentHTML(`beforeend`, `<link type="text/css" rel="stylesheet" href="${chrome.extension.getURL(`html/stylesheets/profile.css`)}">`);
+		qs(`head`).insertAdjacentHTML(`beforeend`, `<link type="text/css" rel="stylesheet" href="${chrome.extension.getURL(`html/stylesheets/generic.css`)}">`);
 	}
 	function buddy() {
 		qs(`.profile_header_actions`).insertAdjacentHTML(`beforeend`, html_elements.profile.buddy_button);
@@ -93,9 +93,11 @@ function profile() {
 			if (reputation_data.pending_reports > 0) pending_reports.classList.add(`sap-warning`);		// Sets the warning color if there are more than 0 reports,
 
 			// Set the tags of the user
-			if (reputation_data.bad_tags.length > 0) return set_tag(reputation_data.bad_tags.toString().replace(/\,/g, `, `), `sap-critical`);
-			if (reputation_data.good_tags.length > 0) return set_tag(reputation_data.good_tags.toString().replace(/\,/g, `, `), `sap-good`);
-			return set_tag(`Normal`);
+			if (reputation_data.bad_tags.length > 0)
+				return set_tag(reputation_data.bad_tags.toString().replace(/\,/g, `, `), `sap-critical`);
+			else if (reputation_data.good_tags.length > 0)
+				return set_tag(reputation_data.good_tags.toString().replace(/\,/g, `, `), `sap-good`);
+			else return set_tag(`Normal`);
 		}
 		function error() {
 			set_tag(`Error`, `sap-warning`);

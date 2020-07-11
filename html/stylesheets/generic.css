@@ -1,0 +1,85 @@
+/* -------------------------------- Statuses -------------------------------- */
+.hidden {
+	display: none !important;
+}
+.invisible {
+	opacity: 0;
+}
+
+/* --------------------------------- Buttons -------------------------------- */
+.button-container {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.button {
+	border-radius: 2px;
+	border: 0;
+	color: #ebebeb;
+	font-size: 0.9em;
+	display: inline-block;
+	text-decoration: none;
+	cursor: pointer;
+	background-color: #3c4d6d;
+	transition: all 0.1s ease-in-out;
+	padding: 5px 35px;
+}
+.button:hover,
+.button:focus {
+	text-decoration: none;
+	background-color: #54698f;
+	color: white !important;
+	filter: drop-shadow(1px 5px 10px rgba(0, 0, 0, 0.25));
+}
+.btn_secondary {
+	font-size: 1em;
+	padding: 5px 25px;
+	background-color: #4a556b;
+}
+
+.btn_active {
+	background-color: #2a55a7;
+	color: white !important;
+}
+
+.btn_active:hover,
+.btn_active:focus {
+	background-color: #4267af;
+}
+
+.btn_good {
+	background-color: #037504;
+	color: white !important;
+}
+.btn_good:hover,
+.btn_good:focus {
+	background-color: #009501 !important;
+}
+
+.text-container .right .btn_bad {
+	background-color: #a20101;
+	color: white !important;
+}
+.btn_bad:hover,
+.btn_bad:focus {
+	background-color: #af3232 !important;
+}
+
+/* --------------------------------- Colors --------------------------------- */
+.sap-good {
+	color: #26ff00;
+}
+.sap-warning {
+	color: #ffe100;
+}
+.sap-critical {
+	color: #ff4c4c;
+}
+
+/* .steam-text-white {
+	color: #ebebeb;
+}
+ */
+.steam-highlight {
+	color: #63b7e7 !important;
+}

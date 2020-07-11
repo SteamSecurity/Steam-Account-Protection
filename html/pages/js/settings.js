@@ -48,8 +48,8 @@ function display_settings() {
 	const get_button = (name) => qs(`.text #setting-${name}`);
 	const get_classlist = (category, setting) => {
 		const is_enabled = (category, setting) => sap_extension.settings[category][setting];
-		if (is_enabled(category, setting)) return `button btn_enable`;
-		else return `button btn_disable`;
+		if (is_enabled(category, setting)) return `button btn_good`;
+		else return `button btn_bad`;
 	};
 
 	// Profile

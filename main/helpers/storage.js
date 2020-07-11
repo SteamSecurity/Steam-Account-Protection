@@ -1,13 +1,14 @@
 const storage = {
 	save_settings: (set_default) => {
-		if (!set_default) return chrome.storage.local.set({ sap_extension: sap_extension });  // Save the current settings
+		if (!set_default) {
+			return chrome.storage.local.set({ sap_extension: sap_extension });  // Save the current settings
+		}
 
 		// Save the default settings
 		sap_extension = {
 			settings: {
 				trade_window: {
 					api_warning: true,
-					trade_toolbar: true,
 					tw_reputation_scanner: true,
 					tw_impersonator_scanner: true
 				},
@@ -54,5 +55,13 @@ const storage = {
 			}
 		});
 		return data;
+	},
+	find_steamrep: (steamid) => {
+		let response = {};
+		sap_extension.data.user_profiles.steamrep_profiles.find((steamrep_data) => {
+			if (steamrep_data.steamid === steamid)
+				response = steamrep_data;
+		});
+		return response;
 	}
 }

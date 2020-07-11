@@ -24,48 +24,11 @@
 }
 
 /* --------------------------------- Buttons -------------------------------- */
-.text-container .right .button {
-	border-radius: 2px;
-	color: white !important;
-	padding: 1px;
-	display: inline-block;
-	text-decoration: none;
-	cursor: pointer;
-	background-color: #3c4d6d;
-	transition: all 0.1s ease-in-out;
-	padding: 5px 35px;
-}
-
-.text-container .right .btn_enable {
-	background-color: #037504;
-	color: white !important;
-}
-.text-container .right .btn_enable::before {
+.text-container .right .btn_good::before {
 	content: "Enabled" !important;
 }
-.text-container .right .btn_enable:hover,
-.text-container .right .btn_enable:focus {
-	background-color: #009501 !important;
-}
-
-.text-container .right .btn_disable {
-	background-color: #a20101;
-	color: white !important;
-}
-.text-container .right .btn_disable::before {
+.text-container .right .btn_bad::before {
 	content: "Disabled";
-}
-
-.text-container .right .btn_disable:hover,
-.text-container .right .btn_disable:focus {
-	background-color: #af3232 !important;
-}
-
-.text-container .right .button:hover,
-.text-container .right .button:focus {
-	text-decoration: none;
-	background-color: #54698f;
-	filter: drop-shadow(1px 5px 10px rgba(0, 0, 0, 0.25));
 }
 
 /* ---------------------------- Overlay overrides --------------------------- */

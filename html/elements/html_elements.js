@@ -3,9 +3,9 @@ const html_elements = {
 		impersonator_warning: () => {
 			let body_data;
 			if (loc.result === `trade_offer`) {
-				body_data = { subtitle: `Please exercise caution when trading`, partner_header: `Your Trade Partner:`, main_user_header: `Potentialy Impersonated:` };
+				body_data = { subtitle: `Please exercise caution when trading`, partner_header: `Your Trade Partner:`, main_user_header: `Potentially Impersonated:` };
 			} else {
-				body_data = { subtitle: `Please verify this user is who you think it is.`, partner_header: `This user:`, main_user_header: `Potentialy Impersonated:` };
+				body_data = { subtitle: `Please verify this user is who you think it is.`, partner_header: `This user:`, main_user_header: `Potentially Impersonated:` };
 			}
 
 			return `<div class="overlay">
@@ -28,16 +28,16 @@ const html_elements = {
 						</div>
 					</a>
 					<div class="header-desc">${body_data.main_user_header}</div> <a id="impersonator-impersonated-url"
-						target="_blank" class="box-desc" href="https://steamcommunity.com"> <img
-							id="impersonator-impersonated-profile-picture" title="This user's Profile Picture" src="">
+						target="_blank" class="box-desc" href="https://steamcommunity.com"> 
+							<img id="impersonator-impersonated-profile-picture" title="This user's Profile Picture" src="">
 						<div class="box-main">
 							<div id="impersonator-impersonated-personaname" title="This user's Persona name"></div>
 							<div id="impersonator-impersonated-steamid" title="This user's Steam ID"></div>
 						</div>
 						<div class="box-level">
 							<div class="trade_partner_steam_level">
-								<div title="This user's Steam Level" class="friendPlayerLevel"> <span
-										id="impersonator-impersonated-level" class="friendPlayerLevelNum"></span> </div>
+								<div title="This user's Steam Level" class="friendPlayerLevel"> 
+								<span id="impersonator-impersonated-level" class="friendPlayerLevelNum"></span> </div>
 							</div>
 						</div>
 					</a>
@@ -49,9 +49,9 @@ const html_elements = {
 		bot_impersonator_warning: () => {
 			let body_data;
 			if (loc.result === `trade_offer`) {
-				body_data = { subtitle: `Please exercise caution when trading`, partner_header: `Your Trade Partner:`, main_user_header: `Potentialy Impersonated:` };
+				body_data = { subtitle: `Please exercise caution when trading`, partner_header: `Your Trade Partner:`, main_user_header: `Potentially Impersonated:` };
 			} else {
-				body_data = { subtitle: `Please verify this user is who you think it is.`, partner_header: `This user:`, main_user_header: `Potentialy Impersonated:` };
+				body_data = { subtitle: `Please verify this user is who you think it is.`, partner_header: `This user:`, main_user_header: `Potentially Impersonated:` };
 			}
 			return `<div class="overlay">
 			<div id="bot-impersonator-warning" class="overlay-content">
@@ -83,6 +83,7 @@ const html_elements = {
 	},
 	settings: {
 		buddy_container: (buddy) => {
+			//TODO: Check if "return" is needed. It shouldn't be 
 			return `<div class="profile-container">
 				<img class="profile-icon" src="${buddy.profile_picture}">
 				<div class="description">
@@ -147,35 +148,43 @@ const html_elements = {
 			<div id="reputation-warning-close" class="close-overlay">Click here to close</div>
 		</div>
 	</div>`,
-		trade_toolbar: `
-		<div id="trade-toolbar" class="trade_partner_info_block group" style="display:flex; border: 1px solid #5faad7">
+		trade_toolbar: (profile) => `
+		<div class="trade-header"><span>Trade offer with&nbsp;<a class="steam-highlight" target="_blank" href="https://steamcommunity.com/profiles/${profile.steamid}">${profile.personaname}</a></span></div>
+		<div id="trade-toolbar" class="trade_partner_info_block group">
 			<div class="body" style="text-align: center; font-size: 1.4em; color:white;margin:auto;">
-				<button class="button bpanel" id="trade-toolbar-open-reputation" ><span>Reputation</span></button>
-				<button class="button" id="trade-toolbar-open-backpacktf" ><span>Backpack.TF</span></button>
-				<button class="button bpanel"id="trade-toolbar-open-warnings"><span>Warnings</span></button>
+				<a class="button bpanel btn_active" data-target="partner"><span>Partner Info</span></a>
+				<a class="button bpanel" data-target="reputation"><span>Reputation</span></a>
+				<!--<a class="button" id="open-partner-inventory" data-target="inventory"><span>Inventory</span></a>-->
+				<a class="button bpanel" data-target="warnings"><span>Warnings</span></a>
 			</div>
-      <div id="trade-toolbar-reputation" class="invisible trade-toolbar-info-box">
-        <div id="trade-toolbar-disabled-notice" class="warning" style="display:none;">Reputation Scanner Disabled!</div>
-        <div id="trade-toolbar-rep-steamBans" class="community-container"> <div class="community-title">Steam</div> </div> 
-        <div id="trade-toolbar-rep-stfBans" class="community-container"> <div class="community-title">Scrap.tf</div> </div> 
-        <div id="trade-toolbar-rep-mpBans" class="community-container"> <div class="community-title">Marketplace.tf</div> </div> 
-        <div id="trade-toolbar-rep-bzBans" class="community-container"> <div class="community-title">Bazaar.tf</div> </div> 
-        <div id="trade-toolbar-rep-ppmBans" class="community-container"> <div class="community-title">PPM</div> </div> 
-        <div id="trade-toolbar-rep-hgBans" class="community-container"> <div class="community-title">Harpoon</div> </div> 
-        <div id="trade-toolbar-rep-nhsBans" class="community-container"> <div class="community-title">Neon Heights</div> </div> 
-        <div id="trade-toolbar-rep-stBans" class="community-container"> <div class="community-title">SMT</div> </div> 
-        <div id="trade-toolbar-rep-fogBans"class="community-container"> <div class="community-title">FoG Trade</div> </div> 
-        <div id="trade-toolbar-rep-etf2lBans" class="community-container"> <div class="community-title">ETF2L</div> </div> 
-        <div id="trade-toolbar-rep-bptfBans" class="community-container"> <div class="community-title">Backpack.tf</div> </div> 
-        <div id="trade-toolbar-rep-srBans" class="community-container"> <div class="community-title">SteamRep</div> </div>
-			</div>
-			<div id="trade-toolbar-warnings" class="invisible trade-toolbar-info-box">
-				<div id="trade-toolbar-warnings-list">
-					<div id="trade-toolbar-warning-community-bans" class="warning" style="display:none;">Banned from at least one community!</div>
-					<div id="trade-toolbar-warning-bot-impostor" class="warning" style="display:none;">May be impersonating a trading bot!</div>
-					<div id="trade-toolbar-warning-user-impostor" class="warning" style="display:none;">May be impersonating a trusted user!</div>
+			<div class="info-box" id="trade-toolbar-partner">
+				<div class="partner-info-container">
+					<span><span class="${profile.is_friend ? `sap-good` : `sap-warning`}">${profile.is_friend ? `${profile.personaname} is a friend!` : `${profile.personaname} is NOT a friend!`}</span></span>
+				</div>
+				<div class="partner-info-container">
+					<span>Account level: <span class="friendPlayerLevel ${steam.level_class(profile.level)}">${profile.level}</span></span>
+				</div>
+				<div class="partner-info-container">
+					<span>Account created: <span class="steam-highlight">${profile.account_creation_date}</span></span>
+				</div>
+				<!--TODO: Create function to more accurately display the account creation date-->
+				<div class="partner-info-container">
+					<span>Account age: <span class="steam-highlight">${new Date().getFullYear() - Number(profile.account_creation_date.split(`, `)[1])} years</span></span>
 				</div>
 			</div>
+			<div class="info-box hidden" id="trade-toolbar-reputation">
+				<div class="partner-info-container">
+					<span>Reputation: <span id="reputation-results"></span></span>
+				</div>
+				<div class="partner-info-container">
+					<span>Checked: <span id="reputation-last-check"></span></span>
+				</div>
+				<div class="partner-info-container">
+					<span><a class="button btn_secondary" target="_blank" href="https://rep.tf/${profile.steamid}">Check Rep.TF</a> <a class="button btn_secondary" target="_blank" href="https://steamrep.com/search?q=${profile.steamid}">Check SteamRep</a></span>
+				</div>
+			</div>
+			<div class="info-box hidden" id="trade-toolbar-inventory"></div>
+			<div class="info-box hidden" id="trade-toolbar-warnings"></div>
 		</div>`
 	},
 	profile: {

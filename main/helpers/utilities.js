@@ -4,7 +4,7 @@ const qsa = (tag) => document.querySelectorAll(tag);
 
 /* ---------------------------------- Time ---------------------------------- */
 const time = {
-	current_time: () => Math.floor(Date.now() / 1000),																			//Returns the current time in seconds
+	current_time: () => Math.floor(Date.now() / 1000),																			// Returns the current time in seconds
 	//TODO: Need example to show here in comments
 	utc_to_string: (utc_time) => new Date(new Date(utc_time).getTime()).toLocaleString(),		// Converts utc time into a readable string.
 	hours_to_seconds: (hours) => hours * 60 * 60,
@@ -44,22 +44,20 @@ const compare = {
 
 /* ---------------------------------- Misc ---------------------------------- */
 //Custom console.log formatting
-function log(data, type) {
+function log(data) {
 	if (typeof data === 'string') return console.log(`%c[SAP] [${new Date().toLocaleString()}] ${data}`, 'color: #ffffff');
 	console.log(`%c[SAP] [${new Date().toLocaleString()}] ↓`, 'color: #ffffff');
 	console.log(data);
 }
 
+function array_to_string(arr) {
+	let response = ``;
+	if (arr.length === 0) return;
 
-const find_user = {
-	buddy: (steamid) => {
-		let data = { response: {}, index: -1, is_buddy: () => data.index !== -1 };
-		sap_extension.data.user_profiles.buddies.find((buddy, index) => {
-			if (buddy.steamid === steamid) {
-				data.response = buddy;
-				data.index = index;
-			}
-		});
-		return data;
-	}
-};
+	arr.forEach((item, index) => {
+		response += item;
+		if (index !== (arr.length - 1))
+			response += `, `;
+	});
+	return response;
+}

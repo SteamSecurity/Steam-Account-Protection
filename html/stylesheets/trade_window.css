@@ -1,229 +1,61 @@
-.overlay {
-	background-color: #000000b5;
-	position: fixed;
-	display: flex;
-	width: 100%;
-	height: 100%;
-	z-index: 1000;
-}
-
 .invisible {
 	max-height: 0px !important;
 	margin-top: 0px !important;
 }
 
 /*<--  Trade Toolbar  -->*/
-#trade-toolbar {
-	flex-direction: column;
-}
-
-#trade-toolbar .button {
-	width: 200px;
-	height: 40px;
+.trade-header {
+	background-color: rgba(0, 0, 0, 0.25);
+	box-sizing: border-box;
+	padding: 10px;
 	display: flex;
-	cursor: pointer;
-	background-color: #fff0;
-	border: 0 solid white;
-	color: white;
-	text-shadow: black 0 0 1px;
-	text-align: center;
-	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-	font-size: 1em;
-	justify-content: center;
-	transition: background-color, 0.1s;
+	font-size: 1.8em;
+	font-style: italic;
 }
-#trade-toolbar .button:hover {
-	background-color: #00a1ff73;
+.trade-header span {
+	color: #ebebeb;
+	margin: auto;
 }
-#trade-toolbar .button:focus {
-	background-color: #00a1ff73;
+.trade-header span a {
+	text-decoration: underline;
+	margin: auto;
 }
 
-#trade-toolbar .warning {
-	font-size: 1.3em;
-	text-align: center;
-	margin-top: 5px;
-	margin-bottom: 5px;
+#trade-toolbar {
+	display: flex;
+	flex-direction: column;
 	width: 100%;
-	color: #e4e4e4;
+
+	margin-right: 0;
+	margin-bottom: 0;
+	margin-top: 10px;
+	box-sizing: border-box;
 }
 
-#trade-toolbar .trade-toolbar-info-box {
-	background-color: #1d242f;
+#trade-toolbar .info-box {
+	display: flex;
 	width: 100%;
 	max-height: 200px;
+	margin-top: 10px;
+	padding: 5px;
+	box-sizing: border-box;
 	overflow: hidden;
 	justify-content: center;
-	margin-top: 10px;
-	display: flex;
 	flex-wrap: wrap;
-	transition: max-height 0.3s, margin-top 0.3s;
+	background-color: rgba(0, 0, 0, 0.25);
+	transition: all 0.3s ease-in-out;
 }
-
-#trade-toolbar .community-container {
-	margin-top: 10px;
-	color: white;
-	text-shadow: black 0 0 1px;
-	text-align: center;
-	font-size: 1.2em;
-	opacity: 0.1;
-}
-
-#trade-toolbar .body {
-	margin-top: 0 !important;
-	margin-bottom: 0 !important;
-	display: flex;
-}
-#trade-toolbar .body span {
-	margin: auto;
-}
-
-/*<--  Impersonator Warning  -->*/
-.overlay-content {
-	width: 400px;
-	height: auto;
-	margin: auto;
-	border-radius: 3px;
-	background-color: #4a5765;
-	box-shadow: black 0 0 14px;
-	color: white;
-	text-shadow: black 0 0 1px;
-	text-align: center;
-	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-	justify-content: center;
-}
-
-.overlay .title {
-	background-color: #1f2f41;
-	width: 100%;
-	border-top-left-radius: 3px;
-	border-top-right-radius: 3px;
-	padding: 5px;
-	font-size: 1.6em;
-	box-sizing: border-box;
-	margin-bottom: 10px;
-}
-
-.overlay .desc {
-	margin-bottom: 10px;
-}
-
-.overlay .body .header-desc {
-	text-align: left;
-	margin-left: 20px;
-	margin-right: 20px;
-	padding: 6px 10px;
-	background-color: #1f2f41;
-}
-
-.overlay .body .box-desc {
-	background-color: black;
-	width: 90%;
-	height: 70px;
-	margin: auto;
-	margin-bottom: 20px;
-	display: flex;
-}
-
-.overlay img {
-	height: 90%;
-	width: auto;
-	margin: auto;
-}
-
-#bot-impersonator-warning .box-main {
-	margin: auto;
-}
-
-.overlay .box-main {
-	width: 50%;
-	display: flex;
-	flex-direction: column;
-}
-
-.overlay .box-main div {
-	margin: auto;
-}
-
-.overlay .box-level {
-	width: 20%;
-	display: flex;
-}
-
-.overlay .trade_partner_steam_level {
-	margin: auto;
-}
-
-.overlay .close-overlay {
-	width: 90%;
-	margin: auto;
-	margin-bottom: 10px;
-	cursor: pointer;
-	background-color: #0a1827;
-	padding: 10px;
-	box-sizing: border-box;
-	transition: background-color, 0.1s;
-}
-
-.overlay .close-overlay:hover {
-	background-color: #066592;
-}
-
-/* <--  Reputation Warning  --> */
-#reputation-warning {
-	width: 400px;
-	height: auto;
-	margin: auto;
-	border-radius: 3px;
-	background-color: #4a5765;
-	box-shadow: black 0 0 14px;
-	color: white;
-	text-shadow: black 0 0 1px;
-	text-align: center;
-	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-	justify-content: center;
-}
-
-#reputation-warning .title {
-	background-color: #1f2f41;
-	width: 100%;
-	border-top-left-radius: 3px;
-	border-top-right-radius: 3px;
-	padding: 5px;
-	font-size: 1.6em;
-	box-sizing: border-box;
-	margin-bottom: 10px;
-}
-
-#reputation-warning .desc {
-	margin-bottom: 10px;
-}
-
-#reputation-warning .body {
-	background-color: #1e2329;
-	width: 90%;
-	height: auto;
-	margin: auto;
-	margin-bottom: 20px;
-	padding: 10px;
-	padding-bottom: 0px;
-	box-sizing: border-box;
-	display: flex;
-	flex-wrap: wrap;
-	box-shadow: inset black 0 0 2px;
-}
-
-.community-container {
-	width: 125px;
-	background-color: #ab0101;
-	margin: auto;
+.partner-info-container {
+	background-color: rgba(0, 0, 0, 0.25);
+	min-width: 20%;
+	height: 30px;
 	padding: 5px 10px;
-	margin-bottom: 10px;
-	-webkit-user-select: none;
-	opacity: 0.1; /* Default because we will set opacity:1 to only banned communities */
+	color: #ebebeb;
+	text-align: center;
+	display: flex;
+	margin: auto;
 }
 
-.community-container .community-title {
+.partner-info-container span {
 	margin: auto;
-	font-size: 1.2em;
 }

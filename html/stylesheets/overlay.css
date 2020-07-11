@@ -91,51 +91,6 @@
 .sap-overlay .profile-container .description div:focus {
 	background-color: #0ba5ff3d;
 }
-/* --------------------------------- Buttons -------------------------------- */
-
-.sap-overlay .button-container {
-	margin-left: auto;
-	margin-right: auto;
-}
-
-.sap-overlay .button {
-	border-radius: 2px;
-	color: white !important;
-	padding: 1px;
-	display: inline-block;
-	text-decoration: none;
-	cursor: pointer;
-	background-color: #3c4d6d;
-	transition: all 0.1s ease-in-out;
-	padding: 5px 35px;
-}
-
-.sap-overlay .btn_good {
-	background-color: #037504;
-	color: white !important;
-}
-.sap-overlay .btn_good:hover,
-.sap-overlay .btn_good:focus {
-	background-color: #009501 !important;
-}
-
-.sap-overlay .button:hover,
-.sap-overlay .button:focus {
-	text-decoration: none;
-	background-color: #54698f;
-	filter: drop-shadow(1px 5px 10px rgba(0, 0, 0, 0.25));
-}
-
-/* --------------------------------- Colors --------------------------------- */
-.sap-good {
-	color: #26ff00;
-}
-.sap-warning {
-	color: #ffe100;
-}
-.sap-critical {
-	color: #ff4c4c;
-}
 /* ------------------------------- Adjustments ------------------------------ */
 @media all and (max-width: 550px) {
 	.sap-overlay .image-container {
