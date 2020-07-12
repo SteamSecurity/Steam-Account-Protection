@@ -23,6 +23,7 @@
 	background-color: #3c4d6d;
 	transition: all 0.1s ease-in-out;
 	padding: 5px 35px;
+	user-select: none;
 }
 .button:hover,
 .button:focus {
@@ -38,7 +39,7 @@
 }
 
 .btn_active {
-	background-color: #2a55a7;
+	background: radial-gradient(circle at top left, #3e74d8 0%, #3063c3 60%), #25282e !important;
 	color: white !important;
 }
 
@@ -49,6 +50,7 @@
 
 .btn_good {
 	background-color: #037504;
+	background: radial-gradient(circle at top left, #0db90e 0%, #059606 60%), #25282e;
 	color: white !important;
 }
 .btn_good:hover,
@@ -56,8 +58,8 @@
 	background-color: #009501 !important;
 }
 
-.text-container .right .btn_bad {
-	background-color: #a20101;
+.btn_bad {
+	background: radial-gradient(circle at top left, #d01313 0%, #b50101 60%), #25282e;
 	color: white !important;
 }
 .btn_bad:hover,

@@ -59,3 +59,7 @@
 .partner-info-container span {
 	margin: auto;
 }
+
+.partner-info-container .warning-text {
+	font-size: 1.3em;
+}

@@ -59,7 +59,6 @@ function display_settings() {
 
 	// Trading
 	get_button(`api-warning`).classList = get_classlist(`trade_window`, `api_warning`);
-	get_button(`trading-toolbar`).classList = get_classlist(`trade_window`, `trade_toolbar`);
 	get_button(`reputation-checker-trade`).classList = get_classlist(`trade_window`, `tw_reputation_scanner`);
 	get_button(`impersonator-checker-trade`).classList = get_classlist(`trade_window`, `tw_impersonator_scanner`);
 }

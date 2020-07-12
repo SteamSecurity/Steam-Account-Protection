@@ -2,30 +2,25 @@ const api = {
 	reputation: {
 		steamrep: (steamid) => {
 			return new Promise(async (resolve, reject) => {
-				let profile_data = {
-					steamid: steamid,
-					good_tags: [],
-					bad_tags: [],
-					pending_reports: 0,
-					pending_reports_link: null,
-					last_check: 0
-				};
 				let profile_reputation;
 
 				/* -------------------- Check for existing SteamRep data -------------------- */
 				profile_reputation = storage.find_steamrep(steamid.toString());
-				if (profile_reputation && time.check_age(profile_reputation.last_check, 1))
+				if (profile_reputation && time.check_age(profile_reputation.last_check * 1000, 1))
 					return resolve(profile_reputation);
+
+
 
 				/* ------------------------ Create new SteamRep data ------------------------ */
 				// Master
-				console.log(`Requesting new data`);
+				log(`No SteamRep for ${steamid}. Creating.`);
 				webrequest(`get`, `https://steamrep.com/api/beta4/reputation/${steamid}?extended=1&json=1&tagdetails=1`)
 					.then(format)
 					.then(save)
 					.then((res) => resolve(res));
 				//.catch(reject);
 
+				// Functions
 				function format(raw_response) {
 					return new Promise((resolve, reject) => {
 						let response = {};
@@ -33,6 +28,7 @@ const api = {
 						catch { reject(`Could not convert ${raw_response} to json`); }
 						const steamrep = JSON.parse(raw_response).steamrep;
 
+						response.steamid = steamid;
 						response.last_check = time.current_time();
 						response.pending_reports = steamrep.stats.unconfirmedreports.reportcount;
 						response.pending_reports_link = steamrep.stats.unconfirmedreports.reportlink;
@@ -65,63 +61,6 @@ const api = {
 						resolve(steamrep_data);
 					});
 				}
-
-				/* 
-								// Functions 
-								function format(web_response) {
-									return new Promise((resolve, reject) => {
-										try { JSON.parse(web_response); }
-										catch { reject(`Could not convert ${web_response} to json`); }
-										const response = JSON.parse(web_response).steamrep;
-				
-										profile_data.last_check = time.current_time();
-										profile_data.pending_reports = response.stats.unconfirmedreports.reportcount;
-										profile_data.pending_reports_link = response.stats.unconfirmedreports.reportlink;
-				
-										if (response.reputation.tags) {
-											tags(response)
-												.then((tag_object) => {
-													profile_data.good_tags = tag_object.good_tags;
-													profile_data.bad_tags = tag_object.bad_tags;
-												})
-												.then(resolve(profile_data));
-										} else {
-											resolve(profile_data);
-										}
-				
-									});
-				
-								}
-				
-								function tags(response) {
-									return new Promise((resolve, reject) => {
-										let tag_response = { bad_tags: [], good_tags: [] };
-				
-										// Steamrep doesn't use an array for people with a single tag
-										if (!response.reputation.tags.tag[0]) {
-											if (response.reputation.tags.tag.category == 'trusted') tag_response.good_tags.push(response.reputation.tags.tag.name);
-											if (response.reputation.tags.tag.category == 'evil') tag_response.bad_tags.push(response.reputation.tags.tag.name);
-										}
-										// If we do have an array, we have more than one tag to categorize
-										if (response.reputation.tags.tag[0]) {
-											response.reputation.tags.tag.forEach((tag) => {
-												if (tag.category === 'trusted') tag_response.good_tags.push(tag.name);
-												if (tag.category === 'evil') tag_response.bad_tags.push(tag.name);
-											});
-										}
-										resolve(tag_response);
-									});
-				
-								}
-				
-								function save() {
-									return new Promise((resolve, reject) => {
-										sap_extension.data.user_profiles.steamrep_profiles.push(profile_data);
-										storage.save_settings();
-										resolve()
-									});
-				
-								} */
 			});
 		}
 	},
@@ -131,8 +70,8 @@ const api = {
 			const pattern = { steamid: /7[0-9]{16}/g, xml_next_page: /<nextPageLink>[!-z]+<\/nextPageLink>/g, xml_total_pages: /<totalPages>[0-9]+<\/totalPages>/g, number: /[0-9]+/ };
 
 			marketplace();  // Get Marketplace.tf bots
-			mannco();  // Get Mannco.Store bots
-			bitskins();  // Get Bitskins bots
+			mannco();  			// Get Mannco.Store bots
+			bitskins();  		// Get Bitskins bots
 			return;
 
 			async function marketplace() {
@@ -143,9 +82,9 @@ const api = {
 				let bots = []; // Array of SteamID64s
 
 				response.bots.forEach((bot) => bots.push(bot.steamid)); // Push only the SteamIDs of the bots
-				sap_extension.data.bot_profiles.marketplace = bots; // Update internal settings
+				sap_extension.data.bot_profiles.marketplace = bots; 		// Update internal settings
+				log(`Got ${response.bots.length} Marketplace.tf bots`);	// Log to console
 
-				log(`Got ${response.bots.length} Marketplace.tf bots`); // Log to console
 				sap_extension.data.bot_profiles.last_check = time.current_time();
 				storage.save_settings();
 			}

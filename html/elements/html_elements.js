@@ -155,7 +155,7 @@ const html_elements = {
 				<a class="button bpanel btn_active" data-target="partner"><span>Partner Info</span></a>
 				<a class="button bpanel" data-target="reputation"><span>Reputation</span></a>
 				<!--<a class="button" id="open-partner-inventory" data-target="inventory"><span>Inventory</span></a>-->
-				<a class="button bpanel" data-target="warnings"><span>Warnings</span></a>
+				<a id="warning-button" class="button bpanel" data-target="warnings"><span>Warnings</span></a>
 			</div>
 			<div class="info-box" id="trade-toolbar-partner">
 				<div class="partner-info-container">
@@ -185,7 +185,8 @@ const html_elements = {
 			</div>
 			<div class="info-box hidden" id="trade-toolbar-inventory"></div>
 			<div class="info-box hidden" id="trade-toolbar-warnings"></div>
-		</div>`
+		</div>`,
+		trade_toolbar_box: (text) => `<div class="partner-info-container"><span class="warning-text">${text}</span></div>`
 	},
 	profile: {
 		reputation_panel: (profile) => `<div id="reputation-panel" class="profile_customization" style="height:auto;">

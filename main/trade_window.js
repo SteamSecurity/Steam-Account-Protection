@@ -70,14 +70,17 @@ function trade_window() {
 			button_element.blur();
 		}
 		function show_on_toolbar(reputation) {
+			// Reputation options
 			const reputation_element = qs(`#reputation-results`);
 			const last_check_element = qs(`#reputation-last-check`);
+			const warning_element = qs(`#trade-toolbar-warnings`);
 
 			last_check_element.innerText = time.utc_to_string(reputation.last_check * 1000);
 
 			if (reputation.bad_tags.length !== 0) {
 				reputation_element.classList.add(`sap-critical`);
 				reputation_element.innerText = array_to_string(reputation.bad_tags);
+				add_warning(`Bad Reputation`);
 			} else if (reputation.good_tags.length !== 0) {
 				reputation_element.classList.add(`sap-good`);
 				reputation_element.innerText = array_to_string(reputation.good_tags);
@@ -85,6 +88,11 @@ function trade_window() {
 				reputation_element.innerText = `Normal`;
 			}
 
+			function add_warning(text) {
+				const warning_button = qs(`#trade-toolbar #warning-button`);
+				warning_button.classList.add(`btn_bad`);
+				warning_element.insertAdjacentHTML(`beforeend`, html_elements.trade_window.trade_toolbar_box(text));
+			}
 		}
 	}
 	function show_api_warning() {
