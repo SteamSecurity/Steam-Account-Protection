@@ -152,10 +152,10 @@ const html_elements = {
 		<div class="trade-header"><span>Trade offer with&nbsp;<a class="steam-highlight" target="_blank" href="https://steamcommunity.com/profiles/${profile.steamid}">${profile.personaname}</a></span></div>
 		<div id="trade-toolbar" class="trade_partner_info_block group">
 			<div class="body" style="text-align: center; font-size: 1.4em; color:white;margin:auto;">
-				<a class="button bpanel btn_active" data-target="partner"><span>Partner Info</span></a>
-				<a class="button bpanel" data-target="reputation"><span>Reputation</span></a>
+				<a class="button bpanel btn_active " data-target="partner"><span>Partner Info</span></a>
+				<a id="reputation-button" class="button bpanel hidden" data-target="reputation"><span>Reputation</span></a>
 				<!--<a class="button" id="open-partner-inventory" data-target="inventory"><span>Inventory</span></a>-->
-				<a id="warning-button" class="button bpanel" data-target="warnings"><span>Warnings</span></a>
+				<a id="warning-button" class="button bpanel hidden" data-target="warnings"><span>Warnings</span></a>
 			</div>
 			<div class="info-box" id="trade-toolbar-partner">
 				<div class="partner-info-container">
@@ -169,7 +169,7 @@ const html_elements = {
 				</div>
 				<!--TODO: Create function to more accurately display the account creation date-->
 				<div class="partner-info-container">
-					<span>Account age: <span class="steam-highlight">${new Date().getFullYear() - Number(profile.account_creation_date.split(`, `)[1])} years</span></span>
+					<span>Account age: <span class="steam-highlight">${steam.account_age(profile.account_creation_date)}</span></span>
 				</div>
 			</div>
 			<div class="info-box hidden" id="trade-toolbar-reputation">

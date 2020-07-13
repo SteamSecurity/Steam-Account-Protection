@@ -9,16 +9,14 @@ const api = {
 				if (profile_reputation && time.check_age(profile_reputation.last_check * 1000, 1))
 					return resolve(profile_reputation);
 
-
-
 				/* ------------------------ Create new SteamRep data ------------------------ */
 				// Master
 				log(`No SteamRep for ${steamid}. Creating.`);
 				webrequest(`get`, `https://steamrep.com/api/beta4/reputation/${steamid}?extended=1&json=1&tagdetails=1`)
 					.then(format)
 					.then(save)
-					.then((res) => resolve(res));
-				//.catch(reject);
+					.then((res) => resolve(res))
+					.catch(reject);
 
 				// Functions
 				function format(raw_response) {

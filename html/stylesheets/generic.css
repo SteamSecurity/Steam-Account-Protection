@@ -16,6 +16,7 @@
 	border-radius: 2px;
 	border: 0;
 	color: #ebebeb;
+	text-shadow: rgba(0, 0, 0, 0.5) 0 0 2px;
 	font-size: 0.9em;
 	display: inline-block;
 	text-decoration: none;
@@ -66,6 +67,14 @@
 .btn_bad:focus {
 	background-color: #af3232 !important;
 }
+/* .btn_warning {
+	background: radial-gradient(circle at top left, #9a9c00 0%, #7e8000 60%), #25282e;
+	color: white !important;
+}
+.btn_warning:hover,
+.btn_warning:focus {
+	background-color: #af3232 !important;
+} */
 
 /* --------------------------------- Colors --------------------------------- */
 .sap-good {
@@ -83,5 +92,5 @@
 }
  */
 .steam-highlight {
-	color: #63b7e7 !important;
+	color: #63b7e7;
 }
