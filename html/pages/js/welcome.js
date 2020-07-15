@@ -1,8 +1,9 @@
 // Build our database
 // TODO: Broken
-storage.save_settings(true)
-	.then(api.update.bots)
-	.then(api.update.user_profiles);
+storage.save_settings(true);
+api.update.bots();
+api.update.user_profiles();
+
 console.log(sap_extension);
 /* ------------------------- Handle Navigation Tabs ------------------------- */
 const navigation_tabs = qsa('.navigation a');
