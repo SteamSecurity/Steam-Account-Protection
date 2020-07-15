@@ -1,15 +1,8 @@
-/* -------------------------------- Statuses -------------------------------- */
-.hidden {
-	display: none !important;
-}
-.invisible {
-	opacity: 0;
-}
-
 /* --------------------------------- Buttons -------------------------------- */
 .button-container {
 	margin-left: auto;
 	margin-right: auto;
+	margin-bottom: 10px;
 }
 
 .button {
@@ -67,6 +60,7 @@
 .btn_bad:focus {
 	background-color: #af3232 !important;
 }
+
 /* .btn_warning {
 	background: radial-gradient(circle at top left, #9a9c00 0%, #7e8000 60%), #25282e;
 	color: white !important;
@@ -75,6 +69,12 @@
 .btn_warning:focus {
 	background-color: #af3232 !important;
 } */
+
+/*	----- Button sizes -----	*/
+.button.btn_big {
+	min-width: 100px;
+	text-align: center;
+}
 
 /* --------------------------------- Colors --------------------------------- */
 .sap-good {

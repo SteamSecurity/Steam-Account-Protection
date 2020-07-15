@@ -82,9 +82,7 @@ const html_elements = {
 		}
 	},
 	settings: {
-		buddy_container: (buddy) => {
-			//TODO: Check if "return" is needed. It shouldn't be 
-			return `<div class="profile-container">
+		buddy_container: (buddy) => `<div class="profile-container" >
 				<img class="profile-icon" src="${buddy.profile_picture}">
 				<div class="description">
 					<div>Persona: <span class="description-value">${buddy.personaname}</span></div>
@@ -94,8 +92,7 @@ const html_elements = {
 						<a class="button btn_bad" data-function="remove_buddy" data-target="${buddy.steamid}">Remove</a>
 					</div>
 				</div>
-			</div>`;
-		}
+			</div>`
 	},
 	trade_window: {
 		api_warning: `<div class="trade_partner_info_block group" style="display:flex; border: 1px solid #5faad7">
@@ -103,49 +100,16 @@ const html_elements = {
 			<div>API Key Warning!</div>
 		</div>
 	</div>`,
-		reputation_warning: `<div class="overlay">
-		<div id="reputation-warning" class="overlay-content">
+		reputation_warning: (profile) => `<div id="sap-reputation-overlay" style="display:none; opacity:0" class="sap-overlay">
+		<div class="overlay-content">
+			<div class="top-bar"></div>
 			<div class="title">Reputation Warning</div>
-			<div class="desc">Please exercise caution when trading</div>
-			<div class="body">
-				<div id="rep-steamBans" class="community-container">
-					<div class="community-title">Steam</div>
-				</div>
-				<div id="rep-stfBans" class="community-container">
-					<div class="community-title">Scrap.tf</div>
-				</div>
-				<div id="rep-mpBans" class="community-container">
-					<div class="community-title">Marketplace.tf</div>
-				</div>
-				<div id="rep-bzBans" class="community-container">
-					<div class="community-title">Bazaar.tf</div>
-				</div>
-				<div id="rep-ppmBans" class="community-container">
-					<div class="community-title">PPM</div>
-				</div>
-				<div id="rep-hgBans" class="community-container">
-					<div class="community-title">Harpoon</div>
-				</div>
-				<div id="rep-nhsBans" class="community-container">
-					<div class="community-title">Neon Heights</div>
-				</div>
-				<div id="rep-stBans" class="community-container">
-					<div class="community-title">SMT</div>
-				</div>
-				<div id="rep-fogBans" class="community-container">
-					<div class="community-title">FoG Trade</div>
-				</div>
-				<div id="rep-etf2lBans" class="community-container">
-					<div class="community-title">ETF2L</div>
-				</div>
-				<div id="rep-bptfBans" class="community-container">
-					<div class="community-title">Backpack.tf</div>
-				</div>
-				<div id="rep-srBans" class="community-container">
-					<div class="community-title">SteamRep</div>
-				</div>
+			<div class="profile-container">
+				<div class="text"><i>${profile.personaname}</i> is banned from at least one community. Please be careful when trading with them.</div>
 			</div>
-			<div id="reputation-warning-close" class="close-overlay">Click here to close</div>
+			<div class="button-container">
+				<a class="button btn_big" id="close-reputation_overlay">Close</a>
+			</div>
 		</div>
 	</div>`,
 		trade_toolbar: (profile) => `
@@ -167,7 +131,6 @@ const html_elements = {
 				<div class="partner-info-container">
 					<span>Account created: <span class="steam-highlight">${profile.account_creation_date}</span></span>
 				</div>
-				<!--TODO: Create function to more accurately display the account creation date-->
 				<div class="partner-info-container">
 					<span>Account age: <span class="steam-highlight">${steam.account_age(profile.account_creation_date)}</span></span>
 				</div>
@@ -261,7 +224,7 @@ const html_elements = {
 		</div>
 	</div>`,
 		buddy_button: `<div id="buddy-button" class="btn_profile_action btn_medium"><span style="display:flex; padding: 5px;"><img style="height: 20px;" src="${chrome.extension.getURL('images/icons/user.png')}"></span></div>`,
-		buddy_add_warning: (profile = { personaname: 'none', level: 0, steamid: 0 }) => `<div style="display:none;" id="sap-buddy-confirm-overlay" class="sap-overlay">
+		buddy_add_warning: (profile = { personaname: 'none', level: 0, steamid: 0 }) => `<div style="display:none; opacity:0" id="sap-buddy-confirm-overlay" class="sap-overlay">
 		<div class="overlay-content">
 			<div class="top-bar"></div>
 			<div class="title">Confirm Buddy</div>

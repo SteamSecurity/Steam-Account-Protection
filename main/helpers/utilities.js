@@ -37,7 +37,9 @@ const compare = {
 	string: (current, base) => {
 		let percent = 0;
 		let x = 0;
-		while (current.length > x++) if (current.charAt(x) === base.charAt(x)) percent++;
+		while (current.length > x++) {
+			if (current.charAt(x) === base.charAt(x)) percent++;
+		}
 		return Math.round(percent / current.length * 100);
 	}
 };
@@ -45,7 +47,9 @@ const compare = {
 /* ---------------------------------- Misc ---------------------------------- */
 //Custom console.log formatting
 function log(data) {
-	if (typeof data === 'string') return console.log(`%c[SAP] [${new Date().toLocaleString()}] ${data}`, 'color: #ffffff');
+	if (typeof data === 'string')
+		return console.log(`%c[SAP] [${new Date().toLocaleString()}] ${data}`, 'color: #ffffff');
+
 	console.log(`%c[SAP] [${new Date().toLocaleString()}] ↓`, 'color: #ffffff');
 	console.log(data);
 }

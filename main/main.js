@@ -1,5 +1,7 @@
 // Love Acos(^-^)/
 
+// TODO: Change setting from "buddy_button" to "buddy_system"
+
 // Quick location
 var loc = {
 	full: window.location.href,

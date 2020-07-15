@@ -20,7 +20,7 @@
 	},
 	"content_scripts": [
 		{
-			"js": [ "thirdparty/jquery_3.4.1_slim.js", "main/helpers/utilities.js", "main/helpers/storage.js", "main/helpers/steam.js", "main/trade_window.js", "main/profile.js", "main/user_scanners.js", "main/api.js", "html/elements/html_elements.js", "main/main.js" ],
+			"js": [ "main/helpers/utilities.js", "main/helpers/storage.js", "main/helpers/steam.js", "main/trade_window.js", "main/profile.js", "main/helpers/html_effects.js", "main/helpers/profile_scanner.js", "main/api.js", "html/elements/html_elements.js", "main/main.js" ],
 			"matches": [ "https://steamcommunity.com/dev/apikey", "https://steamcommunity.com/profiles/*", "https://steamcommunity.com/id/*", "https://steamcommunity.com/tradeoffer/*", "https://backpack.tf/api/IGetUsers/v3", "https://backpack.tf/api/IGetUsers/GetImpersonatedUsers", "https://marketplace.tf/api/Bots/GetBots/v2", "https://mannco.store/bots", "https://steamrep.com/api/beta4/reputation/*" ]
 		}
 	],

@@ -24,8 +24,9 @@ function trade_window() {
 	show_trade_toolbar();
 
 	if (api_warning) show_api_warning();
+	if (tw_impersonator_scanner) scan_for_impersonator();
+	if (tw_reputation_scanner) reputation_scanner();
 	// TODO
-	//if (tw_impersonator_scanner) scan_for_impersonator();
 	//if (tw_reputation_scanner) scan_for_reputation();
 
 	/* -------------------------------- Functions ------------------------------- */
@@ -46,14 +47,6 @@ function trade_window() {
 		load_trade_toolbar();
 		qsa(`#trade-toolbar .bpanel`).forEach(add_events);  // Add listeners to the buttons
 
-		if (tw_reputation_scanner) {
-			qs(`#trade-toolbar #reputation-button`).classList.remove(`hidden`);
-			api.reputation.steamrep(partner.steamid)
-				.then(show_on_toolbar);
-			//.catch(); TODO
-		}
-
-
 		function load_trade_toolbar() {
 			qs(`.trade_partner_header`).lastChild.remove();
 			qs(`#mainContent .trade_partner_header`).innerHTML = html_elements.trade_window.trade_toolbar(partner);
@@ -71,25 +64,6 @@ function trade_window() {
 			qsa(`#trade-toolbar .button`).forEach((button) => button.classList.remove(`btn_active`));
 			button_element.classList.add(`btn_active`);
 			button_element.blur();
-		}
-		function show_on_toolbar(reputation) {
-			// Reputation options
-			const reputation_element = qs(`#reputation-results`);
-			const last_check_element = qs(`#reputation-last-check`);
-
-			last_check_element.innerText = time.utc_to_string(reputation.last_check * 1000);
-
-			if (reputation.bad_tags.length !== 0) {
-				reputation_element.classList.add(`sap-critical`);
-				reputation_element.innerText = array_to_string(reputation.bad_tags);
-				add_warning_to_toolbar(`Bad Reputation`);
-			} else if (reputation.good_tags.length !== 0) {
-				reputation_element.classList.add(`sap-good`);
-				reputation_element.innerText = array_to_string(reputation.good_tags);
-			} else {
-				reputation_element.innerText = `Normal`;
-			}
-
 		}
 	}
 	function show_api_warning() {
@@ -114,6 +88,51 @@ function trade_window() {
 		warning_button.classList.remove(`hidden`);
 		warning_button.classList.add(`btn_bad`);
 		warning_element.insertAdjacentHTML(`beforeend`, html_elements.trade_window.trade_toolbar_box(text));
+	}
+
+	function scan_for_impersonator() {
+		const impersonator_result = user_scanner.impersonator(partner);
+		log(impersonator_result);
+
+
+
+		if (impersonator_result?.type === `bot`) {
+
+		}
+	}
+	function reputation_scanner() {
+		qs(`#trade-toolbar #reputation-button`).classList.remove(`hidden`);
+		api.reputation.steamrep(partner.steamid)
+			.then(show_on_toolbar);
+		//.catch(); TODO
+
+		function show_on_toolbar(reputation) {
+			// Reputation options
+			const reputation_element = qs(`#reputation-results`);
+			const last_check_element = qs(`#reputation-last-check`);
+
+			last_check_element.innerText = time.utc_to_string(reputation.last_check * 1000);
+
+			if (reputation.bad_tags.length !== 0) {
+				reputation_element.classList.add(`sap-critical`);
+				reputation_element.innerText = array_to_string(reputation.bad_tags);
+				add_warning_to_toolbar(`Bad Reputation`);
+				overlay();
+			} else if (reputation.good_tags.length !== 0) {
+				reputation_element.classList.add(`sap-good`);
+				reputation_element.innerText = array_to_string(reputation.good_tags);
+			} else {
+				reputation_element.innerText = `Normal`;
+			}
+		}
+		function overlay() {
+			document.body.insertAdjacentHTML(`beforebegin`, html_elements.trade_window.reputation_warning(partner));
+			const overlay = qs(`#sap-reputation-overlay`);
+			const close_button = qs(`#close-reputation_overlay`);
+
+			close_button.addEventListener(`click`, () => html_effects.fade_out(overlay));
+			html_effects.fade_in(overlay);
+		}
 	}
 	function is_valid() {
 		return document.getElementsByClassName('offerheader')[1] && document.getElementsByClassName('avatarIcon')[1];

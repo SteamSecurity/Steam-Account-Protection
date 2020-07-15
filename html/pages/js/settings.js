@@ -65,10 +65,13 @@ function display_settings() {
 
 // Buddy overlay
 function build_buddy_overlay() {
-	qs(`#sap-buddy-overlay`).classList.remove(`hidden`);
+	const overlay = qs(`#sap-buddy-overlay`);
 	const buddies = sap_extension.data.user_profiles.buddies;
 	const injection_target = qs(`#sap-buddy-overlay .overlay-content`).children[2];
 
+	qs(`#sap-buddy-overlay .search`).value = "";		// Clear the search bar
+
+	html_effects.fade_in(overlay);
 	buddies.forEach((buddy) => {
 		injection_target.insertAdjacentHTML(`afterend`, html_elements.settings.buddy_container(buddy));
 		const buttons = qsa(`#sap-buddy-overlay .profile-container .button-container .button`);
@@ -102,7 +105,9 @@ function remove_buddy(buddy_listing, steamid) {
 	storage.save_settings();
 }
 function close_buddy_overlay() {
-	qs(`#sap-buddy-overlay`).classList.add(`hidden`);
+	const overlay = qs(`#sap-buddy-overlay`);
 	const buddy_containers = qsa(`#sap-buddy-overlay .profile-container`);
+
+	html_effects.fade_out(overlay);
 	buddy_containers.forEach((container) => container.remove());
 }

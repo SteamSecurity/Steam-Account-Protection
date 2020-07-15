@@ -1,5 +1,4 @@
 // Build our database
-// TODO: Broken
 storage.save_settings(true);
 api.update.bots();
 api.update.user_profiles();

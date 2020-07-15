@@ -36,7 +36,7 @@ function profile() {
 		// Add an event listener to allow the user to un-buddy the profile
 		function is_buddy() {
 			update_buddy();
-			qs(`#buddy-button img`).src = chrome.extension.getURL(`images/icon/user_slash.png`);
+			qs(`#buddy-button img`).src = chrome.extension.getURL(`images/icons/user_slash.png`);
 			qs(`#buddy-button`).addEventListener(`click`, remove_buddy);
 
 			function remove_buddy() {
@@ -52,17 +52,14 @@ function profile() {
 		}
 
 		function is_not_buddy() {
+			const overlay = qs(`#sap-buddy-confirm-overlay`);
 			qs(`#buddy-button`).addEventListener(`click`, build_overlay);
 
 			function build_overlay() {
-				qs(`#sap-buddy-confirm-overlay`).style.display = `flex`;
+				html_effects.fade_in(overlay);
 
-				qs(`#confirm-buddy`).addEventListener(`click`, add_user_as_buddy); 					// Adds the user to the buddy list & reloads the page
-				qs(`#close-buddy`).addEventListener(`click`, close_overlay); 								// Closes the window and does not add them to the buddy list.
-
-			}
-			function close_overlay() {
-				qs(`#sap-buddy-confirm-overlay`).style.display = `none`;
+				qs(`#confirm-buddy`).addEventListener(`click`, add_user_as_buddy); 										// Adds the user to the buddy list & reloads the page
+				qs(`#close-buddy`).addEventListener(`click`, () => html_effects.fade_out(overlay)); 	// Closes the window and does not add them to the buddy list.
 			}
 			function add_user_as_buddy() {
 				sap_extension.data.user_profiles.buddies.push(profile);

@@ -1,6 +1,7 @@
 /* --------------------------------- Overlay -------------------------------- */
 .sap-overlay {
 	display: none;
+	opacity: 0;
 	position: fixed;
 	width: 100vw;
 	height: 100vh;
@@ -8,6 +9,7 @@
 	color: white;
 	font-family: sans-serif;
 	z-index: 10000;
+	transition: all 0.2s ease-in-out;
 }
 
 .sap-overlay .overlay-content {
@@ -16,7 +18,6 @@
 	flex-direction: column;
 	background: radial-gradient(circle at top left, rgba(74, 81, 92, 0.4) 0%, rgba(75, 81, 92, 0) 60%), #25282e;
 	width: 500px;
-	height: 200px;
 	box-sizing: border-box;
 	box-shadow: black 0 0 10px;
 }
@@ -48,6 +49,10 @@
 	margin-right: auto;
 	margin-bottom: 10px;
 }
+.sap-overlay .profile-container.hidden {
+	display: none !important;
+}
+
 .sap-overlay .image-container {
 	height: 75px;
 	width: 75px;
@@ -90,6 +95,11 @@
 .sap-overlay .profile-container .description div:hover,
 .sap-overlay .profile-container .description div:focus {
 	background-color: #0ba5ff3d;
+}
+
+.sap-overlay .profile-container .text {
+	padding: 20px;
+	text-align: center;
 }
 /* ------------------------------- Adjustments ------------------------------ */
 @media all and (max-width: 550px) {
