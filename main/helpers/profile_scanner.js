@@ -4,17 +4,23 @@ const user_scanner = {
 		const services = {
 			marketplace: {
 				personaname: `Marketplace.TF | Bot `,
+				personaname_display: `Marketplace.TF Bots`,
 				profile_picture: 'https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/c5/c50215efc86d85386d4e963589c175a48e74a647_full.jpg',
+				link: `https://marketplace.tf/bots`,
 				type: `bot`
 			},
 			mannco: {
 				personaname: `Mannco.store | Bot `,
+				personaname_display: `Mannco.store Bots`,
 				profile_picture: 'https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/4b/4b2b43c016a3fa7d915f99df1ef9436b7ad4a0ad_full.jpg',
+				link: `https://mannco.store/bots`,
 				type: `bot`
 			},
 			bitskins: {
 				personaname: `BitSkins `,
+				personaname_display: `BitSkins Bots`,
 				profile_picture: 'https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/8d/8dcad7f2f549bb502bc7268dc476ddb3ff3d04df_full.jpg',
+				link: `https://bitskins.com`,		// No solid "/bots" page. Shame!
 				type: `bot`
 			}
 		};
@@ -48,7 +54,7 @@ const user_scanner = {
 			if (personaname_similarity < 70) return;
 			if (sap_extension.data.bot_profiles[service].includes(profile.steamid)) return;
 
-			potentially_impersonated_list.push({ profile: service, similarity: personaname_similarity });	// Store the real user for later
+			potentially_impersonated_list.push({ profile: services[service], similarity: personaname_similarity });	// Store the real user for later
 		}
 
 		function most_likely_impersonated() {

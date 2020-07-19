@@ -94,8 +94,6 @@ function trade_window() {
 		const impersonator_result = user_scanner.impersonator(partner);
 		log(impersonator_result);
 
-
-
 		if (impersonator_result?.type === `bot`) {
 
 		}

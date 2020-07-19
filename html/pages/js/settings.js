@@ -76,7 +76,7 @@ function build_buddy_overlay() {
 		injection_target.insertAdjacentHTML(`afterend`, html_elements.settings.buddy_container(buddy));
 		const buttons = qsa(`#sap-buddy-overlay .profile-container .button-container .button`);
 
-		buttons.forEach((button) => button.addEventListener(`click`, () => buddy_function_click(button.dataset.function)));
+		buttons.forEach((button) => button.addEventListener(`click`, () => buddy_function_click(button.dataset.function, button)));
 	});
 }
 function search_buddy() {
@@ -93,7 +93,7 @@ function search_buddy() {
 		buddy.classList.add(`hidden`);
 	});
 }
-function buddy_function_click(type) {
+function buddy_function_click(type, button) {
 	if (type === `remove_buddy`) return remove_buddy(button.parentElement.parentElement.parentElement, button.dataset.target);
 }
 function remove_buddy(buddy_listing, steamid) {

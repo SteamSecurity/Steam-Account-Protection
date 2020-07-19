@@ -17,7 +17,7 @@ function profile() {
 	buddy_data = storage.find_buddy(profile.steamid);																						// Get the saved buddy data
 	if (sap_extension.settings.profile.buddy_button && is_not_owner()) buddy();   							// The Buddy system
 	if (sap_extension.settings.profile.pr_reputation_scanner) reputation_scanner(); 						// Scan the user`s reputation and display it
-	if (sap_extension.settings.profile.pr_impersonator_scanner) impersonator_scanner(profile); 	// Checks if the user is a potential impersonator
+	if (sap_extension.settings.profile.pr_impersonator_scanner) impersonator_scanner(); 				// Checks if the user is a potential impersonator
 
 	/* -------------------------------- Functions ------------------------------- */
 	function load_custom_content() {
@@ -101,5 +101,15 @@ function profile() {
 			pending_reports.innerText = `Error`;
 			pending_reports.classList.add(`sap-warning`);
 		}
+	}
+	function impersonator_scanner() {
+		const impersonator_result = user_scanner.impersonator(profile);
+		log(impersonator_result);
+		if (impersonator_result === null) return;		// If no impersonator was found, we're done
+
+		if (impersonator_result?.type === `bot`)
+			overlays.bot_impersonator(profile, impersonator_result);
+		else
+			overlays.impersonator(profile, impersonator_result);
 	}
 }
