@@ -105,11 +105,8 @@ function profile() {
 	function impersonator_scanner() {
 		const impersonator_result = user_scanner.impersonator(profile);
 		log(impersonator_result);
-		if (impersonator_result === null) return;		// If no impersonator was found, we're done
+		if (impersonator_result === null) return;							// If no impersonator was found, we're done
 
-		if (impersonator_result?.type === `bot`)
-			overlays.bot_impersonator(profile, impersonator_result);
-		else
-			overlays.impersonator(profile, impersonator_result);
+		overlays.impersonator(profile, impersonator_result);	// Spawn the impersonator overlay
 	}
 }

@@ -1,58 +1,17 @@
 const html_elements = {
 	multi: {
-		impersonator_warning: () => {
-			let body_data;
-			if (loc.result === `trade_offer`) {
-				body_data = { subtitle: `Please exercise caution when trading`, partner_header: `Your Trade Partner:`, main_user_header: `Potentially Impersonated:` };
-			} else {
-				body_data = { subtitle: `Please verify this user is who you think it is.`, partner_header: `This user:`, main_user_header: `Potentially Impersonated:` };
-			}
+		impersonator_warning: (active_user, impersonated_user) => {
+			let impersonated_user_data;
 
-			return `<div class="overlay">
-			<div id="impersonator-warning" class="overlay-content">
-				<div class="title">Impersonator Warning</div>
-				<div class="desc">${body_data.subtitle}</div>
-				<div class="body">
-					<div class="header-desc">${body_data.partner_header}</div> <a id="impersonator-partner-url" target="_blank"
-						class="box-desc"> <img id="impersonator-partner-profile-picture" title="This user's Profile Picture"
-							src="">
-						<div class="box-main">
-							<div id="impersonator-partner-personaname" title="This user's Persona name"></div>
-							<div id="impersonator-partner-steamid" title="This user's Steam ID"></div>
-						</div>
-						<div class="box-level">
-							<div class="trade_partner_steam_level">
-								<div title="This user's Steam Level" class="friendPlayerLevel"> <span
-										id="impersonator-partner-level" class="friendPlayerLevelNum"></span> </div>
-							</div>
-						</div>
-					</a>
-					<div class="header-desc">${body_data.main_user_header}</div> <a id="impersonator-impersonated-url"
-						target="_blank" class="box-desc" href="https://steamcommunity.com"> 
-							<img id="impersonator-impersonated-profile-picture" title="This user's Profile Picture" src="">
-						<div class="box-main">
-							<div id="impersonator-impersonated-personaname" title="This user's Persona name"></div>
-							<div id="impersonator-impersonated-steamid" title="This user's Steam ID"></div>
-						</div>
-						<div class="box-level">
-							<div class="trade_partner_steam_level">
-								<div title="This user's Steam Level" class="friendPlayerLevel"> 
-								<span id="impersonator-impersonated-level" class="friendPlayerLevelNum"></span> </div>
-							</div>
-						</div>
-					</a>
-					<div id="impersonator-close" class="close-overlay">Click here to close</div>
-				</div>
-			</div>
-		</div>`;
-		},
-		bot_impersonator_warning: (active_user, impersonated_bot) => {
-			let body_data;
-			if (loc.result === `trade_offer`) {
-				body_data = { subtitle: `Please exercise caution when trading`, partner_header: `Your Trade Partner:`, main_user_header: `Potentially Impersonated:` };
-			} else {
-				body_data = { subtitle: `Please verify this user is who you think it is.`, partner_header: `This user:`, main_user_header: `Potentially Impersonated:` };
-			}
+			if (impersonated_user.type === 'bot')
+				impersonated_user_data = `<div class="text">Potentially impersonated user</div>
+						<div>Service: <span class="description-value">${impersonated_user.personaname_display}</span></div>
+						<div>Link: <a class="description-value" href="${impersonated_user.link}" target="_blank">${impersonated_user.link}</a></div>`;
+			else
+				impersonated_user_data = `<div class="text">Potentially impersonated user</div>
+						<div>Persona: <span class="description-value">${impersonated_user.personaname}</span></div>
+						<div>Link: <a class="description-value" href="https://steamcommunity.com/profiles/${impersonated_user.steamid}" target="_blank">${impersonated_user.steamid}</a></div>`;
+
 			return `<div id="sap-impersonator-overlay" style="display:none; opacity:0" class="sap-overlay">
 		<div class="overlay-content">
 			<div class="top-bar"></div>
@@ -75,14 +34,12 @@ const html_elements = {
 
 			<div class="profile-container">
 					<div class="image-container">
-						<img class="profile-icon" src="${impersonated_bot.profile_picture}">
-						<img class="profile-icon frame" src="${active_user.profile_frame}" alt="">
+						<img class="profile-icon" src="${impersonated_user.profile_picture}">
+						<img class="profile-icon frame" src="${impersonated_user.profile_frame}" alt="">
 					</div>
 
 					<div class="description">
-						<div class="text">Potentially impersonated user</div>
-						<div>Service: <span class="description-value">${impersonated_bot.personaname_display}</span></div>
-						<div>Link: <a class="description-value" href="${impersonated_bot.link}" target="_blank">${impersonated_bot.link}</a></div>
+						${impersonated_user_data}
 					</div>
 			</div>
 			<div class="button-container">
