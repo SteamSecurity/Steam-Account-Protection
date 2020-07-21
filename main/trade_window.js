@@ -12,7 +12,7 @@ function trade_window() {
 		profile_picture: qsa('.avatarIcon')[1].childNodes[0].childNodes[0].src.split('.jpg')[0] + '_full.jpg',
 		url: qsa('.trade_partner_steam_level_desc,.trade_partner_info_text')[1].childNodes[1].href,
 		level: qsa('.trade_partner_info_text')[2].innerText.replace('has a Steam Level of ', ''),
-
+		// Below is data not normally provided by this type of object.
 		is_friend: !qs(`.trade_partner_not_friends`),
 		account_creation_date: qs(`.trade_partner_member_since `).innerText
 	};
@@ -24,22 +24,14 @@ function trade_window() {
 	show_trade_toolbar();
 
 	if (api_warning) show_api_warning();
-	if (tw_impersonator_scanner) scan_for_impersonator();
+	if (tw_impersonator_scanner) impersonator_scanner(partner);
 	if (tw_reputation_scanner) reputation_scanner();
-	// TODO
-	//if (tw_reputation_scanner) scan_for_reputation();
 
 	/* -------------------------------- Functions ------------------------------- */
 	function load_custom_content() {
 		qs(`head`).insertAdjacentHTML(`beforeend`, `<link type="text/css" rel="stylesheet" href="${chrome.extension.getURL(`html/stylesheets/overlay.css`)}">`);
 		qs(`head`).insertAdjacentHTML(`beforeend`, `<link type="text/css" rel="stylesheet" href="${chrome.extension.getURL(`html/stylesheets/trade_window.css`)}">`);
 		qs(`head`).insertAdjacentHTML(`beforeend`, `<link type="text/css" rel="stylesheet" href="${chrome.extension.getURL(`html/stylesheets/generic.css`)}">`);
-
-		// TODO
-		/* 	
-		qs(`body`).insertAdjacentHTML(`afterbegin`, html_elements.trade_window.reputation_warning);
-		qs(`body`).insertAdjacentHTML(`afterbegin`, html_elements.trade_window.impersonator_warning);
-		*/
 	}
 
 
@@ -75,10 +67,9 @@ function trade_window() {
 		function has_api_key(response) {
 			return response.includes(`Key: `);
 		}
-		function load_warning(has_key) {
-			if (!has_key) return;
 
-			add_warning_to_toolbar(`API Key is registered`);
+		function load_warning(has_key) {
+			if (has_key) add_warning_to_toolbar(`API Key is registered`);
 		}
 	}
 	function add_warning_to_toolbar(text) {
@@ -90,14 +81,9 @@ function trade_window() {
 		warning_element.insertAdjacentHTML(`beforeend`, html_elements.trade_window.trade_toolbar_box(text));
 	}
 
-	function scan_for_impersonator() {
-		const impersonator_result = user_scanner.impersonator(partner);
-		log(impersonator_result);
 
-		if (impersonator_result?.type === `bot`) {
 
-		}
-	}
+
 	function reputation_scanner() {
 		qs(`#trade-toolbar #reputation-button`).classList.remove(`hidden`);
 		api.reputation.steamrep(partner.steamid)

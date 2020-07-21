@@ -67,5 +67,12 @@ const user_scanner = {
 		}
 	}
 };
-//TODO: compare string to store all matches of (X) <. Find the biggest value and display that
-//TODO: Add link to service in the services={ ???
+
+// Single function call to run the impersonator scanner
+function impersonator_scanner(profile) {
+	const impersonator_result = user_scanner.impersonator(profile);
+	log(impersonator_result);
+	if (impersonator_result === null) return;							// If no impersonator was found, we're done
+
+	overlays.impersonator(profile, impersonator_result);	// Spawn the impersonator overlay
+}
