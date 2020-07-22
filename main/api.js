@@ -5,7 +5,7 @@ const api = {
 				let profile_reputation;
 
 				/* -------------------- Check for existing SteamRep data -------------------- */
-				profile_reputation = storage.find_steamrep(steamid.toString());
+				profile_reputation = storage.find_steamrep(steamid);
 				if (profile_reputation && time.check_age(profile_reputation.last_check * 1000, 1))
 					return resolve(profile_reputation);
 

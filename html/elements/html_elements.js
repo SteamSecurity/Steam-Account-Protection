@@ -47,7 +47,20 @@ const html_elements = {
 			</div>
 		</div>
 	</div>`;
-		}
+		},
+		reputation_warning: () => `<div id="sap-reputation-overlay" style="display:none; opacity:0" class="sap-overlay">
+		<div class="overlay-content">
+			<div class="top-bar"></div>
+			<div class="title">Reputation Warning</div>
+				<div class="profile-container">
+					<div class="text">This user has at least one negative reputation tag.<br>Please be careful when interacting with them.</div>
+			</div>
+			<div class="button-container">
+				<a class="button btn_big" id="close-reputation-overlay">Close</a>
+			</div>
+		</div>
+	</div>`
+
 	},
 	settings: {
 		buddy_container: (buddy) => `<div class="profile-container" >
@@ -66,18 +79,6 @@ const html_elements = {
 		api_warning: `<div class="trade_partner_info_block group" style="display:flex; border: 1px solid #5faad7">
 		<div style="text-align: center; font-size: 1.4em; color:white;margin:auto;">
 			<div>API Key Warning!</div>
-		</div>
-	</div>`,
-		reputation_warning: (profile) => `<div id="sap-reputation-overlay" style="display:none; opacity:0" class="sap-overlay">
-		<div class="overlay-content">
-			<div class="top-bar"></div>
-			<div class="title">Reputation Warning</div>
-			<div class="profile-container">
-				<div class="text"><i>${profile.personaname}</i> is banned from at least one community.<br>Please be careful when trading with them.</div>
-			</div>
-			<div class="button-container">
-				<a class="button btn_big" id="close-reputation_overlay">Close</a>
-			</div>
 		</div>
 	</div>`,
 		trade_toolbar: (profile) => `
@@ -215,4 +216,4 @@ const html_elements = {
 		</div>
 	</div>`
 	}
-};
+}

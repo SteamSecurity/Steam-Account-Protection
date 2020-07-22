@@ -5,19 +5,19 @@ function profile() {
 		personaname: qs(`.profile_header_bg .persona_name .actual_persona_name`)?.innerText,
 		profile_frame: qs(`.profile_header_bg .playerAvatar .playerAvatarAutoSizeInner .profile_avatar_frame img`)?.src,
 		profile_picture: qs(`.profile_header_bg .playerAvatar .playerAvatarAutoSizeInner`)?.children[1]?.src || qs(`.profile_header_bg .playerAvatar .playerAvatarAutoSizeInner`)?.children[0]?.src,
-		steamid: /7[0-9]{16}/g.exec(/"steamid":"7[0-9]{16}"/g.exec(qs(`.responsive_page_template_content script`).innerText)[0])[0],
+		steamid: /7[0-9]{16}/g.exec(/"steamid":"7[0-9]{16}"/g.exec(document.body.innerHTML)[0])[0],
 		level: qs(`.profile_header_badgeinfo_badge_area .friendPlayerLevelNum`)?.innerText || 0
 	};
 	var buddy_data = {};
 
 	/* ------------------------------- Controller ------------------------------- */
 	// Decide what functions to execute depending on the user settings
-
 	load_custom_content();
 	buddy_data = storage.find_buddy(profile.steamid);																						// Get the saved buddy data
 	if (sap_extension.settings.profile.buddy_button && is_not_owner()) buddy();   							// The Buddy system
-	if (sap_extension.settings.profile.pr_reputation_scanner) reputation_scanner(); 						// Scan the user`s reputation and display it
+	if (sap_extension.settings.profile.pr_reputation_scanner) rep_scan(); 											// Scan the user`s reputation and display it
 	if (sap_extension.settings.profile.pr_impersonator_scanner) impersonator_scanner(profile); 	// Checks if the user is a potential impersonator
+
 
 	/* -------------------------------- Functions ------------------------------- */
 	function load_custom_content() {
@@ -68,11 +68,16 @@ function profile() {
 			}
 		}
 	}
-	function reputation_scanner() {
-		!qs(`.profile_customization_area`) && qs(`.profile_leftcol`).insertAdjacentHTML(`afterbegin`, `<div class="profile_customization_area"></div>`); // If there is not a profile customization area, add it.
-		qs(`.profile_customization_area`).insertAdjacentHTML(`afterbegin`, html_elements.profile.reputation_panel(profile)); // Adds the reputation panel
 
-		api.reputation.steamrep(profile.steamid)
+	function rep_scan() {
+		// If there is not a profile customization area, add it.
+		if (!qs(`.profile_customization_area`))
+			qs(`.profile_leftcol`).insertAdjacentHTML(`afterbegin`, `<div class="profile_customization_area"></div>`);
+
+		// Adds the reputation panel
+		qs(`.profile_customization_area`).insertAdjacentHTML(`afterbegin`, html_elements.profile.reputation_panel(profile));
+
+		reputation_scanner(profile.steamid)
 			.then(set_reputation)
 			.catch(error);
 

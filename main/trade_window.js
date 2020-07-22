@@ -25,7 +25,7 @@ function trade_window() {
 
 	if (api_warning) show_api_warning();
 	if (tw_impersonator_scanner) impersonator_scanner(partner);
-	if (tw_reputation_scanner) reputation_scanner();
+	if (tw_reputation_scanner) rep_scan();
 
 	/* -------------------------------- Functions ------------------------------- */
 	function load_custom_content() {
@@ -84,9 +84,9 @@ function trade_window() {
 
 
 
-	function reputation_scanner() {
+	function rep_scan() {
 		qs(`#trade-toolbar #reputation-button`).classList.remove(`hidden`);
-		api.reputation.steamrep(partner.steamid)
+		reputation_scanner(partner.steamid)
 			.then(show_on_toolbar);
 		//.catch(); TODO
 
@@ -109,6 +109,7 @@ function trade_window() {
 				reputation_element.innerText = `Normal`;
 			}
 		}
+		//TODO: Make a single function call
 		function overlay() {
 			document.body.insertAdjacentHTML(`beforebegin`, html_elements.trade_window.reputation_warning(partner));
 			const overlay = qs(`#sap-reputation-overlay`);

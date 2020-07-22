@@ -71,8 +71,22 @@ const user_scanner = {
 // Single function call to run the impersonator scanner
 function impersonator_scanner(profile) {
 	const impersonator_result = user_scanner.impersonator(profile);
-	log(impersonator_result);
 	if (impersonator_result === null) return;							// If no impersonator was found, we're done
 
 	overlays.impersonator(profile, impersonator_result);	// Spawn the impersonator overlay
+}
+
+function reputation_scanner(steamid) {
+	return new Promise(async (resolve, reject) => {
+		api.reputation.steamrep(steamid)
+			.then((profile_data) => get_bad_tags(profile_data))
+			.catch(reject);
+
+		function get_bad_tags(profile_data) {
+			if (profile_data.bad_tags.length > 0)
+				overlays.reputation();
+
+			return resolve(profile_data);
+		}
+	});
 }
