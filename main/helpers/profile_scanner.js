@@ -39,7 +39,8 @@ const user_scanner = {
 
 		/* -------------------------------- Functions ------------------------------- */
 		function check_profile(impersonated_user) {								// "impersonated_user" is the real user obtained from Backpack.tf API
-			const personaname_similarity = compare.string(profile.personaname.trim(), impersonated_user.personaname.trim());
+			const personaname_similarity = compare.string(impersonated_user.personaname.trim(), profile.personaname.trim());
+
 			if (personaname_similarity < 70) return;
 			if (impersonated_user.steamid === profile.steamid) return;
 
@@ -48,8 +49,7 @@ const user_scanner = {
 
 		function check_bot(service) {															// "service" is the name of a service that controls a bot.
 			const service_data = services[service];
-			const profile_personaname_short = profile.personaname.slice(0, service_data.personaname.length);
-			const personaname_similarity = compare.string(profile_personaname_short, service_data.personaname);
+			const personaname_similarity = compare.string(service_data.personaname, profile.personaname);
 
 			if (personaname_similarity < 70) return;
 			if (sap_extension.data.bot_profiles[service].includes(profile.steamid)) return;

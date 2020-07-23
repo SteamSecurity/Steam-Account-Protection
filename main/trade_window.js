@@ -101,22 +101,12 @@ function trade_window() {
 				reputation_element.classList.add(`sap-critical`);
 				reputation_element.innerText = array_to_string(reputation.bad_tags);
 				add_warning_to_toolbar(`Bad Reputation`);
-				overlay();
 			} else if (reputation.good_tags.length !== 0) {
 				reputation_element.classList.add(`sap-good`);
 				reputation_element.innerText = array_to_string(reputation.good_tags);
 			} else {
 				reputation_element.innerText = `Normal`;
 			}
-		}
-		//TODO: Make a single function call
-		function overlay() {
-			document.body.insertAdjacentHTML(`beforebegin`, html_elements.trade_window.reputation_warning(partner));
-			const overlay = qs(`#sap-reputation-overlay`);
-			const close_button = qs(`#close-reputation_overlay`);
-
-			close_button.addEventListener(`click`, () => html_effects.fade_out(overlay));
-			html_effects.fade_in(overlay);
 		}
 	}
 	function is_valid() {
