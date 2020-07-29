@@ -29,6 +29,7 @@ async function get_data() {
 
 function find_window() {
 	if (loc.origin !== `https://steamcommunity.com`) return;
+	chrome.runtime.sendMessage({ "icon_path": 'img/sap_good.png' });
 
 	const url_parts = loc.full.split(`/`);
 	const

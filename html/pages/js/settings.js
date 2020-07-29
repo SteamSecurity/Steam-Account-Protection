@@ -9,6 +9,8 @@ storage.get_settings()
 const navigation_tabs = qsa('.navigation a');
 navigation_tabs.forEach((tab) => create_click_event(tab));
 
+chrome.runtime.sendMessage({ "icon_path": 'img/sap_good.png' });		// We trust this site
+
 function create_click_event(selected_tab) {
 	selected_tab.addEventListener(`click`, () => {
 		// Hide all tabs and tab content

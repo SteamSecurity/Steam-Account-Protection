@@ -42,8 +42,6 @@ a {
 	display: flex;
 	background-color: #00000066;
 	box-shadow: black 0 0 5px;
-
-	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .text-container .navigation {
@@ -91,7 +89,7 @@ a {
 .text-container .text .header {
 	padding: 3px 10px;
 	margin-bottom: 10px;
-	background-color: #5487ff;
+	background-color: #0839ab;
 	color: white;
 	font-size: 1.6em;
 	text-align: center;

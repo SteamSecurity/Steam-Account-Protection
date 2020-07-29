@@ -148,43 +148,43 @@ const html_elements = {
 						<div style="margin-top:15px;display:flex;">
 	
 							<a id="reputation-panel-reptf" target="_blank" href="https://rep.tf/${profile.steamid}" class="reputation-panel-service">
-								<img src=""/>
+								<img src="https://rep.tf/favicon.ico"/>
 								<div>Rep.tf</div>
 							</a>
 	
-							<a id="reputation-panel-backpacktf" target="_blank" href="https://backpack.tf/profiles/${profile.steamid}" class="reputation-panel-service"><img
-									src="" />
+							<a id="reputation-panel-backpacktf" target="_blank" href="https://backpack.tf/profiles/${profile.steamid}" class="reputation-panel-service">
+								<img src="https://backpack.tf/favicon.ico" />
 								<div></span>Backpack.tf</div>
 							</a>
 	
-							<a id="reputation-panel-bazaartf" target="_blank" href="https://bazaar.tf/profiles/${profile.steamid}" class="reputation-panel-service"><img
-									src=""  />
+							<a id="reputation-panel-bazaartf" target="_blank" href="https://bazaar.tf/profiles/${profile.steamid}" class="reputation-panel-service">
+							<img src="https://bazaar.tf/favicon.ico"  />
 								<div>Bazaar.tf</div>
 							</a>
 	
-							<a id="reputation-panel-scraptf" target="_blank" href="https://scrap.tf/profile/${profile.steamid}" class="reputation-panel-service"><img
-									src=""  />
+							<a id="reputation-panel-scraptf" target="_blank" href="https://scrap.tf/profile/${profile.steamid}" class="reputation-panel-service">
+							<img src="https://scrap.tf/favicon.ico"  />
 								<div>Scrap.tf</div>
 							</a>
 							
 						</div>
 						<div style="margin-top:15px;display:flex;">
 							<a id="reputation-panel-marketplacetf" target="_blank" href="https://marketplace.tf/shop/${profile.steamid}" class="reputation-panel-service">
-								<img src=""/>
+								<img src="https://marketplace.tf/favicon.ico"  />
 								<div>Marketplace.tf</div>
 							</a>
 
 							<a id="reputation-panel-steamiduk" target="_blank" href="https://steamid.eu/profile/${profile.steamid}" class="reputation-panel-service">
-								<img src=""/>
+							<img src="https://steamid.uk/favicon.ico"  />
 								<div>SteamID.uk</div>
 							</a>
 							<a id="reputation-panel-steamtrades" target="_blank" href="https://steamtrades.com/user/${profile.steamid}" class="reputation-panel-service">
-								<img src="" />
+								<img src="https://cdn.steamtrades.com/img/favicon.ico"  />
 								<div>Steam Trades</div>
 							</a>
-							<a id="reputation-panel-google" target="_blank" href="https://google.com/search?q=%22${profile.steamid}%22" class="reputation-panel-service">
-								<img src=""/>
-								<div>Google</div>
+							<a id="reputation-panel-google" target="_blank" href="https://duckduckgo.com/search?q=%22${profile.steamid}%22" class="reputation-panel-service">
+								<img src="https://duckduckgo.com/favicon.ico"/>
+								<div>DuckDuckGo</div>
 							</a>
 						</div>
 					</div>
@@ -192,7 +192,7 @@ const html_elements = {
 			</div>
 		</div>
 	</div>`,
-		buddy_button: `<div id="buddy-button" class="btn_profile_action btn_medium"><span style="display:flex; padding: 5px;"><img style="height: 20px;" src="${chrome.extension.getURL('images/icons/user.png')}"></span></div>`,
+		buddy_button: `<div id="buddy-button" class="btn_profile_action btn_medium"><span style="display:flex; padding: 5px;"><img style="height: 20px;" src="${chrome.extension.getURL('img/icons/user.png')}"></span></div>`,
 		buddy_add_warning: (profile = { personaname: 'none', level: 0, steamid: 0 }) => `<div style="display:none; opacity:0" id="sap-buddy-confirm-overlay" class="sap-overlay">
 		<div class="overlay-content">
 			<div class="top-bar"></div>

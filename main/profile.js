@@ -36,7 +36,7 @@ function profile() {
 		// Add an event listener to allow the user to un-buddy the profile
 		function is_buddy() {
 			update_buddy();
-			qs(`#buddy-button img`).src = chrome.extension.getURL(`images/icons/user_slash.png`);
+			qs(`#buddy-button img`).src = chrome.extension.getURL(`img/icons/user_slash.png`);
 			qs(`#buddy-button`).addEventListener(`click`, remove_buddy);
 
 			function remove_buddy() {

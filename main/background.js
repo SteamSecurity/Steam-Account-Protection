@@ -14,3 +14,12 @@ chrome.runtime.onInstalled.addListener(function (details) {
 
 	}
 });
+
+
+chrome.runtime.onMessage.addListener(
+	function (request, sender, sendResponse) {
+		chrome.browserAction.setIcon({
+			path: request.icon_path,
+			tabId: sender.tab.id
+		});
+	});
