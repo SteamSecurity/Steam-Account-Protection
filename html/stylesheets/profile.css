@@ -12,7 +12,17 @@
 	display: flex;
 	margin: auto;
 	height: 20px;
+	width: 25%;
+	padding: 3px 5px;
+	border-radius: 5px;
+	text-decoration: none;
+	transition: all 0.2s ease-in-out;
 }
+#reputation-panel .reputation-panel-service:focus,
+#reputation-panel .reputation-panel-service:hover {
+	background-color: #0ba5ff3d;
+}
+
 #reputation-panel .reputation-panel-service img {
 	display: flex;
 	margin: auto;
@@ -22,6 +32,7 @@
 }
 #reputation-panel .reputation-panel-service div {
 	display: flex;
+	margin-left: 5px !important;
 	margin: auto;
 }
 #reputation-panel #reputation-panel-pendingreports {

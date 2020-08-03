@@ -128,23 +128,18 @@ const html_elements = {
 				<div class="showcase_content_bg showcase_notes">
 					<div style="padding:2px; display:block">
 						<p>
-							<b>Steam Rep:</b>
-							<a id="reputation-panel-steamrep" target="_blank" href="https://steamrep.com/profiles/${profile.steamid}">Loading...</a>
+							<b>SteamRep:</b> <a id="reputation-panel-steamrep" target="_blank" href="https://steamrep.com/profiles/${profile.steamid}">Loading...</a>
 						</p>
 						<p>
-							<b>Pending Reports:</b>
-							<a id="reputation-panel-pendingreports" target="_blank" href="https://steamrep.com/profiles/${profile.steamid}">Loading...</a>
+							<b>Pending Reports:</b> <a id="reputation-panel-pendingreports" target="_blank" href="https://steamrep.com/profiles/${profile.steamid}">Loading...</a>
 						</p>
 						<p>
-							<b>Perm Link:</b>
-							<a id="reputation-panel-permlink" href="javascript:;"
-								onclick="event.preventDefault(); let sel = window.getSelection(); let range = document.createRange(); range.selectNodeContents(this); sel.removeAllRanges(); sel.addRange(range); document.execCommand('copy')">https://steamcommunity.com/profiles/${profile.steamid}</a>
+							<b>Perm Link:</b> <a id="reputation-panel-permlink" href="javascript:;" onclick="event.preventDefault(); let sel = window.getSelection(); let range = document.createRange(); range.selectNodeContents(this); sel.removeAllRanges(); sel.addRange(range); document.execCommand('copy')">https://steamcommunity.com/profiles/${profile.steamid}</a>
 						</p>
 						<p>
-							<b>SteamID64:</b>
-							<input id="reputation-panel-steamid" type="text" style="text-align: center;" readonly
-								onclick="this.select(); document.execCommand('copy')" value="${profile.steamid}"/>
+							<b>SteamID64:</b> <input id="reputation-panel-steamid" type="text" style="text-align: center;" readonly onclick="this.select(); document.execCommand('copy')" value="${profile.steamid}"/>
 						</p>
+						
 						<div style="margin-top:15px;display:flex;">
 	
 							<a id="reputation-panel-reptf" target="_blank" href="https://rep.tf/${profile.steamid}" class="reputation-panel-service">
