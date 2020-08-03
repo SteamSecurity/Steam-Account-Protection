@@ -142,42 +142,42 @@ const html_elements = {
 						
 						<div style="margin-top:15px;display:flex;">
 	
-							<a id="reputation-panel-reptf" target="_blank" href="https://rep.tf/${profile.steamid}" class="reputation-panel-service">
+							<a id="reputation-panel-reptf" target="_blank" href="https://rep.tf/${profile.steamid}" class="reputation-panel-service btn_profile_action">
 								<img src="https://rep.tf/favicon.ico"/>
 								<div>Rep.tf</div>
 							</a>
 	
-							<a id="reputation-panel-backpacktf" target="_blank" href="https://backpack.tf/profiles/${profile.steamid}" class="reputation-panel-service">
+							<a id="reputation-panel-backpacktf" target="_blank" href="https://backpack.tf/profiles/${profile.steamid}" class="reputation-panel-service btn_profile_action">
 								<img src="https://backpack.tf/favicon.ico" />
 								<div></span>Backpack.tf</div>
 							</a>
 	
-							<a id="reputation-panel-bazaartf" target="_blank" href="https://bazaar.tf/profiles/${profile.steamid}" class="reputation-panel-service">
+							<a id="reputation-panel-bazaartf" target="_blank" href="https://bazaar.tf/profiles/${profile.steamid}" class="reputation-panel-service btn_profile_action">
 							<img src="https://bazaar.tf/favicon.ico"  />
 								<div>Bazaar.tf</div>
 							</a>
 	
-							<a id="reputation-panel-scraptf" target="_blank" href="https://scrap.tf/profile/${profile.steamid}" class="reputation-panel-service">
+							<a id="reputation-panel-scraptf" target="_blank" href="https://scrap.tf/profile/${profile.steamid}" class="reputation-panel-service btn_profile_action">
 							<img src="https://scrap.tf/favicon.ico"  />
 								<div>Scrap.tf</div>
 							</a>
 							
 						</div>
 						<div style="margin-top:15px;display:flex;">
-							<a id="reputation-panel-marketplacetf" target="_blank" href="https://marketplace.tf/shop/${profile.steamid}" class="reputation-panel-service">
+							<a id="reputation-panel-marketplacetf" target="_blank" href="https://marketplace.tf/shop/${profile.steamid}" class="reputation-panel-service btn_profile_action">
 								<img src="https://marketplace.tf/favicon.ico"  />
 								<div>Marketplace.tf</div>
 							</a>
 
-							<a id="reputation-panel-steamiduk" target="_blank" href="https://steamid.eu/profile/${profile.steamid}" class="reputation-panel-service">
+							<a id="reputation-panel-steamiduk" target="_blank" href="https://steamid.eu/profile/${profile.steamid}" class="reputation-panel-service btn_profile_action">
 							<img src="https://steamid.uk/favicon.ico"  />
 								<div>SteamID.uk</div>
 							</a>
-							<a id="reputation-panel-steamtrades" target="_blank" href="https://steamtrades.com/user/${profile.steamid}" class="reputation-panel-service">
+							<a id="reputation-panel-steamtrades" target="_blank" href="https://steamtrades.com/user/${profile.steamid}" class="reputation-panel-service btn_profile_action">
 								<img src="https://cdn.steamtrades.com/img/favicon.ico"  />
 								<div>Steam Trades</div>
 							</a>
-							<a id="reputation-panel-google" target="_blank" href="https://duckduckgo.com/search?q=%22${profile.steamid}%22" class="reputation-panel-service">
+							<a id="reputation-panel-google" target="_blank" href="https://duckduckgo.com/search?q=%22${profile.steamid}%22" class="reputation-panel-service btn_profile_action">
 								<img src="https://duckduckgo.com/favicon.ico"/>
 								<div>DuckDuckGo</div>
 							</a>

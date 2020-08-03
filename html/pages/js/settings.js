@@ -1,4 +1,3 @@
-// TODO: Make requests to update bot and user profile data
 var sap_extension;
 storage.get_settings()
 	.then((response) => sap_extension = response)

@@ -11,16 +11,18 @@
 #reputation-panel .reputation-panel-service {
 	display: flex;
 	margin: auto;
+	margin-left: 5px;
+	margin-right: 10px;
 	height: 20px;
 	width: 25%;
 	padding: 3px 5px;
-	border-radius: 5px;
 	text-decoration: none;
+	background-color: #00000000;
 	transition: all 0.2s ease-in-out;
 }
 #reputation-panel .reputation-panel-service:focus,
 #reputation-panel .reputation-panel-service:hover {
-	background-color: #0ba5ff3d;
+	background-color: var(--btn-background);
 }
 
 #reputation-panel .reputation-panel-service img {
@@ -34,6 +36,8 @@
 	display: flex;
 	margin-left: 5px !important;
 	margin: auto;
+	font-size: 1.1em;
+	text-shadow: 0 0 2px black;
 }
 #reputation-panel #reputation-panel-pendingreports {
 	min-width: 20px;
