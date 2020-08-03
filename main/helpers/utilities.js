@@ -4,11 +4,11 @@ const qsa = (tag) => document.querySelectorAll(tag);
 
 /* ---------------------------------- Time ---------------------------------- */
 const time = {
-	current_time: () => Math.floor(Date.now() / 1000),																			// Returns the current time in seconds
-	//TODO: Need example to show here in comments
+	current_time: () => Date.now(),																													// Returns the current time
 	utc_to_string: (utc_time) => new Date(new Date(utc_time).getTime()).toLocaleString(),		// Converts utc time into a readable string.
-	hours_to_seconds: (hours) => hours * 60 * 60,
-	check_age: (age, hours) => age + time.hours_to_seconds(hours) > time.current_time() 		// If the "age" + "hours" is greater than the current time (Age is young), return true
+	hours_to_milliseconds: (hours) => hours * 60 * 60 * 1000,
+	check_age: (age, hours) => age + time.hours_to_milliseconds(hours) > time.current_time(), 		// If the "age" + "hours" is greater than the current time (Age is young), return true
+	update_schedule: (cached_time, timeout) => `\nCurrent time: ${time.utc_to_string(time.current_time())}\nNext Update: ${time.utc_to_string(cached_time + timeout)}`
 };
 
 /* ---------------------------- URL and Requests ---------------------------- */

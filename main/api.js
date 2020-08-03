@@ -6,7 +6,7 @@ const api = {
 
 				/* -------------------- Check for existing SteamRep data -------------------- */
 				profile_reputation = storage.find_steamrep(steamid);
-				if (profile_reputation && time.check_age(profile_reputation.last_check * 1000, 1))
+				if (profile_reputation && time.check_age(profile_reputation.last_check, 1))
 					return resolve(profile_reputation);
 
 				/* ------------------------ Create new SteamRep data ------------------------ */
@@ -63,8 +63,10 @@ const api = {
 		}
 	},
 	update: {
-		bots: () => {
-			if (sap_extension.data.bot_profiles.last_check + time.hours_to_seconds(24) > time.current_time()) return log(`Bot list: Not updated`);
+		bots: (override = false) => {
+			if (sap_extension.data.bot_profiles.last_check + time.hours_to_milliseconds(24) > time.current_time() && !override) //sap_extension.data.bot_profiles.last_check + time.hours_to_milliseconds(24)
+				return log(`Bot list: Not updated!${time.update_schedule(sap_extension.data.bot_profiles.last_check, time.hours_to_milliseconds(24))}`);
+
 			const pattern = { steamid: /7[0-9]{16}/g, xml_next_page: /<nextPageLink>[!-z]+<\/nextPageLink>/g, xml_total_pages: /<totalPages>[0-9]+<\/totalPages>/g, number: /[0-9]+/ };
 
 			marketplace();  // Get Marketplace.tf bots
@@ -114,8 +116,9 @@ const api = {
 				storage.save_settings();
 			}
 		},
-		user_profiles: async () => {
-			if (sap_extension.data.user_profiles.last_check + time.hours_to_seconds(24) >= time.current_time()) return log(`Impersonated list: Not Updated`);
+		user_profiles: async (override = false) => {
+			if (sap_extension.data.user_profiles.last_check + time.hours_to_milliseconds(24) >= time.current_time() && !override)
+				return log(`Impersonated list: Not updated!${time.update_schedule(sap_extension.data.user_profiles.last_check, time.hours_to_milliseconds(24))}`);
 
 			let users = [];
 			let response = JSON.parse(await webrequest(`get`, `https://backpack.tf/api/IGetUsers/GetImpersonatedUsers`));
@@ -146,10 +149,10 @@ const api = {
 			if (loc.origin.includes(`chrome-extension://`)) return;
 
 			sap_extension.data.user_profiles.steamrep_profiles.forEach((profile, index) => {
-				if (time.current_time() >= profile.last_check + time.hours_to_seconds(1)) sap_extension.data.user_profiles.steamrep_profiles.splice(index, 1);
+				if (time.current_time() >= profile.last_check + time.hours_to_milliseconds(1)) sap_extension.data.user_profiles.steamrep_profiles.splice(index, 1);
 			});
 			sap_extension.data.user_profiles.reptf_profiles.forEach((profile, index) => {
-				if (time.current_time() >= profile.last_check + time.hours_to_seconds(1)) sap_extension.data.user_profiles.reptf_profiles.splice(index, 1);
+				if (time.current_time() >= profile.last_check + time.hours_to_milliseconds(1)) sap_extension.data.user_profiles.reptf_profiles.splice(index, 1);
 			});
 			storage.save_settings();
 		}

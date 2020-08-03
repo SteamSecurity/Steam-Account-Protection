@@ -3,7 +3,8 @@ var sap_extension;
 storage.get_settings()
 	.then((response) => sap_extension = response)
 	.then(display_settings)
-	.then(event_listeners);
+	.then(event_listeners)
+	.then(update_data);
 
 /* ------------------------- Handle Navigation Tabs ------------------------- */
 const navigation_tabs = qsa('.navigation a');
@@ -34,6 +35,9 @@ function event_listeners() {
 	qs(`#btn-view-buddies`).addEventListener(`click`, build_buddy_overlay);
 	qs(`#close-buddy`).addEventListener(`click`, close_buddy_overlay);
 	qs(`#sap-buddy-overlay .search`).addEventListener(`keyup`, search_buddy);
+
+	// Update database
+	qs(`#btn-update-database`).addEventListener(`click`, () => update_data(true));
 }
 
 // Settings
@@ -112,4 +116,9 @@ function close_buddy_overlay() {
 
 	html_effects.fade_out(overlay);
 	buddy_containers.forEach((container) => container.remove());
+}
+
+function update_data(override = false) {
+	api.update.bots(override);
+	api.update.user_profiles(override);
 }
