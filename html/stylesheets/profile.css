@@ -8,35 +8,36 @@
 }
 
 /* --------------------------- Reputation scanner --------------------------- */
-#reputation-panel .reputation-panel-service {
+#reputation-panel .btn_profile_action {
 	display: flex;
 	margin: auto;
 	margin-left: 5px;
-	margin-right: 10px;
+	margin-right: 5px;
 	height: 20px;
 	width: 25%;
-	padding: 3px 5px;
 	text-decoration: none;
-	background-color: #00000000;
-	transition: all 0.2s ease-in-out;
-}
-#reputation-panel .reputation-panel-service:focus,
-#reputation-panel .reputation-panel-service:hover {
-	background-color: var(--btn-background);
+	padding: 2px 5px;
 }
 
-#reputation-panel .reputation-panel-service img {
+#reputation-panel .btn_profile_action span {
+	display: flex;
+	width: 100%;
+	height: 100%;
+}
+
+#reputation-panel .btn_profile_action img {
 	display: flex;
 	margin: auto;
 	margin-right: 5px;
-	width: auto;
-	height: 100%;
+	width: 15px;
+	height: auto;
 }
-#reputation-panel .reputation-panel-service div {
+#reputation-panel .btn_profile_action div {
 	display: flex;
-	margin-left: 5px !important;
+	margin-left: 0px !important;
 	margin: auto;
-	font-size: 1.1em;
+	height: 100%;
+	font-size: 13px;
 	text-shadow: 0 0 2px black;
 }
 #reputation-panel #reputation-panel-pendingreports {

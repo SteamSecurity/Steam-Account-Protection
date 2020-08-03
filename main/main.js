@@ -1,5 +1,7 @@
 // Love Acos(^-^)/
 
+//TODO: Impersonator scanner is maybe broken?
+
 // Quick location
 var loc = {
 	full: window.location.href,
