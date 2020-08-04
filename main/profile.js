@@ -1,5 +1,7 @@
 function profile() {
 	/* ---------------------------- Declare variables --------------------------- */
+	if (!qs(`.profile_avatar_frame`)) return;
+
 	const is_not_owner = () => qs(`.profile_header_actions .btn_profile_action`)?.children[0].innerText !== `Edit Profile` || false;
 	const profile = {
 		personaname: qs(`.profile_header_bg .persona_name .actual_persona_name`)?.innerText,

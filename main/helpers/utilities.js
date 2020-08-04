@@ -19,7 +19,7 @@ function url_params(url) {
 }
 function webrequest(type, url) {
 	return new Promise((resolve, reject) => {
-		var newXHR = new XMLHttpRequest() || new window.ActiveXObject('Microsoft.XMLHTTP');
+		let newXHR = new XMLHttpRequest() || new window.ActiveXObject('Microsoft.XMLHTTP');
 		newXHR.open(type, url, true);
 		newXHR.send();
 		newXHR.onreadystatechange = function () {
@@ -33,7 +33,7 @@ function webrequest(type, url) {
 
 /* ------------------------------- Comparison ------------------------------- */
 const compare = {
-	//Compares two strings and returns a decimal between 0 and 1 based on how similar they are
+	// Compares two strings and returns a decimal between 0 and 1 based on how similar they are
 	string: (current, base) => {
 		let percent = 0;
 		let x = 0;

@@ -192,7 +192,7 @@ const html_elements = {
 								<div>Steam Trades</div>
 							</span>
 							</a>
-							<a id="reputation-panel-google" target="_blank" href="https://duckduckgo.com/search?q=%22${profile.steamid}%22" class="btn_profile_action btn_medium">
+							<a id="reputation-panel-google" target="_blank" href="https://duckduckgo.com/?q=%22${profile.steamid}%22" class="btn_profile_action btn_medium">
 							<span>	
 								<img src="https://duckduckgo.com/favicon.ico"/>
 								<div>DuckDuckGo</div>

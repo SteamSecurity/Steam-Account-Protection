@@ -40,7 +40,6 @@ const user_scanner = {
 		/* -------------------------------- Functions ------------------------------- */
 		function check_profile(impersonated_user) {								// "impersonated_user" is the real user obtained from Backpack.tf API
 			const personaname_similarity = compare.string(impersonated_user.personaname.trim(), profile.personaname.trim());
-
 			if (personaname_similarity < 70) return;
 			if (impersonated_user.steamid === profile.steamid) return;
 

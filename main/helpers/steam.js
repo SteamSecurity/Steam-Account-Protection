@@ -29,15 +29,17 @@ const steam = {
 		const month = date_string.split(` `)[0];
 		const year = date_string.split(` `)[2];
 
-		const account_creation_timestamp = new Date(year, months[month], day);
-		const time_now = new Date(Date.now());
+		const account_creation_timestamp = new Date(year, months[month], day).getTime();
+		const time_now = Math.floor(time.current_time() / 100000) * 100000;
 
-		const years_apart = time_now.getFullYear() - account_creation_timestamp.getFullYear();
-		const months_apart = time_now.getFullYear() - account_creation_timestamp.getFullYear();
-		const days_apart = time_now.getDay() - account_creation_timestamp.getDay();
+		const account_age_seconds = time_now - account_creation_timestamp;	// Seconds since creation
 
-		if (years_apart > 0) return `${years_apart} years`;
-		if (months_apart > 0) return `${months_apart} months`;
-		if (days_apart > 0) return `${days_apart} days`;
+		let account_age_years = Math.floor(account_age_seconds / 31536000000);
+		let account_age_months = ((account_age_seconds / 2592000000) - (12 * account_age_years)).toFixed(1);
+
+		if (account_age_years > 0)
+			return `${account_age_years} years, ${account_age_months} months`;
+		else
+			return `${account_age_months} months`;
 	}
 }

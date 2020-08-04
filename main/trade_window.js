@@ -34,7 +34,6 @@ function trade_window() {
 		qs(`head`).insertAdjacentHTML(`beforeend`, `<link type="text/css" rel="stylesheet" href="${chrome.extension.getURL(`html/stylesheets/generic.css`)}">`);
 	}
 
-
 	function show_trade_toolbar() {
 		load_trade_toolbar();
 		qsa(`#trade-toolbar .bpanel`).forEach(add_events);  // Add listeners to the buttons
@@ -81,21 +80,17 @@ function trade_window() {
 		warning_element.insertAdjacentHTML(`beforeend`, html_elements.trade_window.trade_toolbar_box(text));
 	}
 
-
-
-
 	function rep_scan() {
 		qs(`#trade-toolbar #reputation-button`).classList.remove(`hidden`);
+		const reputation_element = qs(`#reputation-results`);
+		const last_check_element = qs(`#reputation-last-check`);
+
 		reputation_scanner(partner.steamid)
-			.then(show_on_toolbar);
-		//.catch(); TODO
+			.then(show_on_toolbar)
+			.catch(error); //TODO;
 
 		function show_on_toolbar(reputation) {
-			// Reputation options
-			const reputation_element = qs(`#reputation-results`);
-			const last_check_element = qs(`#reputation-last-check`);
-
-			last_check_element.innerText = time.utc_to_string(reputation.last_check * 1000);
+			last_check_element.innerText = time.utc_to_string(reputation.last_check);	//TODO
 
 			if (reputation.bad_tags.length !== 0) {
 				reputation_element.classList.add(`sap-critical`);
@@ -107,6 +102,11 @@ function trade_window() {
 			} else {
 				reputation_element.innerText = `Normal`;
 			}
+		}
+		function error(err) {
+			last_check_element.innerText = `Error`;
+			reputation_element.innerText = `Error`;
+			reputation_element.classList.add(`sap-warning`);
 		}
 	}
 	function is_valid() {

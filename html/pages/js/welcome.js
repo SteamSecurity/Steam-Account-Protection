@@ -3,7 +3,8 @@ storage.save_settings(true);
 api.update.bots();
 api.update.user_profiles();
 
-console.log(sap_extension);
+chrome.runtime.sendMessage({ "icon_path": 'img/sap_good.png' });
+
 /* ------------------------- Handle Navigation Tabs ------------------------- */
 const navigation_tabs = qsa('.navigation a');
 navigation_tabs.forEach((tab) => create_click_event(tab));
