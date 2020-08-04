@@ -36,7 +36,7 @@ function event_listeners() {
 	qs(`#sap-buddy-overlay .search`).addEventListener(`keyup`, search_buddy);
 
 	// Update database
-	qs(`#btn-update-database`).addEventListener(`click`, () => update_data(true));
+	qs(`#btn-update-database`).addEventListener(`click`, () => update_data(true), { once: true });
 }
 
 // Settings
@@ -118,6 +118,8 @@ function close_buddy_overlay() {
 }
 
 function update_data(override = false) {
+	if (override) qs(`#btn-update-database`).classList.add(`btn_blocked`);
+
 	api.update.bots(override);
 	api.update.user_profiles(override);
 }

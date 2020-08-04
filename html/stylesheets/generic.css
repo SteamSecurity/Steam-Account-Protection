@@ -66,6 +66,16 @@
 	background-color: #af3232 !important;
 }
 
+.btn_blocked {
+	background-color: #333333;
+	color: white !important;
+	cursor: no-drop;
+}
+.btn_blocked:hover,
+.btn_blocked:focus {
+	background-color: #333333 !important;
+}
+
 /* .btn_warning {
 	background: radial-gradient(circle at top left, #9a9c00 0%, #7e8000 60%), #25282e;
 	color: white !important;

@@ -189,7 +189,7 @@ const html_elements = {
 							<a id="reputation-panel-steamtrades" target="_blank" href="https://steamtrades.com/user/${profile.steamid}" class="btn_profile_action btn_medium">
 							<span>	
 								<img src="https://cdn.steamtrades.com/img/favicon.ico"  />
-								<div>ST</div>
+								<div>Steam Trades</div>
 							</span>
 							</a>
 							<a id="reputation-panel-google" target="_blank" href="https://duckduckgo.com/search?q=%22${profile.steamid}%22" class="btn_profile_action btn_medium">
