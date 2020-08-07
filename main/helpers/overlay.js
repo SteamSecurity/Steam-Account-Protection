@@ -9,7 +9,6 @@ const overlays = {
 		close_overlay.addEventListener(`click`, () => html_effects.fade_out(overlay));
 	},
 	reputation: () => {
-		console.log(`Triggered`);
 		document.body.insertAdjacentHTML(`beforebegin`, html_elements.multi.reputation_warning());
 
 		const overlay = qs(`#sap-reputation-overlay`);

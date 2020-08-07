@@ -8,6 +8,11 @@
 }
 
 /* --------------------------- Reputation scanner --------------------------- */
+#reputation-panel .btn_container {
+	margin-top: 15px;
+	display: flex;
+}
+
 #reputation-panel .btn_profile_action {
 	display: flex;
 	margin: auto;

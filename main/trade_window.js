@@ -60,15 +60,18 @@ function trade_window() {
 	function show_api_warning() {
 		webrequest(`get`, `https://steamcommunity.com/dev/apikey`)
 			.then(has_api_key)
-			.then(load_warning);
-		//.catch() TODO
+			.then(load_warning)
+			.catch(() => error());
 
 		function has_api_key(response) {
 			return response.includes(`Key: `);
 		}
 
 		function load_warning(has_key) {
-			if (has_key) add_warning_to_toolbar(`API Key is registered`);
+			if (has_key) add_warning_to_toolbar(`API key is registered`);
+		}
+		function error() {
+			add_warning_to_toolbar(`API key detection error`);
 		}
 	}
 	function add_warning_to_toolbar(text) {
@@ -87,10 +90,10 @@ function trade_window() {
 
 		reputation_scanner(partner.steamid)
 			.then(show_on_toolbar)
-			.catch(error); //TODO;
+			.catch(error);
 
 		function show_on_toolbar(reputation) {
-			last_check_element.innerText = time.utc_to_string(reputation.last_check);	//TODO
+			last_check_element.innerText = time.utc_to_string(reputation.last_check);
 
 			if (reputation.bad_tags.length !== 0) {
 				reputation_element.classList.add(`sap-critical`);
@@ -103,7 +106,7 @@ function trade_window() {
 				reputation_element.innerText = `Normal`;
 			}
 		}
-		function error(err) {
+		function error() {
 			last_check_element.innerText = `Error`;
 			reputation_element.innerText = `Error`;
 			reputation_element.classList.add(`sap-warning`);

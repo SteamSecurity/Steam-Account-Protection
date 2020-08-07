@@ -121,7 +121,7 @@ const html_elements = {
 		trade_toolbar_box: (text) => `<div class="partner-info-container"><span class="warning-text">${text}</span></div>`
 	},
 	profile: {
-		reputation_panel: (profile) => `<div id="reputation-panel" class="profile_customization" style="height:auto;">
+		reputation_panel: (profile) => `<div id="reputation-panel" class="profile_customization">
 		<div id="reputation-panel-title" class="profile_customization_header ellipsis">${profile.personaname}'s Reputation</div>
 		<div class="profile_customization_block">
 			<div class="customtext_showcase">
@@ -131,7 +131,7 @@ const html_elements = {
 							<b>SteamRep:</b> <a id="reputation-panel-steamrep" target="_blank" href="https://steamrep.com/profiles/${profile.steamid}">Loading...</a>
 						</p>
 						<p>
-							<b>Pending Reports:</b> <a id="reputation-panel-pendingreports" target="_blank" href="https://steamrep.com/profiles/${profile.steamid}">Loading...</a>
+							<b>Reports:</b> <a id="reputation-panel-pendingreports" target="_blank" href="https://steamrep.com/profiles/${profile.steamid}">Loading...</a>
 						</p>
 						<p>
 							<b>Perm Link:</b> <a id="reputation-panel-permlink" href="javascript:;" onclick="event.preventDefault(); let sel = window.getSelection(); let range = document.createRange(); range.selectNodeContents(this); sel.removeAllRanges(); sel.addRange(range); document.execCommand('copy')">https://steamcommunity.com/profiles/${profile.steamid}</a>
@@ -140,7 +140,7 @@ const html_elements = {
 							<b>SteamID64:</b> <input id="reputation-panel-steamid" type="text" style="text-align: center;" readonly onclick="this.select(); document.execCommand('copy')" value="${profile.steamid}"/>
 						</p>
 						
-						<div style="margin-top:15px;display:flex;">
+						<div class="btn_container">
 	
 							<a id="reputation-panel-reptf" target="_blank" href="https://rep.tf/${profile.steamid}" class="btn_profile_action btn_medium">
 							<span>
@@ -172,7 +172,7 @@ const html_elements = {
 							</a>
 							
 						</div>
-						<div style="margin-top:15px;display:flex;">
+						<div class="btn_container">
 							<a id="reputation-panel-marketplacetf" target="_blank" href="https://marketplace.tf/shop/${profile.steamid}" class="btn_profile_action btn_medium">
 							<span>	
 								<img src="https://marketplace.tf/favicon.ico"  />
