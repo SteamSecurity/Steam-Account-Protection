@@ -1,8 +1,10 @@
 /* ---------------------------- Setting container --------------------------- */
 .text-container .setting-container {
-	width: 100%;
 	margin-bottom: 7px;
 	display: flex;
+	border-radius: 3px;
+	margin-left: 10px;
+	box-sizing: border-box;
 }
 .text-container .setting-container .title {
 	margin-top: auto;
@@ -12,7 +14,7 @@
 
 .text-container .setting-container:hover,
 .text-container .setting-container:focus {
-	background-color: #252a35;
+	background-color: #2f343e;
 }
 
 .text-container .setting-container .right {

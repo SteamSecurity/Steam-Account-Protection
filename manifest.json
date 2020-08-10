@@ -8,9 +8,6 @@
 	"background": {
 		"scripts": [ "main/background.js" ]
 	},
-	"externally_connectable": {
-		"matches": []
-	},
 	"icons": {
 		"512": "img/sap_512.png"
 	},
