@@ -35,7 +35,7 @@ const steam = {
 		const account_age_seconds = time_now - account_creation_timestamp;	// Seconds since creation
 
 		let account_age_years = Math.floor(account_age_seconds / 31536000000);
-		let account_age_months = ((account_age_seconds / 2592000000) - (12 * account_age_years)).toFixed(1);
+		let account_age_months = ((account_age_seconds / 2592000000) - (12 * account_age_years)).toFixed(1) - 1;
 
 		if (account_age_years > 0)
 			return `${account_age_years} years, ${account_age_months} months`;
