@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/Armored-Dragon/Steam-Account-Protection">
-    <img src="https://raw.githubusercontent.com/Armored-Dragon/Steam-Account-Protection/3.3.6/img/sap_512.png" width="100">
+    <img src="https://raw.githubusercontent.com/Armored-Dragon/Steam-Account-Protection/master/img/sap_512.png" width="100">
   </a>
   <h2 align="center">Steam Account Protection</h2>
   <p align="center">
