@@ -1,0 +1,144 @@
+body {
+	margin: 0;
+	background: linear-gradient(180deg, #262d33 -3.38%, #1d1e20 78.58%);
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+
+	color: #cbcfcb;
+	font-family: "Motiva Sans", Arial, Helvetica, sans-serif;
+	cursor: default;
+}
+
+a {
+	color: #7dd4ff;
+}
+
+/* -------------------------------- Title Box ------------------------------- */
+.title-box {
+	background-color: #171a21;
+	height: 50px;
+	width: 100%;
+	text-shadow: 0 0 10px #00000087;
+	display: flex;
+	flex-direction: column;
+	z-index: 1;
+}
+
+.title-box .title {
+	font-size: 2em;
+	margin: auto;
+	color: #fff;
+}
+
+/* ---------------------------------- Body ---------------------------------- */
+.text-container {
+	margin: auto;
+	margin-top: 0;
+	margin-bottom: 0;
+	font-size: 1.2em;
+	width: 80%;
+	min-height: 250px;
+	max-width: 1000px;
+	margin-top: 15px;
+	box-sizing: border-box;
+	display: flex;
+}
+
+.text-container .navigation {
+	width: 200px;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+.text-container .navigation a {
+	display: flex;
+	width: 100%;
+	height: auto;
+	padding: 7px 20px 7px 10px;
+	box-sizing: border-box;
+	color: #dcdcdc;
+	text-decoration: none;
+	transition: all 0.1s ease-in-out;
+	margin-bottom: 5px;
+	border-radius: 3px;
+}
+
+.text-container .navigation a:hover,
+.text-container .navigation a:focus {
+	background-color: #3d4450;
+	color: #fff;
+}
+.text-container .navigation .active {
+	background-color: #3d4450 !important;
+	color: white;
+}
+
+.text-container .navigation a * {
+	margin: auto auto auto 0;
+}
+.text-container .bottom {
+	margin-top: auto;
+}
+
+.text-container .text {
+	text-align: left;
+	width: 100%;
+	margin-left: 10px;
+	padding: 15px 25px;
+	box-sizing: border-box;
+}
+
+.text-container .text .header,
+.text-container .text .sub-header {
+	padding: 3px 10px;
+	font-size: 1.6em;
+	text-align: left;
+	color: white;
+}
+.text-container .text .sub-header {
+	font-size: 1.0em;
+	margin-bottom: 10px;
+	color: #cbcfcb;
+}
+
+/* ---------------------------------- Misc ---------------------------------- */
+.hidden {
+	display: none;
+}
+
+.separator-line {
+	background-color: rgba(228, 228, 228, 0.1);
+	height: 2px;
+	width: 100%;
+	margin: 10px 0 10px 0;
+}
+
+/* ------------------------ Small Screen Adjustments ------------------------ */
+
+@media all and (max-width: 650px) {
+	.title-box .title {
+		font-size: 1.5em;
+	}
+	.text-container {
+		width: 100%;
+		min-height: 0;
+		flex-direction: column;
+		background-color: #00000000;
+		box-shadow: 0;
+	}
+	.text-container .navigation {
+		width: 100%;
+		height: auto;
+		margin-bottom: 10px;
+		box-shadow: black 0 0 5px;
+	}
+	.text-container .text {
+		margin: 0;
+		margin-top: 10px;
+		padding: 15px 10px;
+		background-color: #00000066;
+		box-shadow: black 0 0 5px;
+	}
+}

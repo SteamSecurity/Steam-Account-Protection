@@ -1,0 +1,121 @@
+/* ---------------------------- Setting container --------------------------- */
+.text-container .setting-container {
+	margin-bottom: 7px;
+	display: flex;
+	border-radius: 3px;
+	margin-left: 10px;
+	box-sizing: border-box;
+}
+.text-container .setting-container .title {
+	margin-top: auto;
+	margin-bottom: auto;
+	margin-left: 10px;
+}
+
+.text-container .setting-container:hover,
+.text-container .setting-container:focus {
+	background-color: #2f343e;
+}
+
+.text-container .setting-container .right {
+	margin-left: auto;
+}
+
+/* --------------------------------- Buttons -------------------------------- */
+.text-container .right .btn_good::before {
+	content: "Enabled" !important;
+}
+.text-container .right .btn_bad::before {
+	content: "Disabled";
+}
+
+/* ---------------------------- Overlay overrides --------------------------- */
+
+.sap-overlay {
+	display: flex;
+}
+.sap-overlay .overlay-content {
+	max-height: 80vh !important;
+	height: auto;
+	overflow: auto;
+}
+
+.sap-overlay .profile-icon {
+	height: 90px;
+	width: 90px;
+	position: initial;
+}
+
+.sap-overlay .button-container {
+	margin-bottom: 10px;
+}
+
+.sap-overlay .btn_good {
+	background-color: #037504;
+	color: white !important;
+}
+.sap-overlay .btn_good:hover,
+.sap-overlay .btn_good:focus {
+	background-color: #009501 !important;
+}
+
+.sap-overlay .btn_bad {
+	background-color: #a20101;
+	color: white !important;
+}
+
+.sap-overlay .btn_bad:hover,
+.sap-overlay .btn_bad:focus {
+	background-color: #af3232 !important;
+}
+
+.overlay-content .search {
+	width: 80%;
+	display: flex;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 10px;
+	text-align: center;
+}
+
+#sap-currency-overlay .description {
+	margin-bottom: 10px;
+}
+
+/* -- Overlay additions -- */
+.sap-overlay .currency-container {
+	background-color: rgba(0, 0, 0, 0.3);
+	margin: auto;
+	width: 95%;
+	display: flex;
+	flex-direction: row;
+	padding: 5px 15px;
+	box-sizing: border-box;
+}
+
+.sap-overlay .currency-icon {
+	width: 75px;
+	height: 75px;
+	margin-right: 10px;
+}
+
+.sap-overlay .currency-text-container {
+	display: flex;
+	margin-right: 10px;
+}
+
+.sap-overlay .currency-text {
+	margin: auto;
+	font-size: 1.2em;
+}
+.sap-overlay .currency-value-input {
+	width: 100px;
+	height: 20px;
+	text-align: center;
+}
+
+.sap-overlay .container {
+	display: flex;
+	margin: auto;
+	margin-right: 0;
+}

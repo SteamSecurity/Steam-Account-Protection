@@ -1,0 +1,110 @@
+/* ------------------------------- Visibility ------------------------------- */
+.hidden {
+	display: none !important;
+}
+
+/* --------------------------------- Buttons -------------------------------- */
+.button-container {
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 10px;
+}
+
+.button {
+	border-radius: 2px;
+	border: 0;
+	color: #ebebeb;
+	text-shadow: rgba(0, 0, 0, 0.5) 0 0 2px;
+	font-size: 0.9em;
+	display: inline-block;
+	text-decoration: none;
+	cursor: pointer;
+	background-color: #3d4450;
+	transition: all 0.1s ease-in-out;
+	padding: 5px 35px;
+	user-select: none;
+}
+.button:hover,
+.button:focus {
+	text-decoration: none;
+	background-color: #464d58;
+	color: white !important;
+	filter: drop-shadow(1px 5px 10px rgba(0, 0, 0, 0.25));
+}
+.btn_secondary {
+	font-size: 1em;
+	padding: 5px 25px;
+	background-color: #4a556b;
+}
+
+.btn_active {
+	background: radial-gradient(circle at top left, #3e74d8 0%, #3063c3 60%), #25282e !important;
+	color: white !important;
+}
+
+.btn_active:hover,
+.btn_active:focus {
+	background-color: #4267af;
+}
+
+.btn_good {
+	background: radial-gradient(circle at top left, #0c980c 0%, #007b01 60%), #25282e;
+	color: white !important;
+}
+.btn_good:hover,
+.btn_good:focus {
+	background-color: #009501 !important;
+}
+
+.btn_bad {
+	background: radial-gradient(circle at top left, #d01313 0%, #b50101 60%), #25282e;
+	color: white !important;
+}
+.btn_bad:hover,
+.btn_bad:focus {
+	background-color: #af3232 !important;
+}
+
+.btn_blocked {
+	background-color: #333333;
+	color: white !important;
+	cursor: no-drop;
+}
+.btn_blocked:hover,
+.btn_blocked:focus {
+	background-color: #333333 !important;
+}
+
+.btn_warning {
+	background: radial-gradient(circle at top left, #9a9c00 0%, #7e8000 60%), #25282e;
+	color: white !important;
+}
+.btn_warning:hover,
+.btn_warning:focus {
+	background-color: #af3232 !important;
+}
+
+/*	----- Button sizes -----	*/
+.button.btn_big {
+	min-width: 100px;
+	text-align: center;
+}
+
+/* --------------------------------- Colors --------------------------------- */
+.sap-good {
+	color: #26ff00;
+}
+.sap-warning {
+	color: #ffe100;
+}
+.sap-critical {
+	color: #ff4c4c;
+}
+
+/* .steam-text-white {
+	color: #ebebeb;
+}
+ */
+.steam-highlight {
+	color: #63b7e7;
+}

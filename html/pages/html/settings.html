@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>SAP | Settings</title>
+	<!--Stylesheets-->
+	<link rel="stylesheet" href="/html/stylesheets/overlay.css">
+	<link rel="stylesheet" href="/html/pages/css/settings.css">
+	<link rel="stylesheet" href="/html/pages/css/generic_page.css">
+	<link rel="stylesheet" href="/html/stylesheets/generic.css">
+</head>
+
+<body>
+	<div id="sap-buddy-overlay" style="display:none; opacity:0" class="sap-overlay">
+		<div class="overlay-content">
+			<div class="top-bar"></div>
+			<div class="title">All Buddies</div>
+			<input class="search" placeholder="Search">
+
+			<div class="button-container">
+				<a class="button" id="close-buddy">Close</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="title-box">
+		<div class="title">Steam Account Protection</div>
+	</div>
+	<div class="text-container">
+		<div class="navigation">
+			<a class="active" data-content="general" href="#">
+				<div>General</div>
+			</a>
+			<a data-content="profile" href="#">
+				<div>Profile</div>
+			</a>
+			<a data-content="trade" href="#">
+				<div>Trading</div>
+			</a>
+			<div class="separator-line"></div>
+			<a data-content="help" href="#">
+				<div>Help</div>
+			</a>
+		</div>
+		<div id="content-general" class="text">
+			<div class="header">GENERAL</div>
+			<div class="sub-header">General settings and data too varied to assign to a specific category.</div>
+			<div class="separator-line"></div>
+			<div class="setting-container">
+				<div class="title">View buddies</div>
+				<div class="right">
+					<div id="btn-view-buddies" class="button">View buddies</div>
+				</div>
+			</div>
+			<div class="setting-container">
+				<div class="title">Update database</div>
+				<div class="right">
+					<div id="btn-update-database" class="button">Update database</div>
+				</div>
+			</div>
+		</div>
+		<div id="content-profile" class="text hidden">
+			<div class="header">PROFILE</div>
+			<div class="sub-header">Everything to do with profile pages and profile data.</div>
+			<div class="separator-line"></div>
+			<div class="setting-container">
+				<div class="title">Buddy system</div>
+				<div class="right">
+					<div data-category="profile" data-setting="buddy_button" id="setting-buddy-system" class="button btn_disable">
+					</div>
+				</div>
+			</div>
+			<div class="setting-container">
+				<div class="title">Reputation panel</div>
+				<div class="right">
+					<div data-category="profile" data-setting="pr_reputation_scanner" id="setting-reputation-panel-profile"
+						class="button btn_enable">
+					</div>
+				</div>
+			</div>
+			<div class="setting-container">
+				<div class="title">Impersonator checker</div>
+				<div class="right">
+					<div data-category="profile" data-setting="pr_impersonator_scanner" id="setting-impersonator-checker-profile"
+						class="button btn_disable">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="content-trade" class="text hidden">
+			<div class="header">TRADING</div>
+			<div class="sub-header">Everything to do with trading and trading windows.</div>
+			<div class="separator-line"></div>
+			<div class="setting-container">
+				<div class="title">API warning</div>
+				<div class="right">
+					<div data-category="trade_window" data-setting="api_warning" id="setting-api-warning"
+						class="button btn_disable"></div>
+				</div>
+			</div>
+			<div class="setting-container">
+				<div class="title">Reputation checker</div>
+				<div class="right">
+					<div data-category="trade_window" data-setting="tw_reputation_scanner" id="setting-reputation-checker-trade"
+						class="button btn_disable"></div>
+				</div>
+			</div>
+			<div class="setting-container">
+				<div class="title">Impersonator checker</div>
+				<div class="right">
+					<div data-category="trade_window" data-setting="tw_impersonator_scanner"
+						id="setting-impersonator-checker-trade" class="button btn_disable">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="content-help" class="text hidden">
+			<div class="header">HELP</div>
+			<div class="sub-header">Different ways to receive help for Steam Account Protection</div>
+			<div class="separator-line"></div>
+			Visit the <a href="https://github.com/Armored-Dragon/Steam-Account-Protection/wiki" target="_blank">Github
+				Wiki</a> for help!
+		</div>
+	</div>
+</body>
+
+<!--Scripts-->
+<script src="/main/helpers/storage.js"></script>
+<script src="/main/helpers/utilities.js"></script>
+<script src="/main/api.js"></script>
+<script src="/main/helpers/html_effects.js"></script>
+<script src="/html/html_elements.js"></script>
+<script src="/html/pages/js/settings.js"></script>
+
+</html>
