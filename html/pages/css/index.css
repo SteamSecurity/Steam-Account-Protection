@@ -1,0 +1,400 @@
+.hidden {
+  display: none !important;
+}
+
+.right {
+  margin-left: auto;
+}
+
+body {
+  margin: 0;
+  background: -webkit-gradient(linear, left top, left bottom, from(#283846), to(#202428));
+  background: linear-gradient(to bottom, #283846, #202428);
+  min-height: 100vh;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.header {
+  width: 100%;
+  height: 50px;
+  background-color: #00000070;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  -webkit-user-drag: none;
+}
+
+.header .title {
+  margin: auto;
+  font-size: 1.6em;
+  color: white;
+}
+
+.settings_container {
+  display: -ms-grid;
+  display: grid;
+  width: 1000px;
+  min-height: 500px;
+  margin: 20px auto 0px auto;
+  -ms-grid-columns: 200px 40px auto;
+      grid-template-columns: 200px 40px auto;
+  background-color: #00000070;
+}
+
+.settings_container .nav,
+.settings_container .content {
+  border-radius: 2px;
+}
+
+.settings_container .nav {
+  width: 100%;
+  height: 100%;
+  padding-top: 10px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.settings_container .nav .nav_item.active {
+  background: none;
+  text-shadow: none !important;
+  background-color: #005179 !important;
+}
+
+.settings_container .nav .nav_item {
+  background: -webkit-gradient(linear, left top, right top, color-stop(50%, #1f78d5), color-stop(50%, transparent));
+  background: linear-gradient(90deg, #1f78d5 50%, transparent 50%);
+  position: relative;
+  width: 100%;
+  height: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  cursor: pointer;
+  color: white;
+  margin-bottom: 5px;
+  text-decoration: none;
+}
+
+.settings_container .nav .nav_item span {
+  margin: auto auto auto 15px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  -webkit-user-drag: none;
+}
+
+.settings_container .nav .nav_item:after {
+  position: absolute;
+}
+
+.settings_container .nav .nav_item,
+.settings_container .nav .nav_item:after {
+  background-size: 300%;
+  background-position: 100%;
+  -webkit-transition: 0.35s;
+  transition: 0.35s;
+}
+
+.settings_container .nav .nav_item:hover,
+.settings_container .nav .nav_item:hover:after,
+.settings_container .nav .nav_item:focus,
+.settings_container .nav .nav_item:focus:after {
+  background-position: 0;
+  color: white;
+  text-shadow: 0 0 2px #666;
+}
+
+.settings_container .nav .nav_item:last-child {
+  margin-bottom: 0;
+}
+
+.settings_container .nav .footer {
+  margin: auto auto 10px auto;
+  font-size: 0.8em;
+  color: gray;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  width: 100%;
+  padding: 0px 10px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.settings_container .content {
+  padding: 15px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  color: white;
+}
+
+.settings_container .content .page {
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-animation: fadein 0.3s;
+          animation: fadein 0.3s;
+}
+
+.settings_container .content .page .setting_block {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding-bottom: 30px;
+  margin-bottom: 5px;
+}
+
+.settings_container .content .page .setting_block .info {
+  width: 100%;
+}
+
+.settings_container .content .page .setting_block .info .title {
+  margin-bottom: 10px;
+  background-color: #005179;
+  padding: 3px 10px;
+}
+
+.settings_container .content .page .setting_block .info .description {
+  text-indent: 5px;
+}
+
+.settings_container .content .page .setting_block .setting {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: auto;
+  padding: 3px 5px;
+  border-radius: 2px;
+  -webkit-transition: background-color ease-in-out 0.1s;
+  transition: background-color ease-in-out 0.1s;
+}
+
+.settings_container .content .page .setting_block .setting span {
+  margin: auto auto auto 0;
+}
+
+.settings_container .content .page .setting_block .setting button {
+  margin: auto 0 auto auto;
+  padding: 3px 15px;
+  border-radius: 3px;
+  border: 0;
+  cursor: pointer;
+  -webkit-transition: background-color 0.2s;
+  transition: background-color 0.2s;
+  min-width: 100px;
+  font-weight: 400;
+}
+
+.settings_container .content .page .setting_block .setting button.disabled {
+  background-color: #9d0101;
+  color: #c8c8c8;
+  font-weight: 500;
+}
+
+.settings_container .content .page .setting_block .setting button.disabled:after {
+  content: "Disabled";
+}
+
+.settings_container .content .page .setting_block .setting button.enabled {
+  background-color: green;
+  color: #c8c8c8;
+  font-weight: 500;
+}
+
+.settings_container .content .page .setting_block .setting button.enabled:after {
+  content: "Enabled";
+}
+
+.settings_container .content .page .setting_block .setting button:hover,
+.settings_container .content .page .setting_block .setting button:focus {
+  color: white;
+}
+
+.settings_container .content .page .setting_block .setting button:hover:not(.enabled):not(.disabled),
+.settings_container .content .page .setting_block .setting button:focus {
+  background-color: #1f78d5;
+}
+
+.settings_container .content .page .setting_block .setting:hover {
+  background-color: #1f78d545;
+}
+
+.settings_container .content #home {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.settings_container .content #home .row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  margin-bottom: 15px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.settings_container .content #home .row .threat_container {
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 220px;
+  min-height: 100px;
+  padding: 5px 20px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border-radius: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin: auto;
+}
+
+.settings_container .content #home .row .threat_container .threat_header,
+.settings_container .content #home .row .threat_container .safe_header {
+  margin: auto auto 5px auto;
+  font-size: 2.25em;
+}
+
+.settings_container .content #home .row .threat_container .threat_header {
+  color: #ff2a2a;
+}
+
+.settings_container .content #home .row .threat_container .safe_header {
+  color: #00ffa2;
+}
+
+.settings_container .content #home .row .threat_container .threat_subtext {
+  margin: 0 auto auto auto;
+  font-size: 0.9em;
+  text-align: center;
+}
+
+@media screen and (max-width: 1200px) {
+  .settings_container {
+    width: 95%;
+  }
+  .settings_container .content #home .row .threat_container {
+    width: 100%;
+    margin: auto 3px auto 3px;
+    padding: 2px 5px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .settings_container {
+    width: 100%;
+    min-height: 0px;
+    -ms-grid-columns: 100%;
+        grid-template-columns: 100%;
+    -ms-grid-rows: min-content 10px min-content;
+        grid-template-rows: -webkit-min-content 10px -webkit-min-content;
+        grid-template-rows: min-content 10px min-content;
+  }
+  .settings_container .content {
+    padding: 20px 5px;
+  }
+  .settings_container .content .page .setting_block .setting {
+    margin-bottom: 15px;
+  }
+  .settings_container .content .page .setting_block .setting .info {
+    width: 60%;
+  }
+  .settings_container .content .page .setting_block .setting button {
+    height: 50px;
+  }
+  .settings_container .content #home .row {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .settings_container .content #home .row .threat_container {
+    width: 100%;
+    margin: auto;
+    padding: 2px 5px;
+  }
+  .nav .footer {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .header {
+    height: 35px;
+  }
+  .header .title {
+    font-size: 1em;
+  }
+  .settings_container .content .page .setting_block {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .settings_container .content .page .setting_block .info {
+    width: 100%;
+    margin-bottom: 5px;
+  }
+  .settings_container .content .page .setting_block .actions {
+    width: 100%;
+  }
+}
+
+@-webkit-keyframes fadein {
+  from {
+    margin-left: 5%;
+    opacity: 0.5;
+  }
+  to {
+    margin-left: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    margin-left: 5%;
+    opacity: 0.5;
+  }
+  to {
+    margin-left: 0;
+    opacity: 1;
+  }
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  body {
+    font-size: 16px;
+  }
+  .setting_block .setting {
+    margin-bottom: 3px;
+  }
+}
+/*# sourceMappingURL=index.css.map */

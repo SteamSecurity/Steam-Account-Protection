@@ -1,0 +1,341 @@
+$red-button: #9d0101;
+$red-text: #ff2a2a;
+
+$good-text: #00ffa2;
+
+.hidden {
+	display: none !important;
+}
+
+.right {
+	margin-left: auto;
+}
+
+body {
+	margin: 0;
+	background: linear-gradient(to bottom, #283846, #202428);
+	min-height: 100vh;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.header {
+	width: 100%;
+	height: 50px;
+	background-color: #00000070;
+	display: flex;
+	user-select: none;
+	-webkit-user-drag: none;
+
+	.title {
+		margin: auto;
+		font-size: 1.6em;
+		color: white;
+	}
+}
+
+.settings_container {
+	display: grid;
+	width: 1000px;
+	min-height: 500px;
+	margin: 20px auto 0px auto;
+	grid-template-columns: 200px 40px auto;
+	background-color: #00000070;
+	.nav,
+	.content {
+		border-radius: 2px;
+	}
+
+	.nav {
+		width: 100%;
+		height: 100%;
+		padding-top: 10px;
+		box-sizing: border-box;
+		display: flex;
+		flex-direction: column;
+
+		.nav_item.active {
+			background: none;
+			text-shadow: none !important;
+			background-color: #005179 !important;
+		}
+
+		.nav_item {
+			background: linear-gradient(90deg, #1f78d5 50%, transparent 50%);
+			position: relative;
+			width: 100%;
+			height: 30px;
+			display: flex;
+			cursor: pointer;
+			color: white;
+			margin-bottom: 5px;
+			text-decoration: none;
+
+			span {
+				margin: auto auto auto 15px;
+				user-select: none;
+				-webkit-user-drag: none;
+			}
+		}
+		.nav_item:after {
+			position: absolute;
+		}
+		.nav_item,
+		.nav_item:after {
+			background-size: 300%;
+			background-position: 100%;
+			transition: 0.35s;
+		}
+
+		.nav_item:hover,
+		.nav_item:hover:after,
+		.nav_item:focus,
+		.nav_item:focus:after {
+			background-position: 0;
+			color: white;
+			text-shadow: 0 0 2px #666;
+		}
+
+		.nav_item:last-child {
+			margin-bottom: 0;
+		}
+
+		.footer {
+			margin: auto auto 10px auto;
+			font-size: 0.8em;
+			color: gray;
+			display: flex;
+			flex-direction: row;
+			width: 100%;
+			padding: 0px 10px;
+			box-sizing: border-box;
+		}
+	}
+
+	.content {
+		padding: 15px;
+		box-sizing: border-box;
+		color: white;
+
+		.page {
+			font-family: Arial, Helvetica, sans-serif;
+			animation: fadein 0.3s;
+
+			.setting_block {
+				display: flex;
+				padding-bottom: 30px;
+				margin-bottom: 5px;
+
+				.info {
+					width: 100%;
+					.title {
+						margin-bottom: 10px;
+						background-color: #005179;
+						padding: 3px 10px;
+					}
+
+					.description {
+						text-indent: 5px;
+					}
+				}
+
+				.setting {
+					display: flex;
+					margin-left: auto;
+					padding: 3px 5px;
+					border-radius: 2px;
+					transition: background-color ease-in-out 0.1s;
+
+					span {
+						margin: auto auto auto 0;
+					}
+					button {
+						margin: auto 0 auto auto;
+						padding: 3px 15px;
+						border-radius: 3px;
+						border: 0;
+						cursor: pointer;
+						transition: background-color 0.2s;
+						min-width: 100px;
+						font-weight: 400;
+					}
+					button.disabled {
+						background-color: #9d0101;
+						color: #c8c8c8;
+						font-weight: 500;
+					}
+					button.disabled:after {
+						content: "Disabled";
+					}
+					button.enabled {
+						background-color: green;
+						color: #c8c8c8;
+						font-weight: 500;
+					}
+					button.enabled:after {
+						content: "Enabled";
+					}
+					button:hover,
+					button:focus {
+						color: white;
+					}
+					button:hover:not(.enabled):not(.disabled),
+					button:focus {
+						background-color: #1f78d5;
+					}
+				}
+
+				.setting:hover {
+					background-color: #1f78d545;
+				}
+			}
+		}
+
+		#home {
+			display: flex;
+			flex-direction: column;
+
+			.row {
+				display: flex;
+				flex-direction: row;
+				margin-bottom: 15px;
+				user-select: none;
+				.threat_container {
+					background-color: rgba(0, 0, 0, 0.5);
+					width: 220px;
+					min-height: 100px;
+					padding: 5px 20px;
+					box-sizing: border-box;
+					border-radius: 5px;
+					display: flex;
+					flex-direction: column;
+					margin: auto;
+
+					.threat_header,
+					.safe_header {
+						margin: auto auto 5px auto;
+						font-size: 2.25em;
+					}
+
+					.threat_header {
+						color: $red-text;
+					}
+
+					.safe_header {
+						color: $good-text;
+					}
+					.threat_subtext {
+						margin: 0 auto auto auto;
+						font-size: 0.9em;
+						text-align: center;
+					}
+				}
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 1200px) {
+	.settings_container {
+		width: 95%;
+
+		.content {
+			#home {
+				.row {
+					.threat_container {
+						width: 100%;
+						margin: auto 3px auto 3px;
+						padding: 2px 5px;
+					}
+				}
+			}
+		}
+	}
+}
+@media screen and (max-width: 600px) {
+	.settings_container {
+		width: 100%;
+		min-height: 0px;
+		grid-template-columns: 100%;
+		grid-template-rows: min-content 10px min-content;
+
+		.content {
+			padding: 20px 5px;
+
+			.page {
+				.setting_block {
+					.setting {
+						margin-bottom: 15px;
+						.info {
+							width: 60%;
+						}
+						button {
+							height: 50px;
+						}
+					}
+				}
+			}
+
+			#home {
+				.row {
+					flex-direction: column;
+					.threat_container {
+						width: 100%;
+						margin: auto;
+						padding: 2px 5px;
+					}
+				}
+			}
+		}
+	}
+	.nav .footer {
+		display: none;
+	}
+}
+//  Realistically if you are still at this point, that's on you..
+//  This is what you get. It works, but I'm assuming you must be used to improvising by now?
+@media screen and (max-width: 600px) {
+	.header {
+		height: 35px;
+		.title {
+			font-size: 1em;
+		}
+	}
+	.settings_container {
+		.content {
+			.page {
+				.setting_block {
+					flex-direction: column;
+
+					.info {
+						width: 100%;
+						margin-bottom: 5px;
+					}
+					.actions {
+						width: 100%;
+					}
+				}
+			}
+		}
+	}
+}
+
+@keyframes fadein {
+	from {
+		margin-left: 5%;
+		opacity: 0.5;
+	}
+	to {
+		margin-left: 0;
+		opacity: 1;
+	}
+}
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+	body {
+		font-size: 16px;
+	}
+	.setting_block {
+		.setting {
+			margin-bottom: 3px;
+		}
+	}
+}

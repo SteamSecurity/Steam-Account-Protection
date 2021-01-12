@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="../css/index.css">
+	<title>SAP | Settings</title>
+</head>
+
+<body>
+	<div class="header">
+		<div class="title">Steam Account Protection</div>
+	</div>
+
+	<div class="settings_container">
+		<div class="nav">
+			<a href="#" class="nav_item active" data-page_target="home"><span>Home</span></a>
+			<a href="#" class="nav_item" data-page_target="general"><span>General</span></a>
+			<a href="#" class="nav_item" data-page_target="profiles"><span>Profiles</span></a>
+			<a href="#" class="nav_item" data-page_target="trading_window"><span>Trading Window</span></a>
+			<a href="#" class="nav_item" data-page_target="help"><span>Help</span></a>
+			<a href="#" class="nav_item hidden" data-page_target="developer"><span>Developer</span></a>
+			<div class="footer">
+				<span>Made in USA 🇺🇸</span>
+				<span id="extension_version" class="right"></span>
+			</div>
+		</div>
+		<div class="spacer"></div>
+		<div class="content">
+
+			<div class="page" id="home">
+				<div class="row">
+					<div class="threat_container">
+						<div id="amt_trusted_users" class="safe_header">0</div>
+						<div class="threat_subtext">Trusted users</div>
+					</div>
+					<div class="threat_container">
+						<div id="amt_bptf_users" class="safe_header">0</div>
+						<div class="threat_subtext">BP.TF users</div>
+					</div>
+					<div class="threat_container">
+						<div id="amt_tradebots" class="safe_header">0</div>
+						<div class="threat_subtext">Trading Bots</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="threat_container">
+						<div id="amt_threats" class="threat_header">0</div>
+						<div class="threat_subtext">Total threats identified</div>
+					</div>
+					<div class="threat_container">
+						<div id="amt_impostors" class="threat_header">0</div>
+						<div class="threat_subtext">Impersonators identified</div>
+					</div>
+					<div class="threat_container">
+						<div id="amt_reputation" class="threat_header">0</div>
+						<div class="threat_subtext">Rep bans identified</div>
+					</div>
+				</div>
+			</div>
+			<div class="page hidden" id="general">
+
+				<div class="setting_block">
+					<div class="info">
+						<div class="title">Database</div>
+						<div class="setting">
+							<span>Purge reference data</span>
+							<button id="prg_reference">Purge</button>
+						</div>
+						<div class="setting">
+							<span>Purge trusted users</span>
+							<button id="prg_trusted_users">Purge</button>
+						</div>
+						<div class="setting">
+							<span>Update all reference data </span>
+							<button id="upd_reference_data">Update</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="setting_block">
+					<div class="info">
+						<div class="title">Users</div>
+						<div class="setting">
+							<span>View Backpacktf reference data</span>
+							<button>View</button>
+						</div>
+						<div class="setting">
+							<span>View trading bot reference data</span>
+							<button>View</button>
+						</div>
+						<div class="setting">
+							<span>View trusted users</span>
+							<button>View</button>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="page hidden" id="profiles">
+				<div class="setting_block">
+					<div class="info">
+						<div class="title">Trusted User System</div>
+						<div class="setting">
+							<span>Trusted user system</span>
+							<button data-setting_name="profile_trusted_user_system" class="btn_toggle enabled"></button>
+						</div>
+					</div>
+				</div>
+				<div class="setting_block">
+					<div class="info">
+						<div class="title">Reputation</div>
+						<div class="setting">
+							<span>Reputation checker</span>
+							<button data-setting_name="profile_reputation" class="btn_toggle enabled"></button>
+						</div>
+						<div class="setting">
+							<span>Overlay warning</span>
+							<button data-setting_name="profile_reputation_overlay" class="btn_toggle enabled"></button>
+						</div>
+					</div>
+				</div>
+				<div class="setting_block">
+					<div class="info">
+						<div class="title">Impersonation</div>
+						<div class="setting">
+							<span>Impersonator scanner</span>
+							<button data-setting_name="profile_impersonator_scanner" class="btn_toggle enabled"></button>
+						</div>
+						<div class="setting">
+							<span>Overlay warning</span>
+							<button data-setting_name="profile_impersonator_overlay" class="btn_toggle enabled"></button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="page hidden" id="trading_window">
+
+				<div class="setting_block">
+					<div class="info">
+						<div class="title">Trading Toolbar</div>
+						<div class="setting">
+							<span>Enable overhauled trading toolbar</span>
+							<button data-setting_name="tradewindow_overhauled_toolbar" class="btn_toggle enabled"></button>
+						</div>
+
+					</div>
+				</div>
+
+				<div class="setting_block">
+					<div class="info">
+						<div class="title">Reputation</div>
+						<div class="setting">
+							<span>Check partner reputation</span>
+							<button data-setting_name="tradewindow_reputation_checker" class="btn_toggle enabled"></button>
+						</div>
+						<div class="setting">
+							<span>Overlay warning</span>
+							<button data-setting_name="tradewindow_reputation_overlay" class="btn_toggle enabled"></button>
+						</div>
+					</div>
+				</div>
+
+				<div class="setting_block">
+					<div class="info">
+						<div class="title">Impersonation</div>
+						<div class="setting">
+							<span>Impersonator scanner</span>
+							<button data-setting_name="tradewindow_" class="btn_toggle enabled"></button>
+						</div>
+						<div class="setting">
+							<span>Overlay warning</span>
+							<button data-setting_name="tradewindow_" class="btn_toggle enabled"></button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="page hidden" id="help">
+
+				<div class="setting_block">
+					<div class="info">
+						<div class="title">Help</div>
+						<div class="setting">
+							<span>Visit GitHub wiki pages</span>
+							<button class="btn_link">View</button>
+						</div>
+						<div class="setting">
+							<span>Visit Homepage</span>
+							<button class="btn_link">View</button>
+						</div>
+					</div>
+				</div>
+				<div class="setting_block">
+					<div class="info">
+						<div class="title">Bug report</div>
+						<div class="setting">
+							<span>Visit GitHub issue pages</span>
+							<button class="btn_link">View</button>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<!-- ------------------------------ Sub pages ------------------------------ -->
+			<div class="page hidden" id="reference_sources"></div>
+			<div class="page hidden" id="backpacktf_data"></div>
+			<div class="page hidden" id="trading_bot_data"></div>
+			<div class="page hidden" id="developer">
+
+				<div class="setting_block">
+					<div class="info">
+						<div class="title">Developer</div>
+						<div class="setting">
+							<span>Anonymise Steam profile pages</span>
+							<button data-setting_name="dev_anon_profiles" class="btn_toggle enabled"></button>
+						</div>
+						<div class="setting">
+							<span>Anonymise Steam trading windows</span>
+							<button data-setting_name="dev_anon_tradewindow" class="btn_toggle enabled"></button>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+</body>
+
+
+<script src="/extension/storage.js"></script>
+
+<script src="/extension/helpers/util.js"></script>
+<script src="../js/index.js"></script>
+
+</html>

@@ -1,6 +1,6 @@
 chrome.browserAction.onClicked.addListener(function (tab) {
 	chrome.tabs.create({
-		url: chrome.runtime.getURL('html/pages/html/settings.html')
+		url: chrome.runtime.getURL('html/pages/html/index.html')
 	});
 });
 

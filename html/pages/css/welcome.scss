@@ -1,0 +1,148 @@
+.hidden {
+	display: none !important;
+}
+
+body {
+	margin: 0;
+	background: linear-gradient(to bottom, #283846, #202428);
+	min-height: 100vh;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.header {
+	width: 100%;
+	height: 50px;
+	background-color: #00000070;
+	display: flex;
+	user-select: none;
+	-webkit-user-drag: none;
+
+	.title {
+		margin: auto;
+		font-size: 1.6em;
+		color: white;
+	}
+}
+
+.settings_container {
+	display: flex;
+	flex-direction: column;
+	width: 1000px;
+	margin: 20px auto 0px auto;
+	padding: 10px;
+	background-color: #00000070;
+	color: white;
+
+	.title {
+		font-size: 1.5em;
+		margin: 0px auto 15px auto;
+		background-color: #005179 !important;
+		width: 100%;
+		padding: 5px 10px;
+		box-sizing: border-box;
+		text-align: center;
+	}
+
+	.description {
+		display: flex;
+		width: fit-content;
+
+		.text {
+			margin: 0px auto 0px auto;
+			padding-right: 15px;
+			line-height: 1.5em;
+		}
+		.progress_panel {
+			padding: 5px;
+			box-sizing: border-box;
+			min-width: 200px;
+
+			.pp_title {
+				text-align: center;
+				background-color: #00000070;
+			}
+
+			.pp_service {
+				text-align: left;
+				margin-top: 5px;
+				font-size: 0.9em;
+				color: #e8e8e8;
+
+				span {
+					float: right;
+				}
+
+				span:after {
+					content: "";
+				}
+				.waiting:after {
+					content: "Waiting";
+					color: yellow;
+				}
+				.success:after {
+					content: "Good";
+					color: #3bff0c;
+				}
+				.error:after {
+					content: "Error";
+					color: #ff0000;
+				}
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 1200px) {
+	.settings_container {
+		width: 95%;
+	}
+}
+@media screen and (max-width: 600px) {
+	.settings_container {
+		grid-template-columns: 100%;
+		grid-template-rows: min-content 10px min-content;
+		.description {
+			flex-direction: column;
+
+			.text {
+				width: inherit;
+			}
+		}
+	}
+	.nav .footer {
+		display: none;
+	}
+}
+//  Realistically if you are still at this point, that's on you..
+//  This is what you get. It works, but I'm assuming you must be used to improvising by now?
+@media screen and (max-width: 600px) {
+	.header {
+		height: 35px;
+		.title {
+			font-size: 1em;
+		}
+	}
+	.settings_container {
+		.content {
+			.page {
+				.setting_block {
+					flex-direction: column;
+
+					.info {
+						width: 100%;
+						margin-bottom: 5px;
+					}
+					.actions {
+						width: 100%;
+					}
+				}
+			}
+		}
+	}
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+	body {
+		font-size: 16px;
+	}
+}
