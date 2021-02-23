@@ -1,28 +1,56 @@
 const steamrep = {
 	getReputation: async (steamid, { force_update = false } = {}) => {
+		const addGoodTag = (tag) => profile_reputation.good_tags.push(tag);
+		const addBadTag = (tag) => { profile_reputation.bad_tags.push(tag); profile_reputation.is_banned = true; };
+
 		let profile_reputation = {
-			last_updated: '',
-			reputation: {},
-			banned_friends: '',
-			unconfirmed_reports: {},
+			is_banned: false,
+			request_time: '',
+			good_tags: [],
+			bad_tags: [],
+			unconfirmed_reports: null,
+			summary: '',
+			account_creation_date: '',
 			steam_bans: {}
 		};
 
 		// If we are not forcing an update, check if we have their steamrep data saved and it is valid.
-		if (!force_update) profile_reputation = sap_storage.find.steamrep(steamid);
-		if (profile_reputation) return profile_reputation;
+		if (!force_update) cached_profile_reputation = storage.getProfileReputation(steamid);
+		if (cached_profile_reputation) return cached_profile_reputation;
 
 		// No valid saved SteamRep data found! Request it and save it!
-		log(`Creating SteamRep profile for ${steamid}.`);
-		const steamrep_response = await webRequest('get', `https://steamrep.com/api/beta4/reputation/${steamid}?extended=1&json=1&tagdetails=1`);
+		log(`Creating SteamRep profile for ${steamid}.`, `notice`);
 
-		log(steamrep_response);
+		const steamrep_response = JSON.parse(await webRequest('get', `https://steamrep.com/api/beta4/reputation/${steamid}?extended=1&json=1&tagdetails=1`)).steamrep;
+		const steamrep_tags = steamrep_response.reputation.tags.tag;
 
-		profile_reputation.last_updated = time.now();
-		profile_reputation.reputation = steamrep_response.reputation;
-		profile_reputation.banned_friends = steamrep_response.stats.bannedfriends;
+		profile_reputation.request_time = time.now();
 		profile_reputation.unconfirmed_reports = steamrep_response.stats.unconfirmedreports;
-		profile_reputation.steam_bans = { vac: steamrep_response.vacban, trade: steamrep_response.tradeban };
+		profile_reputation.steam_bans = { vac: steam.steamrep_enum.vac_banned[steamrep_response.vacban], trade: steam.steamrep_enum.trade_banned[steamrep_response.tradeban] };
+		profile_reputation.account_creation_date = steamrep_response.membersince;
+
+		if (profile_reputation.steam_bans.vac.class === 'banned' || profile_reputation.steam_bans.trade.class === 'banned')
+
+			if (steamrep_tags) {
+				if (Array.isArray(steamrep_tags)) {
+					steamrep_tags.forEach((tag) => {
+						if (tag.category === 'trusted') addGoodTag(tag.name);
+						if (tag.category === 'evil') addBadTag(tag.name);
+					});
+				}
+				else {
+					if (steamrep_tags.category == 'trusted') addGoodTag(steamrep_tags.name);
+					if (steamrep_tags.category == 'evil') addBadTag(steamrep_tags.name);
+				}
+			}
+
+
+		if (profile_reputation.bad_tags.length > 0) profile_reputation.summary = steam.steamrep_enum.rep_banned['banned'];
+		else if (profile_reputation.good_tags.length > 0) profile_reputation.summary = steam.steamrep_enum.rep_banned['trusted'];
+		else profile_reputation.summary = steam.steamrep_enum.rep_banned['normal'];
+
+		// Save the profile locally
+		storage.saveProfileReputation(steamid, profile_reputation);
 
 		return profile_reputation;
 	}

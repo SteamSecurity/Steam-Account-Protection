@@ -2,7 +2,7 @@
 	"update_url": "https://clients2.google.com/service/update2/crx",
 
 	"name": "Steam Account Protection",
-	"version": "3.5.0",
+	"version": "3.4.2",
 	"manifest_version": 2,
 	"description": "Steam Account from common threats including phishing and impersonation.",
 	"background": {
@@ -13,7 +13,7 @@
 	},
 	"content_scripts": [
 		{
-			"js": [ "html/html_elements.js", "/extension/helpers/util.js", "/extension/helpers/overlay.js", "/extension/storage.js", "/extension/profile.js", "/extension/api.js", "/extension/trade_window.js", "/extension/index.js" ],
+			"js": [ "html/html_elements.js", "/extension/helpers/util.js", "/extension/helpers/overlay.js", "/extension/helpers/profile_scanner.js", "/extension/libs/steamrep.js", "/extension/libs/steam.js", "/extension/storage.js", "/extension/profile.js", "/extension/index.js" ],
 			"matches": [ "https://steamcommunity.com/dev/apikey", "https://steamcommunity.com/profiles/*", "https://steamcommunity.com/id/*", "https://steamcommunity.com/tradeoffer/*", "https://backpack.tf/api/IGetUsers/v3", "https://backpack.tf/api/IGetUsers/GetImpersonatedUsers", "https://marketplace.tf/api/Bots/GetBots/v2", "https://mannco.store/bots", "https://steamrep.com/api/beta4/reputation/*" ]
 		}
 	],

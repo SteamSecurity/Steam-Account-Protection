@@ -11,31 +11,39 @@
 
 button {
 	cursor: pointer;
+	margin: auto 1px;
+	border: 1px solid rgba(255, 255, 255, 0.0);
+	transition: background-color ease-in-out 0.1s, border ease-in-out 0.1s, border-radius ease-in-out 0.1s;
+	user-select: none;
+}
+
+button:hover,
+button:focus {
+	border: 1px solid rgba(255, 255, 255, 0.5);
+	border-radius: 5px;
+	text-shadow: black 0px 0px 2px;
 }
 
 .button_good {
-	background-color: #007100;
-	border-radius: 5px;
-	border: 1px solid #00a503;
+	background-color: #00b30085;
+	border: 0px solid #00a503;
 	color: white;
 }
 
 .button_good:hover,
 .button_good:focus {
-	background-color: #00a503;
 	text-shadow: black 0 0 1px;
 }
 
 .button_bad {
 	background-color: #900000;
-	border-radius: 5px;
-	border: 1px solid red;
+	border: 0px solid red;
 	color: white;
 }
 
 .button_bad:hover,
 .button_bad:focus {
-	background-color: red;
+	/* background-color: red; */
 	text-shadow: black 0 0 1px;
 }
 

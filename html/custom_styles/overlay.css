@@ -1,31 +1,55 @@
-.sap_overlay_background {
-  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.8)), to(rgba(0, 0, 0, 0.95)));
-  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95));
+body {
+  -webkit-transition: -webkit-transform ease-in-out 0.2s;
+  transition: -webkit-transform ease-in-out 0.2s;
+  transition: transform ease-in-out 0.2s;
+  transition: transform ease-in-out 0.2s, -webkit-transform ease-in-out 0.2s;
+  -webkit-transform-origin: top;
+          transform-origin: top;
+}
+
+.zoned_out {
+  overflow: hidden;
+  -webkit-transform: scale(0.85);
+          transform: scale(0.85);
+}
+
+.zoned_out .responsive_page_menu_ctn.mainmenu {
+  display: none;
+}
+
+.sap_overlay {
+  background-color: #0043ff0d;
+  -webkit-backdrop-filter: blur(7px) saturate(0.1) brightness(0.7);
+          backdrop-filter: blur(7px) saturate(0.1) brightness(0.7);
   width: 100vw;
   height: 100vh;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
   opacity: 0;
   -webkit-transition: opacity 0.4s ease-in-out;
   transition: opacity 0.4s ease-in-out;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   position: fixed;
   top: 0;
   z-index: 9999999;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
-.sap_overlay_background .ovrly_container {
+.sap_overlay .overlay_container {
   max-width: 600px;
   max-height: 450px;
-  background-color: #283846;
-  margin: auto;
-  padding: 10px 12px;
+  min-width: 400px;
+  background-color: #717171;
+  color: white;
+  border: 1px solid #283846;
+  border-radius: 1px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  color: white;
-  border-radius: 5px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  border: 1px solid #00a1ff59;
+  margin: auto;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -35,76 +59,165 @@
           flex-direction: column;
 }
 
-.sap_overlay_background .ovrly_container .header {
+.sap_overlay .overlay_container .overlay_header {
   width: 100%;
   text-align: center;
+  margin-bottom: 1px;
+  background-color: rgba(0, 0, 0, 0.6);
   font-size: 1.5em;
-  margin-bottom: 10px;
-  background-color: rgba(0, 0, 0, 0.5);
   padding: 5px 20px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
 
-.sap_overlay_background .ovrly_container .user_body {
-  width: 100%;
+.sap_overlay .overlay_container .sub_header {
   margin: auto;
-  font-size: 1.1em;
+  margin-top: 0px;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.sap_overlay .overlay_container .reputation_box {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 10px 20px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 5px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
 
-.sap_overlay_background .ovrly_container .user_body img {
+.sap_overlay .overlay_container .alert {
+  -webkit-animation-name: alert_flash;
+          animation-name: alert_flash;
+  -webkit-animation-duration: 0.80s;
+          animation-duration: 0.80s;
+  -webkit-animation-iteration-count: 2;
+          animation-iteration-count: 2;
+}
+
+.sap_overlay .overlay_container .community_ban_report {
+  text-align: center;
+  background-color: #ff000040;
+  padding: 2px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin-bottom: 5px;
+}
+
+.sap_overlay .overlay_container .side_by_side_user_container {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.sap_overlay .overlay_container .user_information {
+  width: 100%;
+  margin: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  margin-bottom: 1px;
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0.6);
+  font-size: 1.1em;
+}
+
+.sap_overlay .overlay_container .user_information img {
   width: auto;
   max-height: 150px;
   margin: auto;
   border-radius: 3px;
 }
 
-.sap_overlay_background .ovrly_container .user_body .profile_information {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  margin: auto auto auto 10px;
-  width: 100%;
+.sap_overlay .overlay_container .user_information .divider_header {
+  padding: 5px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin-bottom: 5px;
+  font-size: 1em;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.25);
 }
 
-.sap_overlay_background .ovrly_container .user_body .profile_information .descriptor {
+.sap_overlay .overlay_container .user_information .descriptor {
   color: #eaeaea;
   font-size: 0.7em;
   width: 100%;
   margin-bottom: 10px;
 }
 
-.sap_overlay_background .ovrly_container .user_body .profile_information .descriptor div {
+.sap_overlay .overlay_container .user_information .descriptor div {
   color: white;
   font-size: 1.5em;
   margin-left: auto;
   text-indent: 10px;
 }
 
-.sap_overlay_background .ovrly_container .user_body .profile_information .descriptor:last-child {
-  margin-bottom: 0;
+.sap_overlay .overlay_container .user_information_vertical {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
-.sap_overlay_background .ovrly_container .button_container {
+.sap_overlay .overlay_container .user_profile_picture {
+  margin: auto;
+  width: auto;
+  max-height: 150px;
+  border-radius: 3px;
+}
+
+.sap_overlay .overlay_container .footer_button_container {
   width: 100%;
+  height: 35px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  padding: 5px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
-.sap_overlay_background .ovrly_container .button_container button {
+.sap_overlay .overlay_container .footer_button_container button {
   width: 100%;
-  margin: 5px;
+  height: 100%;
 }
-/*# sourceMappingURL=overlay.css.map */
+
+@-webkit-keyframes alert_flash {
+  0% {
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+  50% {
+    background-color: rgba(255, 0, 0, 0.75);
+  }
+  100% {
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+}
+
+@keyframes alert_flash {
+  0% {
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+  50% {
+    background-color: rgba(255, 0, 0, 0.75);
+  }
+  100% {
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+}

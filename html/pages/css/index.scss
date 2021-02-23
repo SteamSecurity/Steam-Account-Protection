@@ -148,7 +148,8 @@ body {
 					span {
 						margin: auto auto auto 0;
 					}
-					button {
+					button,
+					.btn_link_link {
 						margin: auto 0 auto auto;
 						padding: 3px 15px;
 						border-radius: 3px;
@@ -291,7 +292,7 @@ body {
 		display: none;
 	}
 }
-//  Realistically if you are still at this point, that's on you..
+//  Realistically if you are still at this point, that's on you...
 //  This is what you get. It works, but I'm assuming you must be used to improvising by now?
 @media screen and (max-width: 600px) {
 	.header {

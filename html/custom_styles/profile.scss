@@ -1,0 +1,201 @@
+/* ─── OVERRIDES ────────────────────────────────────────────────────────────────── */
+
+.profile_header_actions {
+	display: flex;
+}
+.profile_header_actions .btn_medium,
+.profile_header_actions .popup_block {
+	margin-right: 5px;
+}
+
+.profile_in_game_header,
+.profile_in_game_name,
+.profile_in_game_joingame,
+.profile_ban_status {
+	display: none;
+}
+
+button {
+	background-color: var(--btn-background);
+	color: lightgray;
+	width: 100px;
+}
+
+.btn_copy_click {
+	animation-name: btn_good_flash;
+	animation-duration: 0.25s;
+	animation-iteration-count: 2;
+}
+
+/* ─── REPUTATION PANEL ─────────────────────────────────────────────────────────── */
+
+.trusted {
+	background-color: #005a8d;
+	border: 1px solid #04adfc;
+
+	div {
+		color: white !important;
+	}
+}
+
+.banned {
+	background-color: #8e0000;
+	border: 1px solid red;
+
+	div {
+		color: white !important;
+	}
+}
+
+.reputation_panel {
+	margin-bottom: 7px;
+	font-size: 1.1em;
+	max-height: 0px;
+	overflow: hidden;
+	transition: 0.5s;
+
+	.header {
+		text-align: center;
+		padding: 3px 5px;
+		box-sizing: border-box;
+		font-size: 1.3em;
+		background: linear-gradient(90deg, var(--gradient-showcase-header-left) 0%, var(--color-showcase-header) 90%);
+		color: white;
+		margin-bottom: 5px;
+	}
+
+	.disclaimer {
+		text-align: center;
+		color: white;
+		font-size: 1.1em;
+		margin-bottom: 5px;
+	}
+
+	.descriptor {
+		width: 100%;
+		border: 1px solid #00000000;
+		color: white;
+		display: flex;
+		flex-direction: row;
+		margin-bottom: 2px;
+		padding: 2px;
+		box-sizing: border-box;
+
+		div {
+			color: #969696;
+			text-align: right;
+		}
+
+		.user_in-game {
+			color: #90ba3c;
+		}
+		.user_online {
+			color: #57cbde;
+		}
+
+		a {
+			width: 100%;
+			background-color: #617902;
+			text-shadow: 0 0 2px black;
+
+			div {
+				text-align: center;
+				width: 100%;
+				color: white;
+			}
+		}
+		a:hover,
+		a:focus {
+			background-color: #6a9600;
+			border: 0px;
+			border-radius: 0px;
+		}
+
+		* {
+			margin-left: auto;
+		}
+		#steam_perm_link:first-child {
+			margin-right: 30px;
+		}
+		.input_container {
+			margin-left: auto;
+			width: 100%;
+			max-width: 100px;
+			transition: max-width ease-in-out 0.3s, margin-left ease-in-out 0.3s;
+			display: flex;
+
+			input {
+				text-align: center;
+				width: 100%;
+			}
+		}
+		.input_container:hover {
+			max-width: 100%;
+		}
+	}
+	.descriptor.trusted {
+		background-color: #025d11;
+		border: 1px solid green;
+
+		div {
+			color: white !important;
+		}
+	}
+
+	.descriptor:last-child {
+		margin-bottom: 0;
+	}
+
+	.external_connection_container {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+
+		.external_connection {
+			display: flex;
+			padding: 2px 5px;
+			padding: 2px 5px;
+			width: 90%;
+			margin: 2px;
+			box-sizing: border-box;
+			text-align: center;
+			transition: background-color ease-in-out 0.05s;
+
+			span {
+				margin: auto auto auto 0px;
+			}
+
+			img {
+				display: flex;
+				margin: auto 5px auto 0px;
+				width: 15px;
+				height: auto;
+			}
+		}
+
+		.external_connection:hover,
+		.external_connection:focus {
+			background-color: var(--btn-background-hover);
+		}
+	}
+}
+.reputation_panel.slide_down {
+	max-height: 600px;
+}
+
+@media screen and (max-width: 910px) {
+	.reputation_panel {
+		margin-top: 10px;
+	}
+}
+
+@keyframes btn_good_flash {
+	0% {
+		background-color: var(--btn-background);
+	}
+	50% {
+		background-color: #005a8d;
+	}
+	100% {
+		background-color: var(--btn-background);
+	}
+}

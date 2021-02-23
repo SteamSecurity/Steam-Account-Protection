@@ -4,17 +4,20 @@ const qs = (selector) => document.querySelector(selector);
 const qsa = (selector) => document.querySelectorAll(selector);
 
 const injectStylesheetToHead = (directory) => qs(`head`).insertAdjacentHTML(`beforeend`, `<link type="text/css" rel="stylesheet" href="${chrome.extension.getURL(directory)}">`);
-const injectHTMLElementAsChild = (parent_element, element_to_add) => parent_element.insertAdjacentHTML(`beforeend`, element_to_add);
+const injectHTMLElementAsChild = (parent_element, element_to_add, position) => parent_element.insertAdjacentHTML(position || `beforeend`, element_to_add);
 
-// ────────────────────────────────────────────────────── WEBPAGE INTERACTION ─────
+const copyTextInput = (element, btn_init) => { btn_init.classList.remove('btn_copy_click'); setTimeout(() => btn_init.classList.add('btn_copy_click'), 10); element.style.display = 'block'; element.focus(); element.select(); element.setSelectionRange(0, 99999); document.execCommand('copy'); element.style.display = 'none'; };
+
+// ─── TIME ───────────────────────────────────────────────────────────────────────
 const time = {
-	now: Date.now(),
+	now: () => Date.now(),
 	utcToString: (utc_time) => new Date(new Date(utc_time).getTime()).toLocaleString(),
 	hoursToMilliseconds: (hours) => hours * 60 * 60 * 1000,
 	checkAge: (age, hours) => age + time.hoursToMilliseconds(hours) > time.now(),
-	updateSchedule: (cached_time, timeout) => `\nCurrent time: ${time.utc_to_string(time.current_time())}\nNext Update: ${time.utc_to_string(cached_time + timeout)}`
+	updateSchedule: (cached_time, timeout) => `\nCurrent time: ${time.utc_to_string(time.now())}\nNext Update: ${time.utc_to_string(cached_time + timeout)}`
 };
 
+// ─── HTTPS REQUESTS ─────────────────────────────────────────────────────────────
 function webRequest(type, url) {
 	return new Promise((resolve, reject) => {
 		let newXHR = new XMLHttpRequest() || new window.ActiveXObject('Microsoft.XMLHTTP');
@@ -29,15 +32,26 @@ function webRequest(type, url) {
 	});
 }
 
-function log(data) {
-	if (typeof data === 'string')
-		return console.log(`%c[SAP] [${new Date().toLocaleString()}] ${data}`, 'color: #ffffff');
+// ─── LOGGING ────────────────────────────────────────────────────────────────────
+function log(data, type) {
+	if (type === 'error') log_data = { color: `#ff3939` };
+	else if (type === 'warning') log_data = { color: `#ffaa00` };
+	else if (type === `notice`) log_data = { color: `#0092ff` };
+	else log_data = { color: `#ffffff` };
 
-	console.log(`%c[SAP] [${new Date().toLocaleString()}] ↓`, 'color: #ffffff');
+	if (typeof data === 'string')
+		return console.log(`%c[SAP] [${new Date().toLocaleString()}] ${data}`, `color: ${log_data.color}; padding:1px`);
+
+	console.log(`%c[SAP] [${new Date().toLocaleString()}] ↓`, `color: ${log_data.color}`);
 	console.log(data);
 }
 
-function settingIsEnabled(setting) {
-	console.log(`Checking ${setting} => ${sap_data.sync.settings[setting]}`);
-	return sap_data.sync.settings[setting];
-}
+// ─── OTHER ──────────────────────────────────────────────────────────────────────
+function compareString(current, base) {
+	let percent = 0;
+	let x = 0;
+	while (current.length > x++) {
+		if (current.charAt(x) === base.charAt(x)) percent++;
+	}
+	return Math.round(percent / current.length * 100);
+};

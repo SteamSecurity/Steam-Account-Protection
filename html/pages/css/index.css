@@ -187,7 +187,8 @@ body {
   margin: auto auto auto 0;
 }
 
-.settings_container .content .page .setting_block .setting button {
+.settings_container .content .page .setting_block .setting button,
+.settings_container .content .page .setting_block .setting .btn_link_link {
   margin: auto 0 auto auto;
   padding: 3px 15px;
   border-radius: 3px;
@@ -397,4 +398,3 @@ body {
     margin-bottom: 3px;
   }
 }
-/*# sourceMappingURL=index.css.map */

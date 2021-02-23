@@ -2,7 +2,6 @@ qsa(`button`).forEach((button) => button.addEventListener(`click`, button.blur))
 qsa('.nav_item').forEach((nav_button) => nav_button.addEventListener(`click`, () => switchPage(nav_button)));
 qsa(`.btn_toggle`).forEach((button) => button.addEventListener(`click`, () => toggleButton(button)));
 qsa(`.settings_container button:not(.btn_toggle):not(.btn_link)`).forEach((button) => button.addEventListener(`click`, () => acceptButton(button)));
-qsa();
 displaySettingsOnPage();
 
 // Loads our data and updates the page to reflect
@@ -57,6 +56,8 @@ function toggleButton(target, no_change) {
 function updateSetting(setting_name, state) {
 	sap_data.sync.settings[setting_name] = state;
 	storage.save({ sync: sap_data.sync });
+
+	if (setting_name === 'profile_reputation_overlay' && state == false) { }
 }
 
 function acceptButton(target) {

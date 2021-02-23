@@ -8,7 +8,6 @@ async function master() {
 	// api.filter.profiles();
 }
 
-
 function loadPageScript() {
 	const valid_steam_pages = ['https://steamcommunity.com', 'https://store.steampowered.com', 'https://help.steampowered.com'];
 
