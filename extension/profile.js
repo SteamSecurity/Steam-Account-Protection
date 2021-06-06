@@ -4,7 +4,7 @@ async function profile() {
 	injectStylesheetToHead(`html/custom_styles/profile.css`);
 	injectStylesheetToHead(`html/custom_styles/generic.css`);
 
-	const is_not_owner = () => qs(`.profile_header_actions .btn_profile_action`)?.children[0].innerText !== `Edit Profile` || false;
+	const is_not_owner = () => qs(`.profile_header_actions .btn_profile_action`)?.children[0].innerText !== `Edit Profile`;
 	const profile = {
 		personaname: qs(`.profile_header_bg .persona_name .actual_persona_name`).innerText,
 		profile_picture: qs(`.profile_header_bg .playerAvatar .playerAvatarAutoSizeInner`)?.children[1]?.src || qs(`.profile_header_bg .playerAvatar .playerAvatarAutoSizeInner`)?.children[0]?.src,
@@ -20,7 +20,6 @@ async function profile() {
 	};
 
 	// ─── FUNCTIONS ──────────────────────────────────────────────────────────────────
-
 	injectHTMLElementAsChild(qs(`.profile_rightcol`), html_elements.profileReputation(profile), `afterbegin`);
 	setTimeout(() => qs(`#sap_reputation_panel`).classList.add(`slide_down`), 100);
 
@@ -40,14 +39,16 @@ async function profile() {
 	}
 
 	// Reputation checker & Reputation panel
-	if (storage.settingIsEnabled(`profile_reputation`)) {
+	// TODO: Too complex! Why not have them injected into the panel directly and then change their status?
+	if (storage.settingIsEnabled(`reputation`)) {
 		const addDescriptorToReputationPanel = (title, descriptor_class, summary) => { injectHTMLElementAsChild(qs('#sap_reputation_panel .disclaimer'), `<div class="descriptor ${descriptor_class}">${title}: <div>${summary}</div></div>`, `afterend`); };
+
 		const steamrep_rep = await steamrep.getReputation(profile.steamid);
-		const account_age_element = qs('#account_age');
+		const acc_age_elem = qs('#account_age');
+		acc_age_elem.innerHTML = steam.getAccountAgeString(steamrep_rep.account_creation_date);
+		acc_age_elem.parentElement.classList.remove('hidden');
 
 		qs('#reputation_header').classList.remove('hidden');
-		account_age_element.innerHTML = steam.getAccountAgeString(steamrep_rep.account_creation_date);
-		account_age_element.parentElement.classList.remove('hidden');
 
 		injectHTMLElementAsChild(qs('#sap_reputation_panel .disclaimer'), `<br>`, `afterend`);
 		addDescriptorToReputationPanel('Trade', steamrep_rep.steam_bans.trade.class, steamrep_rep.steam_bans.trade.summary);
@@ -59,14 +60,12 @@ async function profile() {
 		const steamid_textbox = qs('#steamid_textbox');
 		copy_steamid_textbox.addEventListener('click', () => copyTextInput(steamid_textbox, copy_steamid_textbox));
 
-		if (storage.settingIsEnabled('profile_reputation_overlay')) {
-			if (steamrep_rep.is_banned)
-				overlays.reputationWarningOverlay(profile, steamrep_rep);
-		}
+		if (storage.settingIsEnabled('reputation_overlay') && steamrep_rep.is_banned)
+			overlays.reputationWarningOverlay(profile, steamrep_rep);
 	}
 
 	// Impersonator checker
-	if (storage.settingIsEnabled(`profile_impersonator_scanner`)) {
+	if (storage.settingIsEnabled(`impersonator_scanner`)) {
 		const impersonator_data = await impersonatorScanner(profile);
 		const disclaimer = qs('#sap_reputation_panel .disclaimer');
 
@@ -80,7 +79,7 @@ async function profile() {
 			disclaimer.classList.add('banned');
 			disclaimer.innerText = 'Impersonator';
 
-			if (storage.settingIsEnabled('profile_impersonator_overlay')) {
+			if (storage.settingIsEnabled('impersonator_overlay')) {
 				overlays.impersonatorDetectedOverlay(profile, impersonator_data.profile.profile);
 			}
 		}

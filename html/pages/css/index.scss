@@ -1,7 +1,17 @@
 $red-button: #9d0101;
 $red-text: #ff2a2a;
-
 $good-text: #00ffa2;
+
+$primary-color: #1a1d1f;
+$secondary-color: #0f1011;
+$tertiary-color: #00468e;
+
+$menu-item: #20242800;
+$menu-item-selected: #ff0000;
+
+$button-gen: #005179;
+$button-action: #124b87;
+$button-hover: #0965c8;
 
 .hidden {
 	display: none !important;
@@ -13,7 +23,7 @@ $good-text: #00ffa2;
 
 body {
 	margin: 0;
-	background: linear-gradient(to bottom, #283846, #202428);
+	background-color: $primary-color;
 	min-height: 100vh;
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
@@ -21,10 +31,11 @@ body {
 .header {
 	width: 100%;
 	height: 50px;
-	background-color: #00000070;
+	background-color: $secondary-color;
 	display: flex;
 	user-select: none;
 	-webkit-user-drag: none;
+	margin-bottom: 20px;
 
 	.title {
 		margin: auto;
@@ -33,13 +44,15 @@ body {
 	}
 }
 
-.settings_container {
+.settings-container {
 	display: grid;
 	width: 1000px;
 	min-height: 500px;
-	margin: 20px auto 0px auto;
+	margin: 0px auto;
 	grid-template-columns: 200px 40px auto;
-	background-color: #00000070;
+	background-color: $secondary-color;
+	animation: fadeup 0.25s ease-in-out;
+
 	.nav,
 	.content {
 		border-radius: 2px;
@@ -52,12 +65,6 @@ body {
 		box-sizing: border-box;
 		display: flex;
 		flex-direction: column;
-
-		.nav_item.active {
-			background: none;
-			text-shadow: none !important;
-			background-color: #005179 !important;
-		}
 
 		.nav_item {
 			background: linear-gradient(90deg, #1f78d5 50%, transparent 50%);
@@ -98,6 +105,12 @@ body {
 		.nav_item:last-child {
 			margin-bottom: 0;
 		}
+		.nav_item.active {
+			background: none;
+			text-shadow: none !important;
+			background-color: $button-gen !important;
+			clip-path: polygon(95% 0, 100% 50%, 95% 99%, 0% 100%, 0 50%, 0% 0%);
+		}
 
 		.footer {
 			margin: auto auto 10px auto;
@@ -118,7 +131,7 @@ body {
 
 		.page {
 			font-family: Arial, Helvetica, sans-serif;
-			animation: fadein 0.3s;
+			animation: fadein 0.25s;
 
 			.setting_block {
 				display: flex;
@@ -129,7 +142,7 @@ body {
 					width: 100%;
 					.title {
 						margin-bottom: 10px;
-						background-color: #005179;
+						background-color: $tertiary-color;
 						padding: 3px 10px;
 					}
 
@@ -147,41 +160,6 @@ body {
 
 					span {
 						margin: auto auto auto 0;
-					}
-					button,
-					.btn_link_link {
-						margin: auto 0 auto auto;
-						padding: 3px 15px;
-						border-radius: 3px;
-						border: 0;
-						cursor: pointer;
-						transition: background-color 0.2s;
-						min-width: 100px;
-						font-weight: 400;
-					}
-					button.disabled {
-						background-color: #9d0101;
-						color: #c8c8c8;
-						font-weight: 500;
-					}
-					button.disabled:after {
-						content: "Disabled";
-					}
-					button.enabled {
-						background-color: green;
-						color: #c8c8c8;
-						font-weight: 500;
-					}
-					button.enabled:after {
-						content: "Enabled";
-					}
-					button:hover,
-					button:focus {
-						color: white;
-					}
-					button:hover:not(.enabled):not(.disabled),
-					button:focus {
-						background-color: #1f78d5;
 					}
 				}
 
@@ -233,6 +211,158 @@ body {
 			}
 		}
 	}
+}
+
+.data-container {
+	grid-template-columns: 100%;
+	padding: 5px;
+	box-sizing: border-box;
+	min-height: 25px;
+
+	.fadeup {
+		animation: fadeup 0.25s;
+	}
+
+	.backpacktf-user-data {
+		grid-template-columns: 1fr 3fr 2fr 1fr;
+		display: grid;
+		color: white;
+
+		div {
+			margin: auto;
+		}
+	}
+	.tradingbot-user-data {
+		grid-template-columns: 1fr 3fr 2fr 1fr;
+	}
+
+	.user-data {
+		padding: clamp(2px, 1%, 5px);
+		box-sizing: border-box;
+		display: flex;
+		color: white;
+		height: 70px;
+		margin-bottom: 5px;
+
+		div {
+			margin: auto;
+		}
+
+		.image-container {
+			margin: auto;
+			height: 100%;
+		}
+
+		img {
+			height: 100%;
+		}
+	}
+
+	.container {
+		max-height: 750px;
+		overflow-y: auto;
+	}
+
+	.data-container-header {
+		width: 100%;
+		height: 25px;
+		background-color: $secondary-color;
+		margin-bottom: 5px;
+		display: flex;
+		flex-direction: row;
+		color: white;
+
+		.title {
+			margin: auto;
+		}
+
+		a {
+			background-color: $button-gen;
+			color: white;
+			text-decoration: none;
+			padding: 0 10px;
+			box-sizing: border-box;
+			margin: auto 0px auto auto;
+			height: 100%;
+			display: flex;
+
+			span {
+				margin: auto;
+			}
+		}
+	}
+
+	.reference-data-header {
+		margin: 0px 0px auto 0px;
+		height: 30px;
+		background-color: $tertiary-color;
+	}
+
+	.user-data-header {
+		margin-top: 10px;
+		background-color: $button-gen;
+		position: sticky;
+		top: 0;
+		-webkit-user-select: none;
+	}
+
+	.user-data-header::after {
+		content: "-";
+		margin: auto 0 auto auto;
+	}
+	.user-data-header.active::after {
+		content: "🠉";
+		margin: auto 0 auto auto;
+	}
+}
+
+.menu-button {
+	width: 100px;
+}
+
+button,
+.button-link {
+	padding: 3px 15px;
+	border-radius: 3px;
+	border: 0;
+	cursor: pointer;
+	transition: background-color 0.2s;
+	font-weight: 400;
+	background-color: $button-gen;
+	color: white;
+	text-decoration: none;
+}
+
+button.disabled,
+.button-link.disabled {
+	background-color: #9d0101;
+	color: #c8c8c8;
+	font-weight: 500;
+}
+button.disabled:after,
+.button-link.disabled:after {
+	content: "Disabled";
+}
+button.enabled,
+.button-link.enabled {
+	background-color: green;
+	color: #c8c8c8;
+	font-weight: 500;
+}
+button.enabled:after,
+.button-link.enabled:after {
+	content: "Enabled";
+}
+button:hover,
+button:focus,
+.button-link:hover,
+.button-link:focus {
+	background-color: $button-hover;
+	color: white;
+}
+
+.settings-container:first-of-type {
+	min-height: 500px;
 }
 
 @media screen and (max-width: 1200px) {
@@ -292,8 +422,6 @@ body {
 		display: none;
 	}
 }
-//  Realistically if you are still at this point, that's on you...
-//  This is what you get. It works, but I'm assuming you must be used to improvising by now?
 @media screen and (max-width: 600px) {
 	.header {
 		height: 35px;
@@ -330,6 +458,17 @@ body {
 		opacity: 1;
 	}
 }
+@keyframes fadeup {
+	from {
+		margin-top: 5%;
+		opacity: 0.2;
+	}
+	to {
+		margin-top: 0;
+		opacity: 1;
+	}
+}
+
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
 	body {
 		font-size: 16px;

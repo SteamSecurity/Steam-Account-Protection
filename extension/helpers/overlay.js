@@ -11,13 +11,10 @@ const overlays = {
 	},
 
 	reputationWarningOverlay: (profile, reputation) => {
-		const addBannedCommunity = (text) => qs('#reputation-overlay .reputation_box').insertAdjacentHTML('beforeend', `<div class="community_ban_report">${text}</div>`);
+		if (reputation.steam_bans.vac.summary === 'Banned') reputation.bad_tags.push('VAC Banned');
+		if (reputation.steam_bans.trade.summary === 'Trade Ban') reputation.bad_tags.push('Trade Banned');
 
-		overlays._openOverlay('reputation', { profile, reputation });
-
-		if (reputation.bad_tags.length > 0) addBannedCommunity('SteamRep Banned');
-		if (reputation.steam_bans.vac.summary === 'Banned') addBannedCommunity('VAC Banned'); // Is there a need to check for VAC bans?
-		if (reputation.steam_bans.trade.summary === 'Trade Ban') addBannedCommunity('Trade Banned');
+		overlays._openOverlay('reputation', { profile: profile, reputation: reputation });
 	},
 
 	impersonatorDetectedOverlay: (profile, impersonated_profile) => {

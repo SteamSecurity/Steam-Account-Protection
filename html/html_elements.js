@@ -6,7 +6,7 @@ const html_elements = {
 		<div class="overlay_header">CONFIRM TRUST TO USER</div>
 		<div class="user_information">
 			<img src="${profile.profile_picture}">
-			<div class="profile_information">
+			<div class="profile-information">
 				<div class="descriptor">Persona: <div>${profile.personaname}</div></div>
 				<div class="descriptor">SteamID: <div>${profile.steamid}</div></div>
 				<div class="descriptor">Level: <div>${profile.level}</div></div>
@@ -14,31 +14,38 @@ const html_elements = {
 			</div>
 		</div>
 		<div class="footer_button_container">
-			<button class="button_good" id="confirm-trustUser">Trust User</button><button class="button_bad" id="close-trustUser-overlay">Cancel</button>
+			<button class="button-accept" id="confirm-trustUser">Trust User</button><button id="close-trustUser-overlay">Cancel</button>
 		</div>
 	</div>
 </div>`;
 	},
 
-	reputation: ({ profile, reputation }) => {
+	reputation: (overlay_data) => {
+		let reputation_html_list = '';
+
+		for (rep_warning of overlay_data.reputation.bad_tags) {
+			reputation_html_list += `<div class="community_ban_report"><div><img src="${chrome.extension.getURL("/img/icons/warning.svg")}"></div><span class="text">${rep_warning}<span></div>`;
+		}
+
 		return `<div id="reputation-overlay" class="sap_overlay">
 	<div class="overlay_container">
 		<div class="overlay_header">REPUTATION WARNING</div>
 		<div class="user_information">
-			<img src="${profile.profile_picture}">
+			<img class="profile-picture" src="${overlay_data.profile.profile_picture}">
 			<div class="reputation_box">
 				<div class="sub_header">This user has a poor reputation</div>
+				${reputation_html_list}
 			</div>
 		</div>
 		<div class="footer_button_container">
-			<button class="button_bad" id="close-reputation-overlay">Close</button>
+			<button id="close-reputation-overlay">Close</button>
 		</div>
 	</div>
 </div>`;
 	},
 
 	impersonator: ({ profile, impersonated_profile }) => {
-		console.log(impersonated_profile);
+		log.standard(impersonated_profile);
 		return `<div id="impersonator-overlay" class="sap_overlay">
 	<div class="overlay_container">
 		<div class="overlay_header">IMPERSONATOR DETECTED</div>
@@ -57,17 +64,17 @@ const html_elements = {
 					<img  style="margin-bottom:5px" src="${impersonated_profile.profile_picture || impersonated_profile.avatar.replace('_medium.jpg', '_full.jpg')}">
 						<div class="profile_information" style="margin-left:0px">
 							<div class="descriptor">Persona: <div>${impersonated_profile.personaname}</div></div>
-							<div class="descriptor">SteamID: <a href="https://steamcommunity.com/profiles/${impersonated_profile.steamid}"><div>${impersonated_profile.steamid}</div></a>
+							<div class="descriptor">SteamID: <a href="https://steamcommunity.com/profiles/${impersonated_profile.steamid}" target="_blank"><div>${impersonated_profile.steamid}</div></a>
 					</div>
 				</div>
 			</div>
 
 		</div>
 		<div class="footer_button_container">
-			<button class="button_bad" id="close-impersonator-overlay">Close</button>
+			<button  id="close-impersonator-overlay">Close</button>
 		</div>
 	</div>
-</div>`;
+	</div>`;
 	},
 
 	// Buttons
@@ -75,12 +82,13 @@ const html_elements = {
 	untrust_user_button: `<a id="untrust_user" href="#trust_user" class="btn_profile_action btn_medium"><span style="display:flex; padding: 5px;"><img style="height: 20px;" src="${chrome.extension.getURL('img/icons/user_slash.png')}"></span></a>`,
 
 	profileReputation: (profile) => {
+		let status;
 		if (profile.status === 'Currently In-Game') status = 'user_in-game';
 		else if (profile.status === 'Currently Online') status = 'user_online';
 		else status = 'user_offline';
 
 		return `<div id="sap_reputation_panel" class="reputation_panel responsive_status_info">
-			${!storage.settingIsEnabled('profile_reputation') ? '<div class="disclaimer hidden"></div>' : ''}
+			${!storage.settingIsEnabled('reputation') ? '<div class="disclaimer hidden"></div>' : ''}
 			<div class="header">About</div >
 			${profile.status ? `<div class="descriptor">Status: <div class="${status}">${profile.status}</div></div>` : ''}
 			${status === 'user_in-game' ? `<div class="descriptor">Game: <div class="user_in-game">${profile.status_summary}</div></div>` : ''}
@@ -93,7 +101,7 @@ const html_elements = {
 			<div class="descriptor hidden">Age: <div id="account_age"></div></div>
 			<br>
 		<div id='reputation_header' class="header hidden">Reputation</div>
-		${storage.settingIsEnabled('profile_reputation') ? '<div class="disclaimer hidden"></div>' : ''}
+		${storage.settingIsEnabled('reputation') ? '<div class="disclaimer hidden"></div>' : ''}
 		<div class="header">Search</div>
 		<div class="external_connection_container">
 			<a href="https://rep.tf/${profile.steamid}" class="external_connection"><img src="https://rep.tf/favicon.ico" /><span>Rep</span></a>
@@ -107,5 +115,24 @@ const html_elements = {
 		</div>
 			</div>
 	<br>`;
-	}
+	},
+
+	tradeWarning: (profile, warnings) => {
+		let warning_html_list = '';
+		for (warning of warnings) {
+			warning_html_list += `<div class="warning">${warning}</div>`;
+		}
+
+		return `
+		<div class="sap-tw-overlay" id="sap-trade-warning-overlay">
+			<div class="container">
+				<div class="title">Caution!</div>
+				<div class="subtext">${profile.personaname} has the following warnings:</div>
+				<br>
+				${warning_html_list}
+				<button id="confirm-trade-warning-overlay">Confirm</button>
+			</div>	
+		</div>`;
+	},
+	tradeImpersonatorWarning: (profile) => { }
 };

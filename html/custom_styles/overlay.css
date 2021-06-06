@@ -42,9 +42,9 @@ body {
   max-width: 600px;
   max-height: 450px;
   min-width: 400px;
-  background-color: #717171;
+  background-color: #1a1d1f;
   color: white;
-  border: 1px solid #283846;
+  border: 1px solid #00468e;
   border-radius: 1px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -63,7 +63,7 @@ body {
   width: 100%;
   text-align: center;
   margin-bottom: 1px;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: #00468e;
   font-size: 1.5em;
   padding: 5px 20px;
   -webkit-box-sizing: border-box;
@@ -101,11 +101,25 @@ body {
 
 .sap_overlay .overlay_container .community_ban_report {
   text-align: center;
-  background-color: #ff000040;
+  background-color: #ff000030;
   padding: 2px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   margin-bottom: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border-radius: 4px;
+}
+
+.sap_overlay .overlay_container .community_ban_report img {
+  height: 25px;
+  width: auto;
+  margin: auto 0;
+}
+
+.sap_overlay .overlay_container .community_ban_report .text {
+  margin: auto;
 }
 
 .sap_overlay .overlay_container .side_by_side_user_container {
@@ -132,11 +146,10 @@ body {
   padding: 10px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  background-color: rgba(0, 0, 0, 0.6);
   font-size: 1.1em;
 }
 
-.sap_overlay .overlay_container .user_information img {
+.sap_overlay .overlay_container .user_information .profile-picture {
   width: auto;
   max-height: 150px;
   margin: auto;
@@ -153,14 +166,18 @@ body {
   background-color: rgba(0, 0, 0, 0.25);
 }
 
-.sap_overlay .overlay_container .user_information .descriptor {
+.sap_overlay .overlay_container .user_information .profile-information {
+  margin-left: 10px;
+}
+
+.sap_overlay .overlay_container .user_information .profile-information .descriptor {
   color: #eaeaea;
   font-size: 0.7em;
   width: 100%;
   margin-bottom: 10px;
 }
 
-.sap_overlay .overlay_container .user_information .descriptor div {
+.sap_overlay .overlay_container .user_information .profile-information .descriptor div {
   color: white;
   font-size: 1.5em;
   margin-left: auto;
@@ -190,12 +207,20 @@ body {
   padding: 5px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .sap_overlay .overlay_container .footer_button_container button {
   width: 100%;
   height: 100%;
+  background-color: #005179;
+}
+
+.sap_overlay .overlay_container .footer_button_container .button-accept {
+  background-color: #145a07;
+}
+
+.sap_overlay .overlay_container .footer_button_container .button-dead {
+  background-color: #364248;
 }
 
 @-webkit-keyframes alert_flash {

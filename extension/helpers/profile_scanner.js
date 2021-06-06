@@ -22,7 +22,14 @@ function impersonatorScanner(profile) {
 			type: `bot`
 		}
 	};
+
+
 	let { manncostore, marketplacetf, bitskins, backpacktf, trusted_users } = sap_data.local;
+	if (!manncostore && !marketplacetf && !bitskins && !backpacktf && trusted_users) {
+		log.standard('Data not initialized', 'error');
+		return {};
+	}
+
 	let similar_profiles = []; 																																												// List of profiles that are similar to the current one.
 	let trusted_bots = [...manncostore, ...marketplacetf, ...bitskins];
 	let trusted_profiles = [...backpacktf];
@@ -34,11 +41,8 @@ function impersonatorScanner(profile) {
 	trusted_profiles.forEach(comparePersona);																																					// These are real people with real information attached to them.
 	Object.keys(services).forEach((service_name) => comparePersona(services[service_name]));													// These are bots supplied by the service object above, there is no real information about them.
 
-
-	if (!trusted_user_data)
-		return mostLikelyImpersonated();
-	else
-		return trusted_user_data;
+	if (!trusted_user_data) return mostLikelyImpersonated();
+	else return trusted_user_data;
 
 	// ─── COMPARING ──────────────────────────────────────────────────────────────────
 	function comparePersona(trusted_user) {
@@ -58,6 +62,10 @@ function impersonatorScanner(profile) {
 			if (impersonated_profile.similarity > most_likely.similarity)
 				most_likely = impersonated_profile;
 		});
+
+		sap_data.sync.statistics.impersonators_detected++;
+		storage.save({ sync: sap_data.sync });
+
 		return { profile: most_likely, trusted: false, impersonator: true } || null;
 	}
 }

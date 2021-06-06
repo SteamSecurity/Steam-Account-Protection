@@ -10,9 +10,7 @@ chrome.runtime.onInstalled.addListener(function (details) {
 			url: chrome.runtime.getURL('html/pages/html/welcome.html')
 		});
 	}
-	if (details.reason == 'update') {
-
-	}
+	if (details.reason == 'update') { }
 });
 
 

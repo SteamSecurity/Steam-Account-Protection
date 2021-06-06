@@ -6,7 +6,7 @@ const backpacktf = {
 		const response = JSON.parse(await webRequest(`get`, `https://backpack.tf/api/IGetUsers/GetImpersonatedUsers`)).results;
 
 		// Some goober who has probably been fired by now included 1/3 of the Marketplace.tf bots.
-		// The inclusion was made by mistake I'm sure.
+		// The inclusion was made by mistake, I'm sure.
 		users = response.filter(isNotMarketplacetf);
 		return users;
 	}

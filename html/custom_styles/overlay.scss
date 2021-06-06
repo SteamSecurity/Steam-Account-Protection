@@ -1,3 +1,21 @@
+$red-button: #9d0101;
+$red-text: #ff2a2a;
+$good-text: #00ffa2;
+
+$primary-color: #1a1d1f;
+$secondary-color: #0f1011;
+$tertiary-color: #00468e;
+
+$menu-item: #20242800;
+$menu-item-selected: #ff0000;
+
+$button-gen: #005179;
+$button-action: #124b87;
+$button-hover: #0965c8;
+
+$button-accept: #145a07;
+$button-disable: #364248;
+
 body {
 	transition: transform ease-in-out 0.2s;
 	transform-origin: top;
@@ -15,18 +33,14 @@ body {
 .sap_overlay {
 	background-color: #0043ff0d;
 	backdrop-filter: blur(7px) saturate(0.1) brightness(0.7);
-
 	width: 100vw;
 	height: 100vh;
-
 	opacity: 0;
 	transition: opacity 0.4s ease-in-out;
-
 	display: flex;
 	position: fixed;
 	top: 0;
 	z-index: 9999999;
-
 	user-select: none;
 
 	.overlay_container {
@@ -34,9 +48,9 @@ body {
 		max-height: 450px;
 		min-width: 400px;
 
-		background-color: #717171;
+		background-color: $primary-color;
 		color: white;
-		border: 1px solid #283846;
+		border: 1px solid $tertiary-color;
 		border-radius: 1px;
 		box-sizing: border-box;
 		font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -50,7 +64,7 @@ body {
 			text-align: center;
 			margin-bottom: 1px;
 
-			background-color: rgba(0, 0, 0, 0.60);
+			background-color: $tertiary-color;
 			font-size: 1.5em;
 
 			padding: 5px 20px;
@@ -79,10 +93,22 @@ body {
 
 		.community_ban_report {
 			text-align: center;
-			background-color: #ff000040;
+			background-color: #ff000030;
 			padding: 2px;
 			box-sizing: border-box;
 			margin-bottom: 5px;
+			display: flex;
+			border-radius: 4px;
+
+			img {
+				height: 25px;
+				width: auto;
+				margin: auto 0;
+			}
+
+			.text {
+				margin: auto;
+			}
 		}
 
 		.side_by_side_user_container {
@@ -100,10 +126,9 @@ body {
 			padding: 10px;
 			box-sizing: border-box;
 
-			background-color: rgba(0, 0, 0, 0.60);
 			font-size: 1.1em;
 
-			img {
+			.profile-picture {
 				width: auto;
 				max-height: 150px;
 				margin: auto;
@@ -121,17 +146,21 @@ body {
 				background-color: rgba(0, 0, 0, 0.25);
 			}
 
-			.descriptor {
-				color: #eaeaea;
-				font-size: 0.7em;
-				width: 100%;
-				margin-bottom: 10px;
+			.profile-information {
+				margin-left: 10px;
 
-				div {
-					color: white;
-					font-size: 1.5em;
-					margin-left: auto;
-					text-indent: 10px;
+				.descriptor {
+					color: #eaeaea;
+					font-size: 0.7em;
+					width: 100%;
+					margin-bottom: 10px;
+
+					div {
+						color: white;
+						font-size: 1.5em;
+						margin-left: auto;
+						text-indent: 10px;
+					}
 				}
 			}
 		}
@@ -154,11 +183,17 @@ body {
 			display: flex;
 			padding: 5px;
 			box-sizing: border-box;
-			background-color: rgba(0, 0, 0, 0.60);
 
 			button {
 				width: 100%;
 				height: 100%;
+				background-color: $button-gen;
+			}
+			.button-accept {
+				background-color: $button-accept;
+			}
+			.button-dead {
+				background-color: $button-disable;
 			}
 		}
 	}

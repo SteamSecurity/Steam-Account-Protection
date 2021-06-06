@@ -1,8 +1,5 @@
-(async () => {
-	storage.generateNewSettings();
-	await storage.loadData();
-	storage.getNewReferenceData();
+
+(async function () {
+	storage.resetSettings()
+		.then(window.close);
 })();
-
-
-chrome.runtime.sendMessage({ "icon_path": 'img/sap_good.png' });

@@ -5,46 +5,43 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="../css/welcome.css">
-	<title>SAP | Settings</title>
+	<title>SAP: Welcome</title>
 </head>
 
 <body>
 	<div class="header">
 		<div class="title">Steam Account Protection</div>
 	</div>
+	<div class="content">
+		<div class="title">Initializing - Please Wait</div>
+		<div class="service-container">
 
-	<div class="settings_container">
-		<div class="title">Thank you for installing Steam Account Protection</div>
-		<div class="description">
-
-			<span class="text">Steam Account Protection (SAP) will now retrieve the necessary data required to adequately
-				reference against. Please keep this window open until this process has completed. Ordinarily by the time you
-				reach
-				this point in this paragraph, the process would have been completed. You can check the status of this process
-				using the panel to the right (or if you are on mobile, the bottom).<br><br>
-				If one or more of the services result with an error, you can request the data from the settings page. To access
-				the settings page, click on the icon at any time.
-			</span>
-			<div class="progress_panel">
-				<div class="pp_title">Status</div>
-				<!-- FIXME: Does not work yet! -->
-				<div id="service_bptf" class="pp_service">Backpack.TF <span class="error"></span></div>
-				<div id="service_mptf" class="pp_service">Marketplace.TF <span class="waiting"></span></div>
-				<div id="service_mcs" class="pp_service">Mannco.store <span class="success"></span></div>
-				<div id="service_bs" class="pp_service">Bitskins.com <span class=""></span></div>
+			<div id="marketplacetf-status" class="service">
+				<div class="title">Marketplace.TF</div>
+				<div class="service-part good"><span>Trading Bots</span><span class="status good">O</span></div>
+			</div>
+			<div id="manncostore-status" class="service">
+				<div class="title">Mannco.store</div>
+				<div class="service-part"><span>Trading Bots</span><span class="status bad">X</span></div>
+			</div>
+			<div id="bitskins-status" class="service">
+				<div class="title">Bitskins.com</div>
+				<div class="service-part"><span>Trading Bots</span><span class="status bad">X</span></div>
+			</div>
+			<div id="backpacktf-status" class="service">
+				<div class="title">Backpack.tf</div>
+				<div class="service-part"><span>Impersonated users</span><span class="status bad">X</span></div>
 			</div>
 		</div>
 	</div>
 </body>
 
-<script src="/extension/libs/backpacktf.js"></script>
-<script src="/extension/libs/marketplacetf.js"></script>
-<script src="/extension/libs/manncostore.js"></script>
-<script src="/extension/libs/bitskins.js"></script>
 <script src="/extension/storage.js"></script>
-
+<script src="/extension/libs/backpacktf.js"></script>
+<script src="/extension/libs/bitskins.js"></script>
+<script src="/extension/libs/manncostore.js"></script>
+<script src="/extension/libs/marketplacetf.js"></script>
 <script src="/extension/helpers/util.js"></script>
 <script src="../js/welcome.js"></script>
-
 
 </html>

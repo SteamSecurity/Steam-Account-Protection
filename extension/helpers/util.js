@@ -1,3 +1,5 @@
+const _logging_debug = true;	// Enable additional debugging options. (For developers)
+
 
 // ─── WEBPAGE INTERACTION ────────────────────────────────────────────────────────
 const qs = (selector) => document.querySelector(selector);
@@ -33,18 +35,27 @@ function webRequest(type, url) {
 }
 
 // ─── LOGGING ────────────────────────────────────────────────────────────────────
-function log(data, type) {
-	if (type === 'error') log_data = { color: `#ff3939` };
-	else if (type === 'warning') log_data = { color: `#ffaa00` };
-	else if (type === `notice`) log_data = { color: `#0092ff` };
-	else log_data = { color: `#ffffff` };
 
-	if (typeof data === 'string')
-		return console.log(`%c[SAP] [${new Date().toLocaleString()}] ${data}`, `color: ${log_data.color}; padding:1px`);
+const log = {
+	standard: (data, type) => {
+		if (type === 'error') log_data = { color: `#ff3939` };
+		else if (type === 'warning') log_data = { color: `#ffaa00` };
+		else if (type === 'notice' || type === 'debug') log_data = { color: `#0092ff` };
+		else log_data = { color: `#ffffff` };
 
-	console.log(`%c[SAP] [${new Date().toLocaleString()}] ↓`, `color: ${log_data.color}`);
-	console.log(data);
-}
+		if (type === 'debug') type = type.toUpperCase();
+
+		if (typeof data === 'string')
+			return console.log(`%c[SAP] ${type ? "[" + type + "] " : ''}%c[${new Date().toLocaleString()}] ${data}`, `color: ${log_data.color}; padding:1px`, ``);
+
+		console.log(`%c[SAP] ${type ? "[" + type + "] " : ''}%c[${new Date().toLocaleString()}] ↓`, `color: ${log_data.color};`, ``);
+		console.log(data);
+	},
+	debug: (data, type) => {
+		if (_logging_debug) log.standard(data, 'debug');
+	}
+};
+
 
 // ─── OTHER ──────────────────────────────────────────────────────────────────────
 function compareString(current, base) {
