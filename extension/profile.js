@@ -19,12 +19,16 @@ async function profile() {
 		}
 	};
 
+	const settingTrustedUserSystem = storage.settingIsEnabled(`profile_trusted_user_system`);
+	const settingReputationScanner = storage.settingIsEnabled(`reputation_scanner`);
+	const settingImpersonatorScanner = storage.settingIsEnabled(`impersonator_scanner`);
+
 	// ─── FUNCTIONS ──────────────────────────────────────────────────────────────────
-	injectHTMLElementAsChild(qs(`.profile_rightcol`), html_elements.profileReputation(profile), `afterbegin`);
+	injectHTMLElementAsChild(qs(`.profile_rightcol`), html_elements.profileReputation(profile, settingReputationScanner), `afterbegin`);
 	setTimeout(() => qs(`#sap_reputation_panel`).classList.add(`slide_down`), 100);
 
 	// Trusted user system
-	if (storage.settingIsEnabled(`profile_trusted_user_system`) && is_not_owner()) {
+	if (settingTrustedUserSystem && is_not_owner()) {
 		const trusted_user = await storage.getTrustedUser(profile.steamid);
 		const profile_button_container = qs(`.profile_header_actions`);
 
@@ -40,7 +44,7 @@ async function profile() {
 
 	// Reputation checker & Reputation panel
 	// TODO: Too complex! Why not have them injected into the panel directly and then change their status?
-	if (storage.settingIsEnabled(`reputation`)) {
+	if (settingReputationScanner) {
 		const addDescriptorToReputationPanel = (title, descriptor_class, summary) => { injectHTMLElementAsChild(qs('#sap_reputation_panel .disclaimer'), `<div class="descriptor ${descriptor_class}">${title}: <div>${summary}</div></div>`, `afterend`); };
 
 		const steamrep_rep = await steamrep.getReputation(profile.steamid);
@@ -60,12 +64,12 @@ async function profile() {
 		const steamid_textbox = qs('#steamid_textbox');
 		copy_steamid_textbox.addEventListener('click', () => copyTextInput(steamid_textbox, copy_steamid_textbox));
 
-		if (storage.settingIsEnabled('reputation_overlay') && steamrep_rep.is_banned)
+		if (storage.settingIsEnabled('overlay') && steamrep_rep.is_banned)
 			overlays.reputationWarningOverlay(profile, steamrep_rep);
 	}
 
 	// Impersonator checker
-	if (storage.settingIsEnabled(`impersonator_scanner`)) {
+	if (settingImpersonatorScanner) {
 		const impersonator_data = await impersonatorScanner(profile);
 		const disclaimer = qs('#sap_reputation_panel .disclaimer');
 

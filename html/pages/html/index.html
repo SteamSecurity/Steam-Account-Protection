@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="../css/index.css">
-	<title>SAP | Settings</title>
+	<title>SAP | Home</title>
 </head>
 
 <body>
@@ -13,271 +13,124 @@
 		<div class="title">Steam Account Protection</div>
 	</div>
 
-	<div id="setting-panel" class="settings-container">
-		<div class="nav">
-			<a href="#" class="nav_item active" data-page_target="home"><span>Home</span></a>
-			<a href="#" class="nav_item" data-page_target="general"><span>General</span></a>
-			<a href="#" class="nav_item" data-page_target="settings"><span>Settings</span></a>
-			<a href="#" class="nav_item" data-page_target="help"><span>Help</span></a>
-			<a href="#" class="nav_item hidden" data-page_target="developer"><span>Developer</span></a>
-			<div class="footer">
-				<span></span>
-				<span id="extension_version" class="right"></span>
-			</div>
+	<div class="body-container">
+		<!-- Panel navigation -->
+		<div class="nav-container">
+			<a class="nav-link active" data-page_target="home"><span>Home</span></a>
+			<a class="nav-link" data-page_target="actions"><span>Actions</span></a>
+			<a class="nav-link" data-page_target="settings"><span>Settings</span></a>
+			<a class="nav-link" data-page_target="help"><span>Help</span></a>
+			<div id="extension-version" class="nav-version">${version}</div>
 		</div>
-		<div class="spacer"></div>
-		<div class="content">
 
-			<div class="page" id="home">
-				<div class="row">
-					<div class="threat_container">
-						<div id="amt_trusted_users" class="safe_header"></div>
-						<div class="threat_subtext">Trusted users</div>
-					</div>
-					<div class="threat_container">
-						<div id="amt_bptf_users" class="safe_header"></div>
-						<div class="threat_subtext">BP.TF users</div>
-					</div>
-					<div class="threat_container">
-						<div id="amt_tradebots" class="safe_header"></div>
-						<div class="threat_subtext">Trading Bots</div>
-					</div>
+		<!-- Pages -->
+		<div id="page-home" class="page">
+			<div class="stat-container">
+				<div class="stat-box">
+					<div id="amt-trusted-users" class="number good">0</div>
+					<div class="title">Trusted Users</div>
 				</div>
-				<div class="row">
-					<div class="threat_container">
-						<div id="amt_threats" class="threat_header"></div>
-						<div class="threat_subtext">Total threats identified</div>
-					</div>
-					<div class="threat_container">
-						<div id="amt_impostors" class="threat_header"></div>
-						<div class="threat_subtext">Impersonators identified</div>
-					</div>
-					<div class="threat_container">
-						<div id="amt_reputation" class="threat_header"></div>
-						<div class="threat_subtext">Rep bans identified</div>
-					</div>
+				<div class="stat-box">
+					<div id="amt-bptf-users" class="number good">0</div>
+					<div class="title">BP.TF Users</div>
 				</div>
-			</div>
-			<div class="page hidden" id="general">
-
-				<div class="setting_block">
-					<div class="info">
-						<div class="title">Database</div>
-						<div class="setting">
-							<span>Purge reference data</span>
-							<button class="menu-button" id="prg_reference">Purge</button>
-						</div>
-						<div class="setting">
-							<span>Purge trusted users</span>
-							<button class="menu-button " id="prg_trusted_users">Purge</button>
-						</div>
-						<div class="setting">
-							<span>Update all reference data </span>
-							<button class="menu-button link" id="upd_reference_data">Update</button>
-						</div>
-					</div>
+				<div class="stat-box">
+					<div id="amt-trading-bots" class="number good">0</div>
+					<div class="title">Trading Bots</div>
 				</div>
-
-				<div class="setting_block">
-					<div class="info">
-						<div class="title">Users</div>
-						<div class="setting">
-							<span>View Backpacktf reference data</span>
-							<button class="panel-button menu-button link" data-panel_target="backpacktf-reference-data"
-								data-callback="loadBackpacktfReferenceData">View</button>
-						</div>
-						<div class="setting">
-							<span>View trading bot reference data</span>
-							<button class="panel-button menu-button link" data-panel_target="tradingbot-reference-data"
-								data-callback="loadTradingBotReferenceData">View</button>
-						</div>
-						<div class="setting">
-							<span>View trusted users</span>
-							<button class="menu-button link">View</button>
-						</div>
-					</div>
+				<div class="stat-box">
+					<div id="amt-threats" class="number bad">0</div>
+					<div class="title">Threats Detected</div>
 				</div>
-
-			</div>
-			<div class="page hidden" id="settings">
-				<div class="setting_block">
-					<div class="info">
-						<div class="title">Trusted User System</div>
-						<div class="setting">
-							<span>Trusted user system</span>
-							<button data-setting_name="profile_trusted_user_system" class="btn_toggle enabled"></button>
-						</div>
-					</div>
+				<div class="stat-box">
+					<div id="amt-impersonators" class="number bad">0</div>
+					<div class="title">Impersonators Detected</div>
 				</div>
-
-				<div class="setting_block">
-					<div class="info">
-						<div class="title">Reputation</div>
-						<div class="setting">
-							<span>Reputation checker</span>
-							<button data-setting_name="reputation" class="btn_toggle enabled"></button>
-						</div>
-						<div class="setting">
-							<span>Overlay warning</span>
-							<button data-setting_name="reputation_overlay" class="btn_toggle enabled"></button>
-						</div>
-					</div>
-				</div>
-				<div class="setting_block">
-					<div class="info">
-						<div class="title">Impersonation</div>
-						<div class="setting">
-							<span>Impersonator scanner</span>
-							<button data-setting_name="impersonator_scanner" class="btn_toggle enabled"></button>
-						</div>
-						<div class="setting">
-							<span>Overlay warning</span>
-							<button data-setting_name="impersonator_overlay" class="btn_toggle enabled"></button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="page hidden" id="help">
-
-				<div class="setting_block">
-					<div class="info">
-						<div class="title">Help</div>
-						<div class="setting">
-							<span>Visit GitHub wiki pages</span>
-							<button class="btn_link panel-button menu-button">View</button>
-						</div>
-						<div class="setting">
-							<span>Visit Homepage</span>
-							<button class="btn_link panel-button menu-button">View</button>
-						</div>
-					</div>
-				</div>
-				<div class="setting_block">
-					<div class="info">
-						<div class="title">Bug report</div>
-						<div class="setting">
-							<span>Visit GitHub issue pages</span>
-							<button class="btn_link panel-button menu-button">View</button>
-						</div>
-					</div>
-				</div>
-
-			</div>
-
-			<!-- ------------------------------ Sub pages ------------------------------ -->
-			<div class="page hidden" id="reference_sources"></div>
-			<div class="page hidden" id="backpacktf_data"></div>
-			<div class="page hidden" id="trading_bot_data"></div>
-			<div class="page hidden" id="developer">
-
-				<div class="setting_block">
-					<div class="info">
-						<div class="title">Developer</div>
-						<div class="setting">
-							<span>Anonymise Steam profile pages</span>
-							<button data-setting_name="dev_anon_profiles" class="btn_toggle enabled"></button>
-						</div>
-						<div class="setting">
-							<span>Anonymise Steam trading windows</span>
-							<button data-setting_name="dev_anon_tradewindow" class="btn_toggle enabled"></button>
-						</div>
-					</div>
+				<div class="stat-box">
+					<div id="amt-reputation" class="number bad">0</div>
+					<div class="title">Rep Banned Users</div>
 				</div>
 			</div>
 		</div>
-	</div>
-
-	<!-- ─── REFERENCE DATA ───────────────────────────────────────────────────────────── -->
-	<div id="backpacktf-reference-data" class="settings-container data-container hidden">
-		<div class="data-container-header">
-			<div class="title">Backpack.TF Reference Data</div>
-			<button href="#" class="panel-button" data-panel_target="setting-panel"
-				data-callback="loadBackpacktfReferenceData"><span>Go Back</span></button>
-		</div>
-		<div class="backpacktf-user-data user-data reference-data-header">
-			<div>Avatar</div>
-			<div>Persona</div>
-			<div>SteamID</div>
-			<div>Links</div>
-		</div>
-		<div class="container"></div>
-	</div>
-	<div id="tradingbot-reference-data" class="settings-container data-container hidden">
-		<div class="data-container-header">
-			<div class="title">Trading Bot Reference Data</div>
-			<button href="#" class="panel-button" data-panel_target="setting-panel"
-				data-callback="loadTradingBotReferenceData"><span>Go Back</span></button>
-		</div>
-		<div class="tradingbot-user-data reference-data-header">
-			<div>Avatar</div>
-			<div>Type</div>
-			<div>SteamID</div>
-			<div>Links</div>
-		</div>
-		<div class="container">
-			<div class="user-data reference-data-header user-data-header" data-reference-target="marketplacetf">Marketplace.TF
-			</div>
-			<div id="marketplacetf-reference-container" class="hidden"></div>
-			<div class="user-data reference-data-header user-data-header" data-reference-target="manncostore">Mannco Store
-			</div>
-			<div id="manncostore-reference-container" class="hidden"></div>
-			<div class="user-data reference-data-header user-data-header" data-reference-target="bitskins">Bitskins</div>
-			<div id="bitskins-reference-container" class="hidden"></div>
-		</div>
-	</div>
-	<div id="trusteduser-reference-data" class="settings-container data-container hidden">
-	</div>
-
-	<!-- ------------------------------ Sub pages ------------------------------ -->
-	<div class="page hidden" id="reference_sources"></div>
-	<div class="page hidden" id="backpacktf_data"></div>
-	<div class="page hidden" id="trading_bot_data"></div>
-	<div class="page hidden" id="developer">
-
-		<div class="setting_block">
-			<div class="info">
-				<div class="title">Developer</div>
+		<div id="page-actions" class="page hidden">
+			<div class="setting-container">
+				<div class="title">DATABASE</div>
 				<div class="setting">
-					<span>Anonymise Steam profile pages</span>
-					<button data-setting_name="dev_anon_profiles" class="btn_toggle enabled"></button>
+					<div class="setting-name">Refresh Trading Bot List</div>
+					<button><span>Delete</span></button>
+				</div>
+			</div>
+
+			<div class="setting-container">
+				<div class="title">REFERENCE DATA</div>
+
+				<div class="setting">
+					<div class="setting-name">Trading Bots</div>
+					<button><span>View</span></button>
 				</div>
 				<div class="setting">
-					<span>Anonymise Steam trading windows</span>
-					<button data-setting_name="dev_anon_tradewindow" class="btn_toggle enabled"></button>
+					<div class="setting-name">Impersonated Users</div>
+					<button><span>View</span></button>
+				</div>
+				<div class="setting">
+					<div class="setting-name">Trusted Users</div>
+					<button><span>View</span></button>
 				</div>
 			</div>
+		</div>
+		<div id="page-settings" class="page hidden">
+
+			<div class="setting-container">
+				<div class="title">Settings</div>
+				<div class="setting">
+					<div class="setting-name">Trusted User System</div>
+					<button data-setting-name="profile_trusted_user_system" class="menu-button enabled"></button>
+				</div>
+				<div class="setting">
+					<div class="setting-name">Check Impersonation</div>
+					<button data-setting-name="impersonator_scanner" class="menu-button enabled"></button>
+				</div>
+				<div class="setting">
+					<div class="setting-name">Check Reputation</div>
+					<button data-setting-name="reputation_scanner" class="menu-button enabled"></button>
+				</div>
+				<div class="setting">
+					<div class="setting-name">Overlay Warnings</div>
+					<button data-setting-name="overlays" class="menu-button enabled"></button>
+				</div>
+			</div>
+
+		</div>
+		<div id="page-help" class="page hidden">
+			<div class="help-container">
+				<a class="help-link" href="https://github.com/Armored-Dragon/Steam-Account-Protection">
+					<div class="image-container"> <img src="/img/github-brands.svg"></div>
+					<span>Github</span>
+				</a>
+				<a class="help-link" href="#">
+					<div class="image-container"> <img src="/img/home-solid.svg"></div>
+					<span>Homepage</span>
+				</a>
+			</div>
+		</div>
+		<div id="page-dev" class="page hidden">
+
+			<div class="setting-container">
+				<div class="title">Dev Settings</div>
+				<div class="setting">
+					<div class="setting-name">dev_anon_profiles</div>
+					<button data-setting-name="dev_anon_profiles" class="menu-button enabled"></button>
+				</div>
+				<div class="setting">
+					<div class="setting-name">dev_anon_tradewindow</div>
+					<button data-setting-name="dev_anon_tradewindow" class="menu-button enabled"></button>
+				</div>
+			</div>
+
 		</div>
 	</div>
 </body>
-
-<template id="backpacktf-user-template">
-	<div class="backpacktf-user-data">
-		<div><img src=""></div>
-		<div data-type="persona">Persona:</div>
-		<div data-type="steamid">SteamID:</div>
-		<div>
-			<a class="button-link" data-type="profilelink" href="" target="_blank">Profile</a>
-		</div>
-	</div>
-</template>
-<template id="tradingbot-user-template">
-	<div class="user-data tradingbot-user-data">
-		<div class="image-container">
-			<img src="">
-		</div>
-		<div>Trading Bot</div>
-		<div data-type="steamid"></div>
-		<div>
-			<a class="button-link" data-type="profilelink" href="" target="_blank">Profile</a>
-		</div>
-	</div>
-</template>
-
 <script src="/extension/storage.js"></script>
-<script src="/extension/libs/backpacktf.js"></script>
-<script src="/extension/libs/bitskins.js"></script>
-<script src="/extension/libs/manncostore.js"></script>
-<script src="/extension/libs/marketplacetf.js"></script>
 <script src="/extension/helpers/util.js"></script>
 <script src="../js/index.js"></script>
 

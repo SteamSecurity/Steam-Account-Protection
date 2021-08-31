@@ -1,7 +1,7 @@
 const backpacktf = {
 	getImpersonatedProfiles: async () => {
 		let users = [];
-		const isNotMarketplacetf = (profile) => !/Marketplace.TF \| Bot ([0-9]+)/i.test(profile.personaname);
+		const isNotMarketplacetf = (profile) => !/Marketplace.TF \| Bot ([0-9]+)/i.test(profile.personaname) && !/MPTF Bot ([0-9]+)/i.test(profile.personaname);
 
 		const response = JSON.parse(await webRequest(`get`, `https://backpack.tf/api/IGetUsers/GetImpersonatedUsers`)).results;
 

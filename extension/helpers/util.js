@@ -40,7 +40,8 @@ const log = {
 	standard: (data, type) => {
 		if (type === 'error') log_data = { color: `#ff3939` };
 		else if (type === 'warning') log_data = { color: `#ffaa00` };
-		else if (type === 'notice' || type === 'debug') log_data = { color: `#0092ff` };
+		else if (type === 'debug') log_data = { color: `#bf00ff` };
+		else if (type === 'notice') log_data = { color: `#0092ff` };
 		else log_data = { color: `#ffffff` };
 
 		if (type === 'debug') type = type.toUpperCase();
@@ -51,11 +52,10 @@ const log = {
 		console.log(`%c[SAP] ${type ? "[" + type + "] " : ''}%c[${new Date().toLocaleString()}] ↓`, `color: ${log_data.color};`, ``);
 		console.log(data);
 	},
-	debug: (data, type) => {
+	debug: (data) => {
 		if (_logging_debug) log.standard(data, 'debug');
 	}
 };
-
 
 // ─── OTHER ──────────────────────────────────────────────────────────────────────
 function compareString(current, base) {

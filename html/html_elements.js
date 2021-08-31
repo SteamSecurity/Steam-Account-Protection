@@ -88,7 +88,7 @@ const html_elements = {
 		else status = 'user_offline';
 
 		return `<div id="sap_reputation_panel" class="reputation_panel responsive_status_info">
-			${!storage.settingIsEnabled('reputation') ? '<div class="disclaimer hidden"></div>' : ''}
+			${!storage.settingIsEnabled('reputation_scanner') ? '<div class="disclaimer hidden"></div>' : ''}
 			<div class="header">About</div >
 			${profile.status ? `<div class="descriptor">Status: <div class="${status}">${profile.status}</div></div>` : ''}
 			${status === 'user_in-game' ? `<div class="descriptor">Game: <div class="user_in-game">${profile.status_summary}</div></div>` : ''}
@@ -101,7 +101,7 @@ const html_elements = {
 			<div class="descriptor hidden">Age: <div id="account_age"></div></div>
 			<br>
 		<div id='reputation_header' class="header hidden">Reputation</div>
-		${storage.settingIsEnabled('reputation') ? '<div class="disclaimer hidden"></div>' : ''}
+		${storage.settingIsEnabled('reputation_scanner') ? '<div class="disclaimer hidden"></div>' : ''}
 		<div class="header">Search</div>
 		<div class="external_connection_container">
 			<a href="https://rep.tf/${profile.steamid}" class="external_connection"><img src="https://rep.tf/favicon.ico" /><span>Rep</span></a>

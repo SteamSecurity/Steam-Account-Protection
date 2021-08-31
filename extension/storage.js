@@ -9,10 +9,9 @@ const storage = {
 				settings: {
 					profile_trusted_user_system: true,
 
-					reputation: true,
-					reputation_overlay: true,
+					reputation_scanner: true,
 					impersonator_scanner: true,
-					impersonator_overlay: true,
+					overlay: true,
 
 					dev_anon_profiles: false,
 					dev_anon_tradewindow: false
@@ -56,7 +55,7 @@ const storage = {
 
 				chrome.storage.sync.get(['sap_data'], async (responses) => {
 					sap_data.sync = responses.sap_data;
-					// TODO: When downloading the extension. This triggers AFTER getting the reference data!
+					// FIXME: When downloading the extension. This triggers AFTER getting the reference data!
 					if (!sap_data.local || !sap_data.sync) {
 						storage.generateNewSettings();
 						const newdata = await storage.loadData();
