@@ -177,11 +177,15 @@ body {
   margin-bottom: 10px;
 }
 
+.sap_overlay .overlay_container .user_information .profile-information .descriptor .title {
+  font-size: 1em;
+}
+
 .sap_overlay .overlay_container .user_information .profile-information .descriptor div {
   color: white;
   font-size: 1.5em;
   margin-left: auto;
-  text-indent: 10px;
+  text-align: center;
 }
 
 .sap_overlay .overlay_container .user_information_vertical {
@@ -225,24 +229,24 @@ body {
 
 @-webkit-keyframes alert_flash {
   0% {
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0);
   }
   50% {
     background-color: rgba(255, 0, 0, 0.75);
   }
   100% {
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0);
   }
 }
 
 @keyframes alert_flash {
   0% {
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0);
   }
   50% {
     background-color: rgba(255, 0, 0, 0.75);
   }
   100% {
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0);
   }
 }

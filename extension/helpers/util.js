@@ -10,14 +10,6 @@ const injectHTMLElementAsChild = (parent_element, element_to_add, position) => p
 
 const copyTextInput = (element, btn_init) => { btn_init.classList.remove('btn_copy_click'); setTimeout(() => btn_init.classList.add('btn_copy_click'), 10); element.style.display = 'block'; element.focus(); element.select(); element.setSelectionRange(0, 99999); document.execCommand('copy'); element.style.display = 'none'; };
 
-// ─── TIME ───────────────────────────────────────────────────────────────────────
-const time = {
-	now: () => Date.now(),
-	utcToString: (utc_time) => new Date(new Date(utc_time).getTime()).toLocaleString(),
-	hoursToMilliseconds: (hours) => hours * 60 * 60 * 1000,
-	checkAge: (age, hours) => age + time.hoursToMilliseconds(hours) > time.now(),
-	updateSchedule: (cached_time, timeout) => `\nCurrent time: ${time.utc_to_string(time.now())}\nNext Update: ${time.utc_to_string(cached_time + timeout)}`
-};
 
 // ─── HTTPS REQUESTS ─────────────────────────────────────────────────────────────
 function webRequest(type, url) {

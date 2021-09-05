@@ -35,4 +35,4 @@ As this is a Chrome Extension, the setup is extremely easy.
 ## Support
 If you are having issues with anything SAP related, try to give the [wiki](https://github.com/Armored-Dragon/Steam-Account-Protection/wiki) a quick look. You might find what you need!<br>
 When a potential bug arises, do not be afraid to make an [issue](https://github.com/Armored-Dragon/Steam-Account-Protection/issues)!<br>
-If all else fails, you can visit the [Armored Dragon Discord server](https://discord.gg/yzds2dR)
+If all else fails, you can visit the [Armored Dragon Discord server](https://armoreddragon.com/html/discord-redirect)

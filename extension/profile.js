@@ -8,9 +8,9 @@ async function profile() {
 	const profile = {
 		personaname: qs(`.profile_header_bg .persona_name .actual_persona_name`).innerText,
 		profile_picture: qs(`.profile_header_bg .playerAvatar .playerAvatarAutoSizeInner`)?.children[1]?.src || qs(`.profile_header_bg .playerAvatar .playerAvatarAutoSizeInner`)?.children[0]?.src,
-		steamid: /7[0-9]{16}/g.exec(/"steamid":"7[0-9]{16}"/g.exec(document.body.innerHTML)[0])[0] || undefined,
-		level: qs(`.profile_header_badgeinfo_badge_area .friendPlayerLevelNum`)?.innerText || undefined,
-		friends_count: qs(`.profile_friend_links .profile_count_link_total`)?.innerText || undefined,
+		steamid: /7[0-9]{16}/g.exec(/"steamid":"7[0-9]{16}"/g.exec(document.body.innerHTML)[0])[0] || null,
+		level: qs(`.profile_header_badgeinfo_badge_area .friendPlayerLevelNum`)?.innerText || null,
+		friends_count: qs(`.profile_friend_links .profile_count_link_total`)?.innerText || null,
 		status: qs('.profile_in_game_header')?.innerText || '',
 		status_summary: qs('.profile_in_game_name')?.innerText || '',
 		lobby: {
@@ -22,6 +22,7 @@ async function profile() {
 	const settingTrustedUserSystem = storage.settingIsEnabled(`profile_trusted_user_system`);
 	const settingReputationScanner = storage.settingIsEnabled(`reputation_scanner`);
 	const settingImpersonatorScanner = storage.settingIsEnabled(`impersonator_scanner`);
+	const settingOverlay = storage.settingIsEnabled(`overlay`);
 
 	// ─── FUNCTIONS ──────────────────────────────────────────────────────────────────
 	injectHTMLElementAsChild(qs(`.profile_rightcol`), html_elements.profileReputation(profile, settingReputationScanner), `afterbegin`);
@@ -31,6 +32,7 @@ async function profile() {
 	if (settingTrustedUserSystem && is_not_owner()) {
 		const trusted_user = await storage.getTrustedUser(profile.steamid);
 		const profile_button_container = qs(`.profile_header_actions`);
+
 
 		if (trusted_user) {
 			injectHTMLElementAsChild(profile_button_container, html_elements.untrust_user_button);
@@ -48,9 +50,9 @@ async function profile() {
 		const addDescriptorToReputationPanel = (title, descriptor_class, summary) => { injectHTMLElementAsChild(qs('#sap_reputation_panel .disclaimer'), `<div class="descriptor ${descriptor_class}">${title}: <div>${summary}</div></div>`, `afterend`); };
 
 		const steamrep_rep = await steamrep.getReputation(profile.steamid);
-		const acc_age_elem = qs('#account_age');
-		acc_age_elem.innerHTML = steam.getAccountAgeString(steamrep_rep.account_creation_date);
-		acc_age_elem.parentElement.classList.remove('hidden');
+		const acc_creation_elem = qs('#account_creation_date');
+		acc_creation_elem.innerHTML = time.getCreationDate(steamrep_rep.account_creation_date);
+		acc_creation_elem.parentElement.classList.remove('hidden');
 
 		qs('#reputation_header').classList.remove('hidden');
 
@@ -64,7 +66,7 @@ async function profile() {
 		const steamid_textbox = qs('#steamid_textbox');
 		copy_steamid_textbox.addEventListener('click', () => copyTextInput(steamid_textbox, copy_steamid_textbox));
 
-		if (storage.settingIsEnabled('overlay') && steamrep_rep.is_banned)
+		if (settingOverlay && steamrep_rep.is_banned)
 			overlays.reputationWarningOverlay(profile, steamrep_rep);
 	}
 
@@ -78,13 +80,13 @@ async function profile() {
 			disclaimer.classList.add('trusted');
 			disclaimer.innerText = impersonator_data.summary;
 		}
-		else if (impersonator_data.impersonator) {
+		else if (impersonator_data.impersonator_profile) {
 			disclaimer.classList.remove('hidden');
 			disclaimer.classList.add('banned');
 			disclaimer.innerText = 'Impersonator';
 
-			if (storage.settingIsEnabled('impersonator_overlay')) {
-				overlays.impersonatorDetectedOverlay(profile, impersonator_data.profile.profile);
+			if (settingOverlay) {
+				overlays.impersonatorDetectedOverlay(profile, impersonator_data.impersonator_profile.profile);
 			}
 		}
 	}

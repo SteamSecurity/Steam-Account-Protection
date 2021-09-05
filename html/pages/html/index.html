@@ -20,6 +20,7 @@
 			<a class="nav-link" data-page_target="actions"><span>Actions</span></a>
 			<a class="nav-link" data-page_target="settings"><span>Settings</span></a>
 			<a class="nav-link" data-page_target="help"><span>Help</span></a>
+			<a class="hidden nav-link" data-page_target="dev"><span>Developer</span></a>
 			<div id="extension-version" class="nav-version">${version}</div>
 		</div>
 
@@ -28,27 +29,27 @@
 			<div class="stat-container">
 				<div class="stat-box">
 					<div id="amt-trusted-users" class="number good">0</div>
-					<div class="title">Trusted Users</div>
+					<div class="title">Trusted users</div>
 				</div>
 				<div class="stat-box">
 					<div id="amt-bptf-users" class="number good">0</div>
-					<div class="title">BP.TF Users</div>
+					<div class="title">BP.TF users</div>
 				</div>
 				<div class="stat-box">
 					<div id="amt-trading-bots" class="number good">0</div>
-					<div class="title">Trading Bots</div>
+					<div class="title">Trading bots</div>
 				</div>
 				<div class="stat-box">
 					<div id="amt-threats" class="number bad">0</div>
-					<div class="title">Threats Detected</div>
+					<div class="title">Threats detected</div>
 				</div>
 				<div class="stat-box">
 					<div id="amt-impersonators" class="number bad">0</div>
-					<div class="title">Impersonators Detected</div>
+					<div class="title">Impersonators detected</div>
 				</div>
 				<div class="stat-box">
 					<div id="amt-reputation" class="number bad">0</div>
-					<div class="title">Rep Banned Users</div>
+					<div class="title">Rep banned users</div>
 				</div>
 			</div>
 		</div>
@@ -56,8 +57,12 @@
 			<div class="setting-container">
 				<div class="title">DATABASE</div>
 				<div class="setting">
-					<div class="setting-name">Refresh Trading Bot List</div>
-					<button><span>Delete</span></button>
+					<div class="setting-name">Refresh trading bot list</div>
+					<button><span>Refresh</span></button>
+				</div>
+				<div class="setting">
+					<div class="setting-name">Delete reference data</div>
+					<button><span>Refresh</span></button>
 				</div>
 			</div>
 
@@ -65,15 +70,15 @@
 				<div class="title">REFERENCE DATA</div>
 
 				<div class="setting">
-					<div class="setting-name">Trading Bots</div>
+					<div class="setting-name">Trading bots</div>
 					<button><span>View</span></button>
 				</div>
 				<div class="setting">
-					<div class="setting-name">Impersonated Users</div>
+					<div class="setting-name">Impersonated users</div>
 					<button><span>View</span></button>
 				</div>
 				<div class="setting">
-					<div class="setting-name">Trusted Users</div>
+					<div class="setting-name">Trusted users</div>
 					<button><span>View</span></button>
 				</div>
 			</div>
@@ -83,33 +88,37 @@
 			<div class="setting-container">
 				<div class="title">Settings</div>
 				<div class="setting">
-					<div class="setting-name">Trusted User System</div>
+					<div class="setting-name">Trusted user system</div>
 					<button data-setting-name="profile_trusted_user_system" class="menu-button enabled"></button>
 				</div>
 				<div class="setting">
-					<div class="setting-name">Check Impersonation</div>
+					<div class="setting-name">Check impersonation</div>
 					<button data-setting-name="impersonator_scanner" class="menu-button enabled"></button>
 				</div>
 				<div class="setting">
-					<div class="setting-name">Check Reputation</div>
+					<div class="setting-name">Check reputation</div>
 					<button data-setting-name="reputation_scanner" class="menu-button enabled"></button>
 				</div>
 				<div class="setting">
-					<div class="setting-name">Overlay Warnings</div>
-					<button data-setting-name="overlays" class="menu-button enabled"></button>
+					<div class="setting-name">Overlay warnings</div>
+					<button data-setting-name="overlay" class="menu-button enabled"></button>
 				</div>
 			</div>
 
 		</div>
 		<div id="page-help" class="page hidden">
 			<div class="help-container">
+				<a class="help-link" href="#">
+					<div class="image-container"> <img src="/img/home-solid.svg"></div>
+					<span>Homepage</span>
+				</a>
 				<a class="help-link" href="https://github.com/Armored-Dragon/Steam-Account-Protection">
 					<div class="image-container"> <img src="/img/github-brands.svg"></div>
 					<span>Github</span>
 				</a>
-				<a class="help-link" href="#">
-					<div class="image-container"> <img src="/img/home-solid.svg"></div>
-					<span>Homepage</span>
+				<a class="help-link" href="https://armoreddragon.com/html/discord-redirect">
+					<div class="image-container"> <img src="/img/discord.svg"></div>
+					<span>Discord</span>
 				</a>
 			</div>
 		</div>

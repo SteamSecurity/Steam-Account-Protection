@@ -1,5 +1,3 @@
-// TODO: Ensure SteamRep returns accurate trade status. Trade banned or not?
-
 const steamrep = {
 	getReputation: async (steamid, { force_update = false } = {}) => {
 		const addGoodTag = (tag) => profile_reputation.good_tags.push(tag);

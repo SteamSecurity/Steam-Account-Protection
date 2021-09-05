@@ -9,7 +9,7 @@ const bitskins = {
 			let page_data = await webRequest(`get`, `https://steamcommunity.com/groups/bitskinsbots/memberslistxml/?xml=1&p=${page}`);
 
 			bots = [...bots, ...page_data.match(pattern.steamid)];
-			if (page_data.match(pattern.xml_next_page) && page++ <= 15) continue;
+			if (page_data.match(pattern.xml_next_page) && page++ <= 15) continue;	// There is a hard limit of 15 pages to prevent a run-away request train
 			else break;
 		}
 		return bots;

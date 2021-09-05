@@ -22,50 +22,79 @@ function impersonatorScanner(profile) {
 			type: `bot`
 		}
 	};
-
-
 	let { manncostore, marketplacetf, bitskins, backpacktf, trusted_users } = sap_data.local;
-	if (!manncostore && !marketplacetf && !bitskins && !backpacktf && trusted_users) {
-		log.standard('Data not initialized', 'error');
-		return {};
-	}
 
-	let similar_profiles = []; 																																												// List of profiles that are similar to the current one.
-	let trusted_bots = [...manncostore, ...marketplacetf, ...bitskins];
+	let similar_profiles = []; // List of profiles that are similar to the current one.
+	const trusted_bots = [...manncostore, ...marketplacetf, ...bitskins];
 	let trusted_profiles = [...backpacktf];
-	let trusted_user_data;
+	let return_data = { summary: '', trusted: false, impersonator_profile: null };	// The data returned at the end of this
+	// NOTE: Summary is used to communicate to the end user about the results. If someone is an imposter, summary should read "Imposter" (SUS!)
 
+	// If the user has the trusted system enabled, add the trusted users to the list
+	if (storage.settingIsEnabled('profile_trusted_user_system'))
+		trusted_profiles = [...trusted_profiles, ...trusted_users];
 
-	if (storage.settingIsEnabled('profile_trusted_user_system')) trusted_profiles = [...trusted_profiles, ...trusted_users];	// If the Trusted User system is enabled, add the user defined users to the trusted_profiles list.
+	// Compare the supplied user against a list of trusted users.
+	for (let user = 0; Object.keys(services).length > user; user++) {
+		const target_service = services[Object.keys(services)[user]]; // The target service to check against.
 
-	trusted_profiles.forEach(comparePersona);																																					// These are real people with real information attached to them.
-	Object.keys(services).forEach((service_name) => comparePersona(services[service_name]));													// These are bots supplied by the service object above, there is no real information about them.
+		let trimmed_name = profile.personaname;
+		trimmed_name.length = target_service.personaname.length;	// Trim the name to the length of our sample
 
-	if (!trusted_user_data) return mostLikelyImpersonated();
-	else return trusted_user_data;
+		const personaname_sim = compareString(target_service.personaname, trimmed_name);
 
-	// ─── COMPARING ──────────────────────────────────────────────────────────────────
-	function comparePersona(trusted_user) {
-		const personaname_sim = compareString(trusted_user.personaname, profile.personaname);
+		if (personaname_sim < 70)
+			continue;
 
-		if (personaname_sim < 70) return;
-		if (trusted_user.steamid === profile.steamid) return trusted_user_data = { summary: 'Trusted User', trusted: true };
-		if (trusted_bots.includes(profile.steamid)) return trusted_user_data = { summary: 'Trusted Trading Bot', trusted: true };
+		if (trusted_bots.includes(profile.steamid)) {
+			setReturnData({ summary: 'Trusted Trading Bot', trusted: true });
+			break;
+		}
 
-		return similar_profiles.push({ profile: trusted_user, similarity: personaname_sim });
+		similar_profiles.push({ profile: target_service, similarity: personaname_sim, type: 'bot' });
 	}
 
-	function mostLikelyImpersonated() {
-		if (similar_profiles.length === 0) return { trusted: false };
-		let most_likely = { similarity: 0 };
-		similar_profiles.forEach((impersonated_profile) => {
-			if (impersonated_profile.similarity > most_likely.similarity)
-				most_likely = impersonated_profile;
+	// If they are not a bot, then check them against the user list
+	for (let user = 0; trusted_profiles.length > user; user++) {
+		const personaname_sim = compareString(trusted_profiles[user].personaname, profile.personaname);
+
+		if (personaname_sim < 70)
+			continue;
+
+		if (trusted_profiles[user].steamid === profile.steamid) {
+			setReturnData({ summary: 'Trusted User', trusted: true });
+			break;
+		};
+
+		// If the name is similar and does not match the SteamID, add them to the list.
+		similar_profiles.push({ profile: trusted_profiles[user], similarity: personaname_sim, type: 'user' });
+	}
+
+	setReturnData({ impersonator_profile: getMostLikelyImpersonated() });
+	return return_data;
+
+
+	// --- Functions ---------------------------------------------------------------------
+	// This function allows easy and one line manipulation of the return data.
+	function setReturnData({ summary, trusted, impersonator, impersonator_profile } = {}) {
+		if (summary) return_data.summary = summary;
+		if (trusted) return_data.trusted = trusted;
+		if (impersonator) return_data.impersonator = impersonator;
+		if (impersonator_profile) return_data.impersonator_profile = impersonator_profile;
+	}
+	// Returns the profile that has the highest chance of being impersonated.
+	function getMostLikelyImpersonated() {
+		if (similar_profiles.length === 0) return null;
+		let return_profile = { similarity: 0 }; // The profile to return 
+
+		similar_profiles.forEach((impersonator) => {
+			if (impersonator.similarity > return_profile.similarity) return_profile = impersonator;
 		});
 
+		// Update our detection data
 		sap_data.sync.statistics.impersonators_detected++;
 		storage.save({ sync: sap_data.sync });
 
-		return { profile: most_likely, trusted: false, impersonator: true } || null;
+		return return_profile;
 	}
 }

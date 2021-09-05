@@ -1,10 +1,4 @@
-// ---------------- Important TO-DOS ---------------------//
 
-// TODO: Change username colors on trade windows to reflect status.
-// TODO: Inject reputation status into trade toolbar.
-// FIXME: Trusted user button shows up on non signed in users. That should not happen.
-
-// -------------------------------------------------------//
 
 // Start functions ------------
 qsa(`button`).forEach((button) => button.addEventListener(`click`, button.blur)); // Get rid of sticky buttons
@@ -71,5 +65,5 @@ function toggleButton(target, no_change) {
 
 // Developer functionality. Enter in console to unlock!
 function unlockDeveloper() {
-	qs(`.nav_item[data-page_target="developer"]`).classList.remove(`hidden`);
+	qs(`.nav-link[data-page_target="dev"]`).classList.remove(`hidden`);
 }

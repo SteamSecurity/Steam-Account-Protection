@@ -107,7 +107,7 @@ const storage = {
 	// Reputation
 	getProfileReputation: (steamid) => {
 		if (!sap_data.local.profile_reputation[steamid]) return null;
-		if (time.checkAge(sap_data.local.profile_reputation[steamid].last_updated, 24)) return null;
+		if (time.checkAge(sap_data.local.profile_reputation[steamid].request_time / 1000, 24)) return null;
 		log.standard(`Got ${steamid} reputation from cache`, 'notice');
 		return sap_data.local.profile_reputation[steamid];
 	},
@@ -119,17 +119,14 @@ const storage = {
 		let reputation_object = sap_data.local.profile_reputation;
 		let steamid_list = Object.keys(reputation_object);
 
-		console.log(steamid_list);
-
 		steamid_list.forEach((steamid) => {
-			if (time.checkAge(reputation_object[steamid].last_updated, 0.0000000000000001)) {
-				log.standard(`Deleted ${reputation_object[steamid].steamid}`);
-				reputation_object[steamid].delete();
+			if (time.checkAge(reputation_object[steamid].request_time, 1)) {
+				log.debug(`${steamid} is still fresh! Not deleting.`);
 			}
-			if (!time.checkAge(reputation_object[steamid].last_updated, 0.0000000000000001)) {
-				log.standard(`Not ${reputation_object[steamid].steamid}`);
+			else {
+				log.debug(`${steamid} is old, deleting object`);
+				delete reputation_object[steamid];
 			}
-			console.log(reputation_object[steamid].last_updated);
 		});
 		sap_data.local.profile_reputation = reputation_object;
 	}

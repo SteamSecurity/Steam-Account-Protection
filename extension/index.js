@@ -1,13 +1,34 @@
 // Love Acos(^-^)/
 
-// TODO: Add a filter to the settings page to remove old user data
-// TODO: Test profile_scanner.js to make sure if bad data is returned it's handled
+// NOTE: Valid Steam sites should include *all* Steam websites. Keep an eye out for any other official Steamcommunity website!
+
+// ---------------- Important TO-DOS ---------------------//
+
+// TODO: Test new profile_scanner file on trading bots and Backpack.tf users
+// TODO: Ensure SteamRep returns accurate trade status. Trade banned or not?
+// TODO: Test profile_scanner.js to make sure if bad data is returned it's handled.
+// TODO: Change username colors on trade windows to reflect status.
+// TODO: Inject reputation status into trade toolbar.
+
+// REVIEW: Add creation date to impersonator overlay? Maybe make setting to allow automatic fetching, disable by default?
+// REVIEW: Does the storage filter work correctly?
+// REVIEW: Does time work correctly?
+// REVIEW: Which icons are we actually using?
+
+// FIXME: Developer anon settings are insufficient. 
+// FIXME: Overlays have habit of showing themselves to fit the whole browser. That's ugly, fix it!
+
+// -------------------------------------------------------//
+
 
 master();
 async function master() {
 	sap_data = await storage.loadData();
-	console.log(sap_data);
 	log.debug(sap_data);
+
+	// Clean out old, out of date data from users
+	storage.removeOldReputation();
+
 	loadPageScript();
 }
 

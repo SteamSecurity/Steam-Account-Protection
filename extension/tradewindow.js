@@ -29,12 +29,12 @@ async function tradeWindow() {
 
 	// Impersonator scanner
 	if (settingImpersonatorScanner) {
-		const impersonator_data = await impersonatorScanner(partner);
+		const impersonator_data = impersonatorScanner(partner);
 
 		log.debug(impersonator_data);
 
-		if (settingOverlay && impersonator_data.impersonator && !impersonator_data.trusted) {
-			overlays.impersonatorDetectedOverlay(partner, impersonator_data.profile.profile);
+		if (settingOverlay && impersonator_data.impersonator_profile) {
+			overlays.impersonatorDetectedOverlay(partner, impersonator_data.impersonator_profile.profile);
 		}
 	}
 }

@@ -1,21 +1,4 @@
 const steam = {
-	// Returns an object that contains how old an account is in years, and months.
-	getAccountAge: (age_years, age_months) => {
-		const age_dif = Date.now() - (new Date(age_years, age_months)).valueOf();
-		const age_date = new Date(age_dif);
-
-		return {
-			years: Math.abs(age_date.getUTCFullYear() - 1970),
-			months: Math.abs(age_date.getMonth())
-		};
-	},
-
-	getAccountAgeString: (creation_date) => {
-		const account_age = new Date(creation_date * 1000);
-		const age_obj = steam.getAccountAge(account_age.getFullYear(), account_age.getMonth());
-		return `${age_obj.years ? age_obj.years + ' years ' : ''}${age_obj.months ? age_obj.months + ' months ' : ''}${age_obj.days ? age_obj.days + ' days' : ''}`;
-	},
-
 	// Returns an object detailing account bans. This requires an API key.
 	getAccountBans: async (steamid) => {
 		if (!sap_data.local.steam_api_key)

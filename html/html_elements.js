@@ -54,24 +54,24 @@ const html_elements = {
 			<div class="user_information user_information_vertical alert">
 				<div class="divider_header">This User</div>
 					<img style="margin-bottom:5px" src="${profile.profile_picture}">
-						<div class="profile_information" style="margin-left:0px">
-							<div class="descriptor">Persona: <div>${profile.personaname}</div></div>
-							<div class="descriptor">SteamID: <div>${profile.steamid}</div></div>
+						<div class="profile-information" style="margin-left:0px">
+							<div class="descriptor"><div class="title">Persona:</div> <div>${profile.personaname}</div></div>
+							<div class="descriptor"><div class="title">SteamID:</div> <div>${profile.steamid}</div></div>
 						</div>
 				</div>
 			<div class="user_information user_information_vertical">
 				<div class="divider_header">Impersonated User</div>
 					<img  style="margin-bottom:5px" src="${impersonated_profile.profile_picture || impersonated_profile.avatar.replace('_medium.jpg', '_full.jpg')}">
-						<div class="profile_information" style="margin-left:0px">
-							<div class="descriptor">Persona: <div>${impersonated_profile.personaname}</div></div>
-							<div class="descriptor">SteamID: <a href="https://steamcommunity.com/profiles/${impersonated_profile.steamid}" target="_blank"><div>${impersonated_profile.steamid}</div></a>
+						<div class="profile-information" style="margin-left:0px">
+							<div class="descriptor"><div class="title">Persona:</div> <div>${impersonated_profile.personaname}</div></div>
+							<div class="descriptor"><div class="title">SteamID:</div> <a href="https://steamcommunity.com/profiles/${impersonated_profile.steamid}" target="_blank"><div>${impersonated_profile.steamid}</div></a>
 					</div>
 				</div>
 			</div>
 
 		</div>
 		<div class="footer_button_container">
-			<button  id="close-impersonator-overlay">Close</button>
+			<button id="close-impersonator-overlay">Close</button>
 		</div>
 	</div>
 	</div>`;
@@ -98,7 +98,7 @@ const html_elements = {
 			<div class="descriptor">SteamID: <div>${profile.steamid}</div></div>
 			<div class="descriptor">Link: <div><button id="copy_steam_perm_link">Copy</button></div></div>
 			<input id="steamid_textbox" style="display:none;" readonly data-select_type="all" value="https://steamcommunity.com/profiles/${profile.steamid}"></input>
-			<div class="descriptor hidden">Age: <div id="account_age"></div></div>
+			<div class="descriptor hidden">Created: <div id="account_creation_date"></div></div>
 			<br>
 		<div id='reputation_header' class="header hidden">Reputation</div>
 		${storage.settingIsEnabled('reputation_scanner') ? '<div class="disclaimer hidden"></div>' : ''}
