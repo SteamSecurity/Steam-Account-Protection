@@ -18,7 +18,7 @@
 * [Support](#support)
 
 ## Overview
-Steam Account Protection, or SAP, is a chrome extension that aims to help its users protect their Steam Account. 
+Steam Account Protection, or SAP, is a Chrome extension that aims to help its users protect their Steam Account. 
 SAP achieves this by utilizing third-party services including 
  [Steam](https://steamcommunity.com), [SteamRep](https://steamrep.com), [Backpack.tf](https://backpack.tf), and [Marketplace.tf](https://marketplace.tf).
 Using these services allows the extension to detect possible impersonators, visibly flag accounts as reputation banned, or even detect if an API key has been registered to your account!
@@ -27,7 +27,7 @@ Using these services allows the extension to detect possible impersonators, visi
 As this is a Chrome Extension, the setup is extremely easy.
 1. Navigate to the [releases](https://github.com/Armored-Dragon/Steam-Account-Protection/releases) page and pick up the "Steam-Account-Protection-master.zip".
 2. Extract the file to your computer.
-3. In your chrome browser, navigate to your extension settings page. Ex. "chrome://extensions".
+3. In your Chrome browser, navigate to your extension settings page. Ex. "chrome://extensions".
 4. Enable developer mode in the extension page.
 5. Drag the file into the page OR click "Load Unpacked" and select the file.
 6. If the extension is not enabled, enable it.

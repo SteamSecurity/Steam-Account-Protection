@@ -1,4 +1,6 @@
 async function tradeWindow() {
+	if (qs(`.error_page_content`)) return;	// Error checking for bad trading pages
+
 	injectStylesheetToHead(`html/custom_styles/overlay.css`);
 	injectStylesheetToHead(`html/custom_styles/tradewindow.css`);
 	injectStylesheetToHead(`html/custom_styles/generic.css`);
@@ -19,12 +21,16 @@ async function tradeWindow() {
 		const steamrep_rep = await steamrep.getReputation(partner.steamid);
 		const trade_area = qs('#trade_area .trade_box_bgheader');
 
-		console.log(steamrep_rep);
+		if (steamrep_rep.is_banned) {
+			addClassToElement('.offerheader h2 a', 'sap-critical');
 
-		if (steamrep_rep.is_banned && settingOverlay) {
-			injectHTMLElementAsChild(trade_area, html_elements.tradeWarning(partner, steamrep_rep.bad_tags), 'afterend');
-			qs('#confirm-trade-warning-overlay').addEventListener('click', () => qs('#sap-trade-warning-overlay').remove());
+			if (settingOverlay) {
+				injectHTMLElementAsChild(trade_area, html_elements.tradeWarning(partner, steamrep_rep.bad_tags), 'afterend');
+				qs('#confirm-trade-warning-overlay').addEventListener('click', () => qs('#sap-trade-warning-overlay').remove()
+				);
+			}
 		}
+
 	}
 
 	// Impersonator scanner
@@ -34,6 +40,7 @@ async function tradeWindow() {
 		log.debug(impersonator_data);
 
 		if (settingOverlay && impersonator_data.impersonator_profile) {
+			addClassToElement('.offerheader h2 a', 'sap-critical');
 			overlays.impersonatorDetectedOverlay(partner, impersonator_data.impersonator_profile.profile);
 		}
 	}

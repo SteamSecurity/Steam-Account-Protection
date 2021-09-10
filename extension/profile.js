@@ -45,7 +45,6 @@ async function profile() {
 	}
 
 	// Reputation checker & Reputation panel
-	// TODO: Too complex! Why not have them injected into the panel directly and then change their status?
 	if (settingReputationScanner) {
 		const addDescriptorToReputationPanel = (title, descriptor_class, summary) => { injectHTMLElementAsChild(qs('#sap_reputation_panel .disclaimer'), `<div class="descriptor ${descriptor_class}">${title}: <div>${summary}</div></div>`, `afterend`); };
 
@@ -66,8 +65,10 @@ async function profile() {
 		const steamid_textbox = qs('#steamid_textbox');
 		copy_steamid_textbox.addEventListener('click', () => copyTextInput(steamid_textbox, copy_steamid_textbox));
 
-		if (settingOverlay && steamrep_rep.is_banned)
+		if (settingOverlay && steamrep_rep.is_banned) {
+			addClassToElement('.actual_persona_name', 'sap-critical');
 			overlays.reputationWarningOverlay(profile, steamrep_rep);
+		}
 	}
 
 	// Impersonator checker
@@ -84,6 +85,7 @@ async function profile() {
 			disclaimer.classList.remove('hidden');
 			disclaimer.classList.add('banned');
 			disclaimer.innerText = 'Impersonator';
+			addClassToElement('.actual_persona_name', 'sap-critical');
 
 			if (settingOverlay) {
 				overlays.impersonatorDetectedOverlay(profile, impersonator_data.impersonator_profile.profile);
@@ -96,13 +98,16 @@ async function profile() {
 		const page_body = qs('body');
 		const level_number = Math.floor((Math.random() * 100) + 5);
 		const random_level = { level: level_number, class: `friendPlayerLevel ${steam.getLevelClassName(level_number)}` };
+		const user_profile_picture = qs('.content #global_actions a img').src;
+		const dummy_steam_profile_picture = 'https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/7e/7edbe3862db4763224111b8fe77d94d5bf3f287c_full.jpg';
 
 		qs('.actual_persona_name').innerText = 'User';
-		qs('.playerAvatarAutoSizeInner').children[0].src = 'https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/7e/7edbe3862db4763224111b8fe77d94d5bf3f287c_full.jpg';
+		qs('.playerAvatarAutoSizeInner').children[0].src = dummy_steam_profile_picture;
 		qs('.header_real_name.ellipsis').children[0].innerText = '';
 
 		qs('.friendPlayerLevelNum').innerText = random_level.level;
 		qs('.friendPlayerLevel').className = random_level.class;
+		qs('#account_creation_date').innerText = '5/23/2018, 5:14 PM';
 
 		qs('.profile_summary.noexpand').innerText = '';
 
@@ -115,6 +120,7 @@ async function profile() {
 		page_body.innerHTML = page_body.innerHTML.replaceAll(profile.steamid, '76561198100000000');
 		page_body.innerHTML = page_body.innerHTML.replaceAll(document.querySelectorAll('.persona_name_text_content')[2].innerText, 'Me');
 		page_body.innerHTML = page_body.innerHTML.replaceAll(document.querySelectorAll('.persona_name_text_content')[2].innerText.toUpperCase(), 'ME');
+		page_body.innerHTML = page_body.innerHTML.replaceAll(user_profile_picture, dummy_steam_profile_picture);
 	}
 }
 

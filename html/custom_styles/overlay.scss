@@ -1,88 +1,105 @@
-$red-button: #9d0101;
-$red-text: #ff2a2a;
-$good-text: #00ffa2;
-
 $primary-color: #1a1d1f;
-$secondary-color: #0f1011;
-$tertiary-color: #00468e;
 
 $menu-item: #20242800;
-$menu-item-selected: #ff0000;
 
 $button-gen: #005179;
 $button-action: #124b87;
 $button-hover: #0965c8;
 
-$button-accept: #145a07;
-$button-disable: #364248;
+$overlay-primary: #00468e;
+$overlay-body: #0f1011;
+$overlay-button-good: green;
+$overlay-button-bad: #9d0101;
+$overlay-button-disabled: #364248;
 
-body {
-	transition: transform ease-in-out 0.2s;
-	transform-origin: top;
-}
-
-.zoned_out {
-	overflow: hidden;
-	transform: scale(0.85);
-
-	.responsive_page_menu_ctn.mainmenu {
-		display: none;
-	}
-}
-
-.sap_overlay {
-	background-color: #0043ff0d;
-	backdrop-filter: blur(7px) saturate(0.1) brightness(0.7);
+.overlay {
+	opacity: 0;
+	position: fixed;
+	display: flex;
 	width: 100vw;
 	height: 100vh;
-	opacity: 0;
-	transition: opacity 0.4s ease-in-out;
-	display: flex;
-	position: fixed;
-	top: 0;
-	z-index: 9999999;
-	user-select: none;
+	z-index: 999999999;
+	background-color: #000000bf;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	transition: opacity ease-in-out 0.2s;
 
-	.overlay_container {
-		max-width: 600px;
-		max-height: 450px;
-		min-width: 400px;
-
-		background-color: $primary-color;
-		color: white;
-		border: 1px solid $tertiary-color;
-		border-radius: 1px;
-		box-sizing: border-box;
-		font-family: Verdana, Geneva, Tahoma, sans-serif;
-
+	.overlay-container {
 		margin: auto;
-		display: flex;
-		flex-direction: column;
+		background-color: $overlay-primary;
+		border: 1px solid $overlay-primary;
 
-		.overlay_header {
-			width: 100%;
-			text-align: center;
-			margin-bottom: 1px;
-
-			background-color: $tertiary-color;
-			font-size: 1.5em;
-
-			padding: 5px 20px;
+		color: white;
+		width: fit-content;
+		.padding {
+			padding: 10px;
 			box-sizing: border-box;
 		}
 
-		.sub_header {
-			margin: auto;
-			margin-top: 0px;
-			margin-bottom: 5px;
+		.overlay-title {
 			text-align: center;
+			padding: 5px 0;
 		}
 
-		.reputation_box {
+		// Overlay body
+		.overlay-body {
+			background-color: $overlay-body;
+		}
+		.sub-title {
+			opacity: 0.7;
+			font-size: 0.9em;
+		}
+		.overlay-body.generic {
 			display: flex;
 			flex-direction: column;
-			padding: 5px;
+			max-height: 450px;
+			overflow: auto;
+			text-align: center;
+
+			.warning {
+				width: clamp(100px, 50%, 200px);
+				background-color: #ff000080;
+				padding: 2px 0px;
+				box-sizing: border-box;
+				margin: auto;
+				margin-top: 10px;
+			}
+		}
+		.overlay-body.side-by-side {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			grid-column-gap: 6px;
+			grid-row-gap: 18px;
+		}
+
+		// Overlay Items
+		.profile-container {
+			margin: auto;
+			padding: 10px;
 			box-sizing: border-box;
+
+			.header {
+				text-align: center;
+			}
+
+			.profile-item {
+				text-align: center;
+			}
+
+			.profile-picture {
+				padding: 10px 15px;
+				box-sizing: border-box;
+				display: flex;
+
+				img {
+					width: 150px;
+					height: auto;
+					margin: auto;
+				}
+			}
+		}
+
+		.text-center {
+			text-align: center;
 		}
 
 		.alert {
@@ -91,118 +108,38 @@ body {
 			animation-iteration-count: 2;
 		}
 
-		.community_ban_report {
+		// Footer text
+		.overlay-footer-text {
+			background-color: $overlay-body;
 			text-align: center;
-			background-color: #ff000030;
-			padding: 2px;
-			box-sizing: border-box;
-			margin-bottom: 5px;
-			display: flex;
-			border-radius: 4px;
-
-			img {
-				height: 25px;
-				width: auto;
-				margin: auto 0;
-			}
-
-			.text {
-				margin: auto;
-			}
+			color: #ff4c4c;
 		}
 
-		.side_by_side_user_container {
-			flex-direction: row;
-			display: flex;
-		}
-
-		.user_information {
-			width: 100%;
-			margin: auto;
-
+		// Buttons
+		.overlay-button-container {
+			background-color: $overlay-body;
 			display: flex;
 			flex-direction: row;
-			margin-bottom: 1px;
-			padding: 10px;
-			box-sizing: border-box;
+			padding: 5px 0;
 
-			font-size: 1.1em;
-
-			.profile-picture {
-				width: auto;
-				max-height: 150px;
+			.overlay-button {
 				margin: auto;
-				border-radius: 3px;
-			}
-
-			.divider_header {
-				padding: 5px;
-				box-sizing: border-box;
-				margin-bottom: 5px;
-
-				font-size: 1em;
-				text-align: center;
-
-				background-color: rgba(0, 0, 0, 0.25);
-			}
-
-			.profile-information {
-				margin-left: 10px;
-
-				.descriptor {
-					color: #eaeaea;
-					font-size: 0.7em;
-					width: 100%;
-					margin-bottom: 10px;
-
-					.title {
-						font-size: 1em;
-					}
-
-					div {
-						color: white;
-						font-size: 1.5em;
-						margin-left: auto;
-						text-align: center;
-					}
-				}
-			}
-		}
-
-		.user_information_vertical {
-			flex-direction: column;
-		}
-		.user_profile_picture {
-			margin: auto;
-
-			width: auto;
-			max-height: 150px;
-
-			border-radius: 3px;
-		}
-
-		.footer_button_container {
-			width: 100%;
-			height: 35px;
-			display: flex;
-			padding: 5px;
-			box-sizing: border-box;
-
-			button {
-				width: 100%;
-				height: 100%;
+				width: 150px;
+				color: white;
+				padding: 3px 5px;
+				border: 0px;
+				border-radius: 2px;
 				background-color: $button-gen;
 			}
-			.button-accept {
-				background-color: $button-accept;
+			.overlay-button-good {
+				background-color: $overlay-button-good;
 			}
-			.button-dead {
-				background-color: $button-disable;
+			.overlay-button-bad {
+				background-color: $overlay-button-bad;
 			}
 		}
 	}
 }
-
 @keyframes alert_flash {
 	0% {
 		background-color: rgba(0, 0, 0, 0);
@@ -212,5 +149,11 @@ body {
 	}
 	100% {
 		background-color: rgba(0, 0, 0, 0);
+	}
+}
+
+@media screen and (max-width: 900px) {
+	.overlay .overlay-container .overlay-body.side-by-side {
+		grid-template-columns: repeat(1, 1fr);
 	}
 }

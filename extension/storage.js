@@ -26,7 +26,8 @@ const storage = {
 		chrome.storage.local.set({
 			sap_data: {
 				trusted_users: [],
-				profile_reputation: {}
+				profile_reputation: {},
+				profile_save: {}
 			}
 		});
 		return;
@@ -55,7 +56,6 @@ const storage = {
 
 				chrome.storage.sync.get(['sap_data'], async (responses) => {
 					sap_data.sync = responses.sap_data;
-					// FIXME: When downloading the extension. This triggers AFTER getting the reference data!
 					if (!sap_data.local || !sap_data.sync) {
 						storage.generateNewSettings();
 						const newdata = await storage.loadData();

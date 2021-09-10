@@ -1,82 +1,6 @@
+//  This file only exists to generate HTML data as strings and returns them. Do not preform any other actions here.
+
 const html_elements = {
-	// Overlays
-	trustUser: ({ profile }) => {
-		return `<div id="trustUser-overlay" class="sap_overlay">
-	<div class="overlay_container">
-		<div class="overlay_header">CONFIRM TRUST TO USER</div>
-		<div class="user_information">
-			<img src="${profile.profile_picture}">
-			<div class="profile-information">
-				<div class="descriptor">Persona: <div>${profile.personaname}</div></div>
-				<div class="descriptor">SteamID: <div>${profile.steamid}</div></div>
-				<div class="descriptor">Level: <div>${profile.level}</div></div>
-				<div class="descriptor">Friends: <div>${profile.friends_count}</div></div>
-			</div>
-		</div>
-		<div class="footer_button_container">
-			<button class="button-accept" id="confirm-trustUser">Trust User</button><button id="close-trustUser-overlay">Cancel</button>
-		</div>
-	</div>
-</div>`;
-	},
-
-	reputation: (overlay_data) => {
-		let reputation_html_list = '';
-
-		for (rep_warning of overlay_data.reputation.bad_tags) {
-			reputation_html_list += `<div class="community_ban_report"><div><img src="${chrome.extension.getURL("/img/icons/warning.svg")}"></div><span class="text">${rep_warning}<span></div>`;
-		}
-
-		return `<div id="reputation-overlay" class="sap_overlay">
-	<div class="overlay_container">
-		<div class="overlay_header">REPUTATION WARNING</div>
-		<div class="user_information">
-			<img class="profile-picture" src="${overlay_data.profile.profile_picture}">
-			<div class="reputation_box">
-				<div class="sub_header">This user has a poor reputation</div>
-				${reputation_html_list}
-			</div>
-		</div>
-		<div class="footer_button_container">
-			<button id="close-reputation-overlay">Close</button>
-		</div>
-	</div>
-</div>`;
-	},
-
-	impersonator: ({ profile, impersonated_profile }) => {
-		log.standard(impersonated_profile);
-		return `<div id="impersonator-overlay" class="sap_overlay">
-	<div class="overlay_container">
-		<div class="overlay_header">IMPERSONATOR DETECTED</div>
-
-		<div class="side_by_side_user_container">
-			<div class="user_information user_information_vertical alert">
-				<div class="divider_header">This User</div>
-					<img style="margin-bottom:5px" src="${profile.profile_picture}">
-						<div class="profile-information" style="margin-left:0px">
-							<div class="descriptor"><div class="title">Persona:</div> <div>${profile.personaname}</div></div>
-							<div class="descriptor"><div class="title">SteamID:</div> <div>${profile.steamid}</div></div>
-						</div>
-				</div>
-			<div class="user_information user_information_vertical">
-				<div class="divider_header">Impersonated User</div>
-					<img  style="margin-bottom:5px" src="${impersonated_profile.profile_picture || impersonated_profile.avatar.replace('_medium.jpg', '_full.jpg')}">
-						<div class="profile-information" style="margin-left:0px">
-							<div class="descriptor"><div class="title">Persona:</div> <div>${impersonated_profile.personaname}</div></div>
-							<div class="descriptor"><div class="title">SteamID:</div> <a href="https://steamcommunity.com/profiles/${impersonated_profile.steamid}" target="_blank"><div>${impersonated_profile.steamid}</div></a>
-					</div>
-				</div>
-			</div>
-
-		</div>
-		<div class="footer_button_container">
-			<button id="close-impersonator-overlay">Close</button>
-		</div>
-	</div>
-	</div>`;
-	},
-
 	// Buttons
 	trust_user_button: `<a id="add_user_to_trusted_list" href="#trust_user" class="btn_profile_action btn_medium"><span style="display:flex; padding: 5px;"><img style="height: 20px;" src="${chrome.extension.getURL('img/icons/user.png')}"></span></a>`,
 	untrust_user_button: `<a id="untrust_user" href="#trust_user" class="btn_profile_action btn_medium"><span style="display:flex; padding: 5px;"><img style="height: 20px;" src="${chrome.extension.getURL('img/icons/user_slash.png')}"></span></a>`,
@@ -134,5 +58,18 @@ const html_elements = {
 			</div>	
 		</div>`;
 	},
-	tradeImpersonatorWarning: (profile) => { }
+	myProfileToolbar: () => {
+		return `<div id='sap-myProfile-toolbar' class='sap-myProfile-toolbar'>
+			<div class='container'>
+				<a id='save-user-profile-data'>
+					<img src='${chrome.extension.getURL('img/icons/save-solid.svg')}'>
+					<span>Save Profile Data</span>
+				</a>
+				<a id='load-user-profile-data'>
+					<img src='${chrome.extension.getURL('img/icons/download-solid.svg')}'>
+					<span>Load Profile Data</span>
+				</a>
+			</div>
+		</div>`;
+	}
 };

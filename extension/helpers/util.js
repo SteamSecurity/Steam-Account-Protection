@@ -27,7 +27,6 @@ function webRequest(type, url) {
 }
 
 // ─── LOGGING ────────────────────────────────────────────────────────────────────
-
 const log = {
 	standard: (data, type) => {
 		if (type === 'error') log_data = { color: `#ff3939` };
@@ -58,3 +57,5 @@ function compareString(current, base) {
 	}
 	return Math.round(percent / current.length * 100);
 };
+
+const addClassToElement = (target, class_to_add) => qs(target).classList.add(class_to_add);

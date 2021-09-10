@@ -1,0 +1,53 @@
+.sap-myProfile-toolbar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.sap-myProfile-toolbar .container {
+  height: 25px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  margin: 0 auto;
+}
+
+.sap-myProfile-toolbar .container a {
+  height: 39px;
+  margin: 0 25px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 7px 11px;
+  border-radius: 2px;
+  -webkit-transition: background-color ease-in-out 0.2s;
+  transition: background-color ease-in-out 0.2s;
+}
+
+.sap-myProfile-toolbar .container a img {
+  height: 25px;
+  margin-right: 5px;
+}
+
+.sap-myProfile-toolbar .container a span {
+  margin: auto auto auto 0;
+}
+
+.sap-myProfile-toolbar .container a:first-of-type {
+  margin: 0 25px 0 0;
+}
+
+.sap-myProfile-toolbar .container a:last-of-type {
+  margin: 0 0 0 25px;
+}
+
+.sap-myProfile-toolbar .container a:hover,
+.sap-myProfile-toolbar .container a:focus {
+  background-color: #464d58;
+}
