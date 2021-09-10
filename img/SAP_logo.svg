@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1024mm"
+   height="1024mm"
+   viewBox="0 0 1024 1024"
+   version="1.1"
+   id="svg8"
+   inkscape:version="1.0.2 (e86c870879, 2021-01-15, custom)"
+   sodipodi:docname="SAP_logo.svg"
+   inkscape:export-filename="/home/armoredd/Desktop/SAP_logo_bad.png"
+   inkscape:export-xdpi="25.4"
+   inkscape:export-ydpi="25.4">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.1767767"
+     inkscape:cx="1899.7892"
+     inkscape:cy="1059.7427"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer3"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:window-width="2560"
+     inkscape:window-height="1417"
+     inkscape:window-x="1920"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1">
+    <sodipodi:guide
+       position="225.271,730.25477"
+       orientation="1,0"
+       id="guide1503" />
+    <sodipodi:guide
+       position="350.30832,726.60831"
+       orientation="1,0"
+       id="guide1505" />
+    <sodipodi:guide
+       position="800.02117,663.14094"
+       orientation="1,0"
+       id="guide1507" />
+    <sodipodi:guide
+       position="675.21664,668.39998"
+       orientation="1,0"
+       id="guide1509" />
+    <sodipodi:guide
+       position="650.87498,1014.475"
+       orientation="0,-1"
+       id="guide1511" />
+    <sodipodi:guide
+       position="631.82498,893.82498"
+       orientation="0,-1"
+       id="guide1513" />
+    <sodipodi:guide
+       position="800.02117,503.29999"
+       orientation="0,-1"
+       id="guide1515" />
+    <sodipodi:guide
+       position="512.23332,527.64165"
+       orientation="1,0"
+       id="guide1520" />
+    <sodipodi:guide
+       position="423.33332,728.72498"
+       orientation="0,-1"
+       id="guide1522" />
+    <sodipodi:guide
+       position="100.54166,430.27499"
+       orientation="1,0"
+       id="guide1526" />
+    <sodipodi:guide
+       position="924.9833,326.55833"
+       orientation="1,0"
+       id="guide1528" />
+    <sodipodi:guide
+       position="100.54166,-0.032348632"
+       orientation="0,-1"
+       id="guide1532" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Layer 2" />
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="Layer 3">
+    <path
+       style="fill:#000000;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-rule:nonzero;fill-opacity:1"
+       d="M 225.271,520.69999 V 295.275 c 0,0 -0.82553,-286.9623283 286.96233,-286.9623283 287.78784,0 287.78784,286.9623283 287.78784,286.9623283 V 520.69999 H 675.21666 V 295.275 c 0,0 -1.05834,-165.10001 -162.98333,-165.10001 -161.925,0 -161.925,167.21667 -161.925,167.21667 V 520.69999 H 225.271"
+       id="path1524"
+       inkscape:export-xdpi="50.75452"
+       inkscape:export-ydpi="50.75452" />
+    <rect
+       style="fill:#00aaff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2.38022;stroke-opacity:1"
+       id="rect1534"
+       width="824.44165"
+       height="503.33231"
+       x="100.54166"
+       y="520.70001"
+       inkscape:export-xdpi="25.4"
+       inkscape:export-ydpi="25.4" />
+  </g>
+</svg>
