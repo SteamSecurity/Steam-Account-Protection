@@ -147,6 +147,14 @@ body {
   text-align: center;
 }
 
+.content-container .download-listing-container {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[2];
+      grid-template-columns: repeat(2, 1fr);
+  width: 100%;
+}
+
 .footer {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -246,7 +254,7 @@ body {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   text-decoration: none;
-  background-color: #30b903;
+  background-color: #00000080;
   border: 0;
   border-bottom: 1px solid white;
   font-weight: bold;
@@ -270,11 +278,24 @@ body {
   margin: auto;
 }
 
-.page-title .page-title-download-container button:hover,
-.page-title .page-title-download-container button:focus {
-  background-color: #32cc00;
+.page-title .page-title-download-container a:hover:not(a.not-available),
+.page-title .page-title-download-container a:focus:not(a.not-available) {
+  background-color: #000000;
   text-shadow: 0 0 5px black;
   cursor: pointer;
+}
+
+.page-title .page-title-download-container a.not-available {
+  -webkit-filter: grayscale(1);
+          filter: grayscale(1);
+  color: #bfbfbf;
+}
+
+.page-title .page-title-download-container .sorry-text {
+  text-align: center;
+  color: white;
+  font-size: 1.2em;
+  margin-top: 10px;
 }
 
 @media only screen and (max-width: 950px) {
