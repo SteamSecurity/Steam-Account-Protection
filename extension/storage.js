@@ -47,6 +47,14 @@ const storage = {
 		if (save) storage.save({ local: sap_data.local });
 		return true;
 	},
+	deleteReferenceData: () => {
+		sap_data.local['manncostore'] = [];
+		sap_data.local['marketplacetf'] = [];
+		sap_data.local['bitskins'] = [];
+		sap_data.local['backpacktf'] = [];
+		storage.save({ local: sap_data.local });
+		return true;
+	},
 	loadData: () => {
 		return new Promise((resolve) => {
 			sap_data = { local: {}, sync: {} };

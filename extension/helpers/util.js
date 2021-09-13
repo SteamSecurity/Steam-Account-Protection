@@ -49,6 +49,8 @@ const log = {
 };
 
 // ─── OTHER ──────────────────────────────────────────────────────────────────────
+const addClassToElement = (target, class_to_add) => qs(target).classList.add(class_to_add);
+
 function compareString(current, base) {
 	let percent = 0;
 	let x = 0;
@@ -58,4 +60,8 @@ function compareString(current, base) {
 	return Math.round(percent / current.length * 100);
 };
 
-const addClassToElement = (target, class_to_add) => qs(target).classList.add(class_to_add);
+function steamProfilePictureFullLink(link) {
+	if (link.includes('_full.jpg')) return link;
+	if (!link.includes('_')) return link.replace('.jpg', '_full.jpg');
+	return link.replace('_medium.jpg', '_full.jpg');
+};

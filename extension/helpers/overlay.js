@@ -9,10 +9,9 @@ const overlays = {
 	},
 
 	reputationWarningOverlay: (profile, reputation) => {
-		// Adds a notice to the overlay. Only negative tags should be added
+		let overlay = overlays._createOverlay({ title: 'REPUTATION WARNING', body_text: `${profile.personaname} has the following warnings`, type: 'generic', buttons: [{ text: 'Continue', action: 'close' }] });
+		const overlay_body = overlay.querySelector('#reputationwarning .overlay-body');
 		const addReputationNotice = (reputation) => overlay_body.insertAdjacentHTML(`beforeend`, `<div class='warning'>${reputation}</div>`);
-
-		overlays._createOverlay({ title: 'REPUTATION WARNING', body_text: `${profile.personaname} has the following warnings`, type: 'generic', buttons: [{ text: 'Continue', action: 'close' }] });
 		reputation.bad_tags.forEach(addReputationNotice);
 	},
 
@@ -27,7 +26,7 @@ const overlays = {
 			return `
 			<div class='profile-container${alert ? ' alert' : ''}'>
 			${header ? `<div class='header'>${header}</div>` : ''}
-			<div class='profile-picture'><img src='${profile_object.profile_picture}'></div>
+			<div class='profile-picture'><img src='${steamProfilePictureFullLink(profile_object.profile_picture || profile_object.avatar)}'></div>
 			<div class='sub-title'>Persona:</div>
 			<div class='profile-item'>${profile_object.personaname}</div>
 			<div class='sub-title'>SteamID:</div>

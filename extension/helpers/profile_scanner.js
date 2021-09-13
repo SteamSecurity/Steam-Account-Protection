@@ -1,7 +1,7 @@
 function impersonatorScanner(profile) {
 	const services = {
 		marketplacetf: {
-			personaname: `Marketplace.TF | Bot `,
+			personaname: `MPTF Bot `,
 			personaname_display: `Marketplace.TF Bots`,
 			profile_picture: 'https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/c5/c50215efc86d85386d4e963589c175a48e74a647_full.jpg',
 			link: `https://marketplace.tf/bots`,

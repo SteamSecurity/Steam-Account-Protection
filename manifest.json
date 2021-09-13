@@ -2,7 +2,7 @@
 	"update_url": "https://clients2.google.com/service/update2/crx",
 
 	"name": "Steam Account Protection",
-	"version": "3.4.6",
+	"version": "3.4.7",
 	"manifest_version": 2,
 	"description": "Steam account protection extension that shields you from a vast amount of threats.",
 	"background": {

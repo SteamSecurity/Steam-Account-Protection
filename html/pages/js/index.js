@@ -5,6 +5,8 @@ qsa(`button`).forEach((button) => button.addEventListener(`click`, button.blur))
 qsa('.nav-link').forEach((nav_link) => nav_link.addEventListener(`click`, () => switchPage(nav_link.dataset.page_target))); // Navigation buttons
 qsa(`.menu-button`).forEach((button) => button.addEventListener(`click`, () => toggleButton(button))); // Changing settings
 qs(`#extension-version`).innerText = `v${chrome.runtime.getManifest().version}`;	// Display extension version
+qs('#update-reference-data').addEventListener('click', storage.getNewReferenceData);
+qs('#delete-reference-data').addEventListener('click', storage.deleteReferenceData);
 updateView();
 
 // Functions ------------------
@@ -24,7 +26,6 @@ async function updateView() {
 
 	// Update setting buttons to display their current settings
 	Object.keys(sap_data.sync.settings).forEach((setting) => {
-		console.log(setting);
 		if (sap_data.sync.settings[setting] === false) {
 			toggleButton(qs(`[data-setting-name=${setting}]`), true);
 		}
@@ -57,7 +58,6 @@ function toggleButton(target, no_change) {
 
 	// Changes the internal setting
 	function updateSetting(setting_name, state) {
-		console.log(sap_data);
 		sap_data.sync.settings[setting_name] = state;
 		storage.save({ sync: sap_data.sync });
 	}
