@@ -6,9 +6,7 @@
   <p align="center">
     A layer of protection for your <a href="https://steamcommunity.com" target="_blank">Steam</a> account
     <br />
-    <a href="https://github.com/Armored-Dragon/Steam-Account-Protection/wiki"><strong>View the Wiki</strong></a>
-		 - 
-	  <a href="https://chrome.google.com/webstore/detail/steam-account-protection/klbjlhhdphemeeblhgdmibjjfmgalofi"><strong>Chrome Web Store</strong></a>
+    <a href="https://armoreddragon.com/Steam-Account-Protection"><strong>Website</strong></a>
   </p>
 </p>
 
