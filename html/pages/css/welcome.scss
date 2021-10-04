@@ -1,0 +1,95 @@
+$red-button: #9d0101;
+$red-text: #ff2a2a;
+$good-text: #00ffa2;
+
+$primary-color: #1a1d1f;
+$secondary-color: #0f1011;
+$tertiary-color: #00468e;
+
+$menu-item: #20242800;
+$menu-item-selected: #ff0000;
+
+$button-gen: #005179;
+$button-action: #124b87;
+$button-hover: #0965c8;
+
+body {
+	margin: 0;
+	background-color: $primary-color;
+	min-height: 100vh;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.header {
+	width: 100%;
+	height: 50px;
+	background-color: $secondary-color;
+	display: flex;
+	user-select: none;
+	-webkit-user-drag: none;
+	margin-bottom: 20px;
+
+	.title {
+		margin: auto;
+		font-size: 1.6em;
+		color: white;
+	}
+}
+
+.content {
+	background-color: $secondary-color;
+	width: 1000px;
+	margin: auto;
+	text-align: center;
+	color: white;
+	padding: 10px;
+	box-sizing: border-box;
+
+	.title {
+		font-size: 1.3em;
+		margin-bottom: 1vh;
+	}
+
+	.service-container {
+		margin: auto;
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		column-gap: 2vw;
+		row-gap: 2vw;
+
+		.service {
+			height: 100%;
+			width: 100%;
+
+			.title {
+				font-size: 1.1em;
+			}
+
+			.service-part {
+				width: 100%;
+				text-align: left;
+				padding: 2px 10px;
+				box-sizing: border-box;
+				border: 1px solid #ffffff0a;
+				transition: backgroundColor ease-out 0.2s;
+				margin-top: 0.5vh;
+				box-sizing: border-box;
+
+				.status {
+					float: right;
+				}
+
+				.status.bad {
+					color: $red-text;
+				}
+				.status.good {
+					color: $good-text;
+				}
+			}
+			.service-part.good {
+				background-color: $tertiary-color;
+				border: 0;
+			}
+		}
+	}
+}

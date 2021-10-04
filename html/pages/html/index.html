@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="../css/index.css">
+	<title>SAP | Home</title>
+</head>
+
+<body>
+	<div class="header">
+		<div class="title">Steam Account Protection</div>
+	</div>
+
+	<div class="body-container">
+		<!-- Panel navigation -->
+		<div class="nav-container">
+			<a class="nav-link active" data-page_target="home"><span>Home</span></a>
+			<a class="nav-link" data-page_target="actions"><span>Actions</span></a>
+			<a class="nav-link" data-page_target="settings"><span>Settings</span></a>
+			<a class="nav-link" data-page_target="help"><span>Help</span></a>
+			<a class="hidden nav-link" data-page_target="dev"><span>Developer</span></a>
+			<div id="extension-version" class="nav-version">${version}</div>
+		</div>
+
+		<!-- Pages -->
+		<div id="page-home" class="page">
+			<div class="stat-container">
+				<div class="stat-box">
+					<div id="amt-trusted-users" class="number good">0</div>
+					<div class="title">Trusted users</div>
+				</div>
+				<div class="stat-box">
+					<div id="amt-bptf-users" class="number good">0</div>
+					<div class="title">BP.TF users</div>
+				</div>
+				<div class="stat-box">
+					<div id="amt-trading-bots" class="number good">0</div>
+					<div class="title">Trading bots</div>
+				</div>
+				<div class="stat-box">
+					<div id="amt-threats" class="number bad">0</div>
+					<div class="title">Threats detected</div>
+				</div>
+				<div class="stat-box">
+					<div id="amt-impersonators" class="number bad">0</div>
+					<div class="title">Impersonators detected</div>
+				</div>
+				<div class="stat-box">
+					<div id="amt-reputation" class="number bad">0</div>
+					<div class="title">Rep banned users</div>
+				</div>
+			</div>
+		</div>
+		<div id="page-actions" class="page hidden">
+			<div class="setting-container">
+				<div class="title">DATABASE</div>
+				<div class="setting">
+					<div class="setting-name">Update reference data</div>
+					<button id='update-reference-data'><span>Update</span></button>
+				</div>
+				<div class="setting">
+					<div class="setting-name">Delete reference data</div>
+					<button id='delete-reference-data'><span>Delete</span></button>
+				</div>
+			</div>
+		</div>
+		<div id="page-settings" class="page hidden">
+
+			<div class="setting-container">
+				<div class="title">Settings</div>
+				<div class="setting">
+					<div class="setting-name">Trusted user system</div>
+					<button data-setting-name="profile_trusted_user_system" class="menu-button enabled"></button>
+				</div>
+				<div class="setting">
+					<div class="setting-name">Check impersonation</div>
+					<button data-setting-name="impersonator_scanner" class="menu-button enabled"></button>
+				</div>
+				<div class="setting">
+					<div class="setting-name">Check reputation</div>
+					<button data-setting-name="reputation_scanner" class="menu-button enabled"></button>
+				</div>
+				<div class="setting">
+					<div class="setting-name">Overlay warnings</div>
+					<button data-setting-name="overlay" class="menu-button enabled"></button>
+				</div>
+			</div>
+
+		</div>
+		<div id="page-help" class="page hidden">
+			<div class="help-container">
+				<a class="help-link" href="https://armoreddragon.com/Steam-Account-Protection/">
+					<div class="image-container"> <img src="/img/home-solid.svg"></div>
+					<span>Homepage</span>
+				</a>
+				<a class="help-link" href="https://github.com/Armored-Dragon/Steam-Account-Protection">
+					<div class="image-container"> <img src="/img/github-brands.svg"></div>
+					<span>Github</span>
+				</a>
+				<a class="help-link" href="https://armoreddragon.com/html/discord-redirect">
+					<div class="image-container"> <img src="/img/discord.svg"></div>
+					<span>Discord</span>
+				</a>
+			</div>
+		</div>
+		<div id="page-dev" class="page hidden">
+
+			<div class="setting-container">
+				<div class="title">Dev Settings</div>
+				<div class="setting">
+					<div class="setting-name">dev_anon_profiles</div>
+					<button data-setting-name="dev_anon_profiles" class="menu-button enabled"></button>
+				</div>
+				<div class="setting">
+					<div class="setting-name">dev_anon_tradewindow</div>
+					<button data-setting-name="dev_anon_tradewindow" class="menu-button enabled"></button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</body>
+<script src="/extension/storage.js"></script>
+<script src="/extension/helpers/util.js"></script>
+<script src="/extension/libs/backpacktf.js"></script>
+<script src="/extension/libs/bitskins.js"></script>
+<script src="/extension/libs/manncostore.js"></script>
+<script src="/extension/libs/marketplacetf.js"></script>
+<script src="/extension/libs/steamrep.js"></script>
+<script src="../js/index.js"></script>
+
+</html>

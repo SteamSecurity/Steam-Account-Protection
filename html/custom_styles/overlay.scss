@@ -1,0 +1,159 @@
+$primary-color: #1a1d1f;
+
+$menu-item: #20242800;
+
+$button-gen: #005179;
+$button-action: #124b87;
+$button-hover: #0965c8;
+
+$overlay-primary: #00468e;
+$overlay-body: #0f1011;
+$overlay-button-good: green;
+$overlay-button-bad: #9d0101;
+$overlay-button-disabled: #364248;
+
+.overlay {
+	opacity: 0;
+	position: fixed;
+	display: flex;
+	width: 100vw;
+	height: 100vh;
+	z-index: 999999999;
+	background-color: #000000bf;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	transition: opacity ease-in-out 0.2s;
+
+	.overlay-container {
+		margin: auto;
+		background-color: $overlay-primary;
+		border: 1px solid $overlay-primary;
+
+		color: white;
+		width: fit-content;
+		.padding {
+			padding: 10px;
+			box-sizing: border-box;
+		}
+
+		.overlay-title {
+			text-align: center;
+			padding: 5px 0;
+		}
+
+		// Overlay body
+		.overlay-body {
+			background-color: $overlay-body;
+		}
+		.sub-title {
+			opacity: 0.7;
+			font-size: 0.9em;
+		}
+		.overlay-body.generic {
+			display: flex;
+			flex-direction: column;
+			max-height: 450px;
+			overflow: auto;
+			text-align: center;
+
+			.warning {
+				width: clamp(100px, 50%, 200px);
+				background-color: #ff000080;
+				padding: 2px 0px;
+				box-sizing: border-box;
+				margin: auto;
+				margin-top: 10px;
+			}
+		}
+		.overlay-body.side-by-side {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			grid-column-gap: 6px;
+			grid-row-gap: 18px;
+		}
+
+		// Overlay Items
+		.profile-container {
+			margin: auto;
+			padding: 10px;
+			box-sizing: border-box;
+
+			.header {
+				text-align: center;
+			}
+
+			.profile-item {
+				text-align: center;
+			}
+
+			.profile-picture {
+				padding: 10px 15px;
+				box-sizing: border-box;
+				display: flex;
+
+				img {
+					width: 150px;
+					height: auto;
+					margin: auto;
+				}
+			}
+		}
+
+		.text-center {
+			text-align: center;
+		}
+
+		.alert {
+			animation-name: alert_flash;
+			animation-duration: 0.80s;
+			animation-iteration-count: 2;
+		}
+
+		// Footer text
+		.overlay-footer-text {
+			background-color: $overlay-body;
+			text-align: center;
+			color: #ff4c4c;
+		}
+
+		// Buttons
+		.overlay-button-container {
+			background-color: $overlay-body;
+			display: flex;
+			flex-direction: row;
+			padding: 5px 0;
+
+			.overlay-button {
+				margin: auto;
+				width: 150px;
+				color: white;
+				padding: 3px 5px;
+				border: 0px;
+				border-radius: 2px;
+				background-color: $button-gen;
+			}
+			.overlay-button-good {
+				background-color: $overlay-button-good;
+			}
+			.overlay-button-bad {
+				background-color: $overlay-button-bad;
+			}
+		}
+	}
+}
+@keyframes alert_flash {
+	0% {
+		background-color: rgba(0, 0, 0, 0);
+	}
+	50% {
+		background-color: rgba(255, 0, 0, 0.75);
+	}
+	100% {
+		background-color: rgba(0, 0, 0, 0);
+	}
+}
+
+@media screen and (max-width: 900px) {
+	.overlay .overlay-container .overlay-body.side-by-side {
+		grid-template-columns: repeat(1, 1fr);
+	}
+}

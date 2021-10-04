@@ -1,0 +1,49 @@
+.sap-tw-overlay {
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background-color: #000000ba;
+  color: white;
+  z-index: 30;
+  padding: 5px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-backdrop-filter: blur(2px);
+          backdrop-filter: blur(2px);
+}
+
+.sap-tw-overlay .container {
+  margin: auto;
+  text-align: center;
+}
+
+.sap-tw-overlay .container .title {
+  font-size: 2em;
+}
+
+.sap-tw-overlay .container .subtext {
+  font-size: 1.2em;
+}
+
+.sap-tw-overlay .container .warning {
+  padding: 3px 5px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-size: 1.2em;
+  background-color: #a70000;
+  margin-bottom: 1vh;
+}
+
+.sap-tw-overlay .container #confirm-trade-warning-overlay {
+  padding: 5px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  width: 30%;
+}

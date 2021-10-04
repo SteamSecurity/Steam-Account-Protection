@@ -1,0 +1,186 @@
+.overlay {
+  opacity: 0;
+  position: fixed;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999999999;
+  background-color: #000000bf;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  -webkit-transition: opacity ease-in-out 0.2s;
+  transition: opacity ease-in-out 0.2s;
+}
+
+.overlay .overlay-container {
+  margin: auto;
+  background-color: #00468e;
+  border: 1px solid #00468e;
+  color: white;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.overlay .overlay-container .padding {
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.overlay .overlay-container .overlay-title {
+  text-align: center;
+  padding: 5px 0;
+}
+
+.overlay .overlay-container .overlay-body {
+  background-color: #0f1011;
+}
+
+.overlay .overlay-container .sub-title {
+  opacity: 0.7;
+  font-size: 0.9em;
+}
+
+.overlay .overlay-container .overlay-body.generic {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  max-height: 450px;
+  overflow: auto;
+  text-align: center;
+}
+
+.overlay .overlay-container .overlay-body.generic .warning {
+  width: clamp(100px, 50%, 200px);
+  background-color: #ff000080;
+  padding: 2px 0px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: auto;
+  margin-top: 10px;
+}
+
+.overlay .overlay-container .overlay-body.side-by-side {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[2];
+      grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 6px;
+  grid-row-gap: 18px;
+}
+
+.overlay .overlay-container .profile-container {
+  margin: auto;
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.overlay .overlay-container .profile-container .header {
+  text-align: center;
+}
+
+.overlay .overlay-container .profile-container .profile-item {
+  text-align: center;
+}
+
+.overlay .overlay-container .profile-container .profile-picture {
+  padding: 10px 15px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.overlay .overlay-container .profile-container .profile-picture img {
+  width: 150px;
+  height: auto;
+  margin: auto;
+}
+
+.overlay .overlay-container .text-center {
+  text-align: center;
+}
+
+.overlay .overlay-container .alert {
+  -webkit-animation-name: alert_flash;
+          animation-name: alert_flash;
+  -webkit-animation-duration: 0.80s;
+          animation-duration: 0.80s;
+  -webkit-animation-iteration-count: 2;
+          animation-iteration-count: 2;
+}
+
+.overlay .overlay-container .overlay-footer-text {
+  background-color: #0f1011;
+  text-align: center;
+  color: #ff4c4c;
+}
+
+.overlay .overlay-container .overlay-button-container {
+  background-color: #0f1011;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  padding: 5px 0;
+}
+
+.overlay .overlay-container .overlay-button-container .overlay-button {
+  margin: auto;
+  width: 150px;
+  color: white;
+  padding: 3px 5px;
+  border: 0px;
+  border-radius: 2px;
+  background-color: #005179;
+}
+
+.overlay .overlay-container .overlay-button-container .overlay-button-good {
+  background-color: green;
+}
+
+.overlay .overlay-container .overlay-button-container .overlay-button-bad {
+  background-color: #9d0101;
+}
+
+@-webkit-keyframes alert_flash {
+  0% {
+    background-color: rgba(0, 0, 0, 0);
+  }
+  50% {
+    background-color: rgba(255, 0, 0, 0.75);
+  }
+  100% {
+    background-color: rgba(0, 0, 0, 0);
+  }
+}
+
+@keyframes alert_flash {
+  0% {
+    background-color: rgba(0, 0, 0, 0);
+  }
+  50% {
+    background-color: rgba(255, 0, 0, 0.75);
+  }
+  100% {
+    background-color: rgba(0, 0, 0, 0);
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .overlay .overlay-container .overlay-body.side-by-side {
+    -ms-grid-columns: (1fr)[1];
+        grid-template-columns: repeat(1, 1fr);
+  }
+}

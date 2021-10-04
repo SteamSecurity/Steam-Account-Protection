@@ -4,94 +4,44 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>SAP | Welcome</title>
-	<!--Stylesheets-->
-	<link rel="stylesheet" href="/html/pages/css/generic_page.css">
-	<link rel="stylesheet" href="/html/pages/css/welcome.css">
+	<link rel="stylesheet" type="text/css" href="../css/welcome.css">
+	<title>SAP: Welcome</title>
 </head>
 
 <body>
-	<div class="title-box">
+	<div class="header">
 		<div class="title">Steam Account Protection</div>
 	</div>
-	<div class="text-container">
-		<div class="navigation">
-			<a class="active" data-content="introduction" href="#">
-				<div>Introduction</div>
-			</a>
-			<a data-content="features" href="#">
-				<div>Features</div>
-			</a>
-			<a data-content="about" href="#">
-				<div>About</div>
-			</a>
-			<a data-content="help" href="#">
-				<div>Help</div>
-			</a>
-		</div>
-		<div id="content-introduction" class="text">
-			<div class="header">Installation complete!</div>
-			<div class="separator-line"></div>
-			Steam Account Protection has successfully installed!<br>
-			To get started, view the tabs on the left to see all of the many ways you can benefit from using SAP!
+	<div class="content">
+		<div class="title">Initializing - Please Wait</div>
+		<!-- <div class="service-container">
 
-		</div>
-		<div id="content-about" class="text hidden">
-			<div class="header">About</div>
-			<div class="separator-line"></div>
-			Steam Account Protection, or SAP, is a Chrome extension that aims to protect you against several methods of
-			attack.<br>
-			Whether these are attacks targeting your Steam items or your Steam account, SAP helps you keep what belongs to
-			you.<br><br>
-			This extension is completely open-source and you can <a
-				href="https://github.com/Armored-Dragon/Steam-Account-Protection" target="_blank">view the source code right now
-				on GitHub</a>!
-		</div>
-		<div id="content-features" class="text hidden">
-			<div class="header">Features</div>
-			<div class="separator-line"></div>
-			Trusted Site Icon:<br>
-			<div class="indented-text">The Chrome icon will change color depending on what site you are visiting.<br>
-				When you are on a trusted site like Steam, for example, the icon will change color to green.</div>
-			<br>
-			Buddy System:<br>
-			<div class="indented-text">The buddy system allows you to treat certain people with higher importance. Their
-				information will be used to detect someone impersonating this user.</div>
-			<br>
-			Reputation Warning:<br>
-			<div class="indented-text">Reputation scanners use a Steam user profile identifier (SteamID) to check their
-				reputation across SteamRep. Other services are used in a much more limited capacity. These reputations mostly
-				affect their trading reliability, and if they are trustworthy.</div>
-			<br>
-			Impersonator Warning:<br>
-			<div class="indented-text">
-				Impersonator scanners use multiple different aspects about a steam account, including
-				their Personaname (Display name) and profile identifier to check if they could potentially be impersonating
-				anyone. This works well with the Buddy system!
+			<div id="marketplacetf-status" class="service">
+				<div class="title">Marketplace.TF</div>
+				<div class="service-part"><span>Trading Bots</span><span class="status bad">X</span></div>
 			</div>
-			<br>
-			API Detection:<br>
-			<div class="indented-text">API detection acts as an early warning for an API hijacking. Normally users do not
-				have an API key registered to their account. This will alert the user if their account does get an API key.
+			<div id="manncostore-status" class="service">
+				<div class="title">Mannco.store</div>
+				<div class="service-part"><span>Trading Bots</span><span class="status bad">X</span></div>
 			</div>
-		</div>
-		<br>
-		<div id="content-help" class="text hidden">
-			<div class="header">Help</div>
-			<div class="separator-line"></div>
-			If you are ever stuck or need help using SAP, you can visit the <a
-				href="https://github.com/Armored-Dragon/Steam-Account-Protection/wiki" target="_blank">GitHub Wiki</a> for
-			basic usage. You can get to the
-			Wiki by
-			visiting the full settings page, accessible through clicking the extension icon.<br><br>
-		</div>
+			<div id="bitskins-status" class="service">
+				<div class="title">Bitskins.com</div>
+				<div class="service-part"><span>Trading Bots</span><span class="status bad">X</span></div>
+			</div>
+			<div id="backpacktf-status" class="service">
+				<div class="title">Backpack.tf</div>
+				<div class="service-part"><span>Impersonated users</span><span class="status bad">X</span></div>
+			</div>
+		</div> -->
 	</div>
 </body>
 
-<!--Scripts-->
-<script src="/main/helpers/utilities.js"></script>
-<script src="/main/helpers/storage.js"></script>
-<script src="/main/api.js"></script>
-<script src="/html/pages/js/welcome.js"></script>
+<script src="/extension/storage.js"></script>
+<script src="/extension/libs/backpacktf.js"></script>
+<script src="/extension/libs/bitskins.js"></script>
+<script src="/extension/libs/manncostore.js"></script>
+<script src="/extension/libs/marketplacetf.js"></script>
+<script src="/extension/helpers/util.js"></script>
+<script src="../js/welcome.js"></script>
 
 </html>

@@ -1,0 +1,272 @@
+body {
+  margin: 0;
+  background-color: #1a1d1f;
+  min-height: 100vh;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 1em;
+}
+
+.header {
+  width: 100%;
+  height: 50px;
+  background-color: #0f1011;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  -webkit-user-drag: none;
+  margin-bottom: 20px;
+}
+
+.header .title {
+  margin: auto;
+  font-size: 1.6em;
+  color: white;
+}
+
+.body-container {
+  width: 1000px;
+  height: 500px;
+  margin: auto;
+  background-color: #0f1011;
+  padding: 10px 0px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 4fr;
+      grid-template-columns: 1fr 4fr;
+}
+
+.body-container .nav-container {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.body-container .nav-container .nav-link {
+  color: white;
+  font-size: 1.0em;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
+  height: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 5px;
+}
+
+.body-container .nav-container .nav-link span {
+  margin: auto auto auto 15px;
+}
+
+.body-container .nav-container .nav-link.active {
+  background-color: #005179;
+  -webkit-clip-path: polygon(95% 0, 100% 50%, 95% 99%, 0% 100%, 0 50%, 0% 0%);
+          clip-path: polygon(95% 0, 100% 50%, 95% 99%, 0% 100%, 0 50%, 0% 0%);
+}
+
+.body-container .nav-container .nav-version {
+  margin: auto 0px 0px auto;
+  color: gray;
+  font-size: 0.8em;
+}
+
+.page {
+  padding: 5px 15px 0px 50px;
+  color: white;
+}
+
+.page .setting-block {
+  margin-bottom: 40px;
+}
+
+.page .setting-title {
+  background-color: #00468e;
+  width: 100%;
+  height: 25px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.page .setting-title span {
+  margin: auto auto auto 10px;
+}
+
+.page .setting {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 7fr 1fr;
+      grid-template-columns: 7fr 1fr;
+  margin-top: 5px;
+  padding: 3px 5px;
+  -webkit-transition: background-color ease-in-out 0.1s;
+  transition: background-color ease-in-out 0.1s;
+}
+
+.page .setting .setting-name {
+  padding: 3px 5px;
+  cursor: default;
+}
+
+.page .setting:hover,
+.page .setting:focus {
+  background-color: #14273c;
+}
+
+.page .menu-button {
+  color: white;
+  border: 0px;
+  border-radius: 2px;
+  padding: 3px 5px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  width: 100px;
+}
+
+.page .menu-button.enabled {
+  background-color: green;
+}
+
+.page .menu-button.enabled::before {
+  content: "Enabled";
+}
+
+.page .menu-button.disabled {
+  background-color: #8e0000;
+}
+
+.page .menu-button.disabled::before {
+  content: "Disabled";
+}
+
+.stat-container {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[3];
+      grid-template-columns: repeat(3, 1fr);
+  -ms-grid-rows: (1fr)[4];
+      grid-template-rows: repeat(4, 1fr);
+  grid-row-gap: 20px;
+  grid-column-gap: 20px;
+  width: 100%;
+  height: 100%;
+}
+
+.stat-container .stat-box {
+  width: 100%;
+  height: 100%;
+  background-color: #00000080;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  border-radius: 5px;
+}
+
+.stat-container .stat-box .number {
+  font-size: 2em;
+  margin: auto auto 5px auto;
+}
+
+.stat-container .stat-box .number.good {
+  color: #00ffa2;
+}
+
+.stat-container .stat-box .number.bad {
+  color: #ff2a2a;
+}
+
+.stat-container .stat-box .title {
+  font-size: 0.9em;
+  margin: 0px auto auto auto;
+}
+
+.setting-container {
+  color: white;
+  margin-bottom: 20px;
+}
+
+.setting-container .title {
+  width: 100%;
+  background-color: #00468e;
+  padding: 3px 10px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.help-container {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[5];
+      grid-template-columns: repeat(5, 1fr);
+  -ms-grid-rows: (1fr)[5];
+      grid-template-rows: repeat(5, 1fr);
+  grid-gap: 10px;
+  height: 100%;
+}
+
+.help-container .help-link {
+  width: 100%;
+  height: 100%;
+  background-color: #00000080;
+  border-radius: 2px;
+  padding: 5px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  color: white;
+  text-decoration: none;
+  -webkit-transition: background-color ease-in-out 0.1s;
+  transition: background-color ease-in-out 0.1s;
+}
+
+.help-container .help-link .image-container {
+  margin: auto;
+  width: auto;
+  height: 50px;
+}
+
+.help-container .help-link .image-container img {
+  width: 100%;
+  height: 100%;
+}
+
+.help-container .help-link span {
+  margin: auto auto 0px auto;
+}
+
+.help-container .help-link:focus,
+.help-container .help-link:hover {
+  background-color: #14273c;
+}
+
+.hidden {
+  display: none !important;
+}
+
+button {
+  cursor: pointer;
+}

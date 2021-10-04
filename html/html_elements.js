@@ -1,231 +1,75 @@
+//  This file only exists to generate HTML data as strings and returns them. Do not preform any other actions here.
+
 const html_elements = {
-	multi: {
-		impersonator_warning: (active_user, impersonated_user) => {
-			let impersonated_user_data;
+	// Buttons
+	trust_user_button: `<a id="add_user_to_trusted_list" href="#trust_user" class="btn_profile_action btn_medium"><span style="display:flex; padding: 5px;"><img style="height: 20px;" src="${chrome.extension.getURL('img/icons/user.png')}"></span></a>`,
+	untrust_user_button: `<a id="untrust_user" href="#trust_user" class="btn_profile_action btn_medium"><span style="display:flex; padding: 5px;"><img style="height: 20px;" src="${chrome.extension.getURL('img/icons/user_slash.png')}"></span></a>`,
 
-			if (impersonated_user.type === 'bot')
-				impersonated_user_data = `<div class="text">Potentially impersonated user</div>
-						<div>Service: <span class="description-value">${impersonated_user.personaname_display}</span></div>
-						<div>Link: <a class="description-value" href="${impersonated_user.link}" target="_blank">${impersonated_user.link}</a></div>`;
-			else
-				impersonated_user_data = `<div class="text">Potentially impersonated user</div>
-						<div>Persona: <span class="description-value">${impersonated_user.personaname}</span></div>
-						<div>Link: <a class="description-value" href="https://steamcommunity.com/profiles/${impersonated_user.steamid}" target="_blank">${impersonated_user.steamid}</a></div>`;
+	profileReputation: (profile) => {
+		let status;
+		if (profile.status === 'Currently In-Game') status = 'user_in-game';
+		else if (profile.status === 'Currently Online') status = 'user_online';
+		else status = 'user_offline';
 
-			return `<div id="sap-impersonator-overlay" style="display:none; opacity:0" class="sap-overlay">
-		<div class="overlay-content">
-			<div class="top-bar"></div>
-			<div class="title">Impersonator Warning</div>
-				<div class="profile-container">
-					<div class="text">This user may be impersonating another Steam user.<br>Please be careful when interacting with this user.</div>
-			</div>
-			<div class="profile-container">
-					<div class="image-container">
-						<img class="profile-icon" src="${active_user.profile_picture}">
-						<img class="profile-icon frame" src="${active_user.profile_frame}" alt="">
-					</div>
-
-					<div class="description">
-						<div class="text">This profile</div>
-						<div>Persona: <span class="description-value">${active_user.personaname}</span></div>
-						<div>SteamID: <span class="description-value">${active_user.steamid}</span></div>
-					</div>
-			</div>
-
-			<div class="profile-container">
-					<div class="image-container">
-						<img class="profile-icon" src="${impersonated_user.profile_picture}">
-						<img class="profile-icon frame" src="${impersonated_user.profile_frame}" alt="">
-					</div>
-
-					<div class="description">
-						${impersonated_user_data}
-					</div>
-			</div>
-			<div class="button-container">
-				<a class="button btn_big" id="close-impersonator-overlay">Close</a>
-			</div>
+		return `<div id="sap_reputation_panel" class="reputation_panel responsive_status_info">
+			${!storage.settingIsEnabled('reputation_scanner') ? '<div class="disclaimer hidden"></div>' : ''}
+			<div class="header">About</div >
+			${profile.status ? `<div class="descriptor">Status: <div class="${status}">${profile.status}</div></div>` : ''}
+			${status === 'user_in-game' ? `<div class="descriptor">Game: <div class="user_in-game">${profile.status_summary}</div></div>` : ''}
+			${status === 'user_offline' && profile.status_summary ? `<div class="descriptor">Last Online: <div class="user_offline">${profile.status_summary.replace('Last Online ', '')}</div></div>` : ''}
+			${profile.lobby.can_join ? `<div class="descriptor"><a class="button_good" href='${profile.lobby.link}'><div>Join Game</div></a></div>` : ''}
+			${profile.status ? '<br>' : ''}
+			<div class="descriptor">SteamID: <div>${profile.steamid}</div></div>
+			<div class="descriptor">Link: <div><button id="copy_steam_perm_link">Copy</button></div></div>
+			<input id="steamid_textbox" style="display:none;" readonly data-select_type="all" value="https://steamcommunity.com/profiles/${profile.steamid}"></input>
+			<div class="descriptor hidden">Created: <div id="account_creation_date"></div></div>
+			<br>
+		<div id='reputation_header' class="header hidden">Reputation</div>
+		${storage.settingIsEnabled('reputation_scanner') ? '<div class="disclaimer hidden"></div>' : ''}
+		<div class="header">Search</div>
+		<div class="external_connection_container">
+			<a href="https://rep.tf/${profile.steamid}" class="external_connection"><img src="https://rep.tf/favicon.ico" /><span>Rep</span></a>
+			<a href="https://backpack.tf/profiles/${profile.steamid}" class="external_connection"><img src="https://backpack.tf/favicon.ico" /><span>Backpack</span></a>
+			<a href="https://scrap.tf/profile/${profile.steamid}" class="external_connection"><img src="https://scrap.tf/favicon.ico" /><span>Scrap</span></a>
+			<a href="https://bazaar.tf/profiles/${profile.steamid}" class="external_connection"><img src="https://bazaar.tf/favicon.ico" /><span>Bazaar</span></a>
+			<a href="https://marketplace.tf/shop/${profile.steamid}" class="external_connection"><img src="https://marketplace.tf/favicon.ico" /><span>Marketplace</span></a>
+			<a href="https://steamid.uk/profile/${profile.steamid}" class="external_connection"><img src="https://steamid.uk/favicon.ico" /><span>SteamID</span></a>
+			<a href="https://steamtrades.com/user/${profile.steamid}" class="external_connection"><img src="https://cdn.steamtrades.com/img/favicon.ico" /><span>Steam Trades</span></a>
+			<a href="https://duckduckgo.com/?q=%22${profile.steamid}%22" class="external_connection"><img src="https://duckduckgo.com/favicon.ico" /><span>DuckDuckGo</span></a>
 		</div>
-	</div>`;
-		},
-		reputation_warning: () => `<div id="sap-reputation-overlay" style="display:none; opacity:0" class="sap-overlay">
-		<div class="overlay-content">
-			<div class="top-bar"></div>
-			<div class="title">Reputation Warning</div>
-				<div class="profile-container">
-					<div class="text">This user has at least one negative reputation tag.<br>Please be careful when interacting with them.</div>
 			</div>
-			<div class="button-container">
-				<a class="button btn_big" id="close-reputation-overlay">Close</a>
-			</div>
-		</div>
-	</div>`
-
+	<br>`;
 	},
-	settings: {
-		buddy_container: (buddy) => `<div class="profile-container" >
-				<img class="profile-icon" src="${buddy.profile_picture}">
-				<div class="description">
-					<div>Persona: <span class="description-value">${buddy.personaname}</span></div>
-					<div>Level: <span class="description-value">${buddy.level}</span></div>
-					<div>SteamID: <span class="description-value">${buddy.steamid}</span></div>
-					<div class="button-container">
-						<a class="button btn_bad" data-function="remove_buddy" data-target="${buddy.steamid}">Remove</a>
-					</div>
-				</div>
-			</div>`
+
+	tradeWarning: (profile, warnings) => {
+		let warning_html_list = '';
+		for (warning of warnings) {
+			warning_html_list += `<div class="warning">${warning}</div>`;
+		}
+
+		return `
+		<div class="sap-tw-overlay" id="sap-trade-warning-overlay">
+			<div class="container">
+				<div class="title">Caution!</div>
+				<div class="subtext">${profile.personaname} has the following warnings:</div>
+				<br>
+				${warning_html_list}
+				<button id="confirm-trade-warning-overlay">Confirm</button>
+			</div>	
+		</div>`;
 	},
-	trade_window: {
-		api_warning: `<div class="trade_partner_info_block group" style="display:flex; border: 1px solid #5faad7">
-		<div style="text-align: center; font-size: 1.4em; color:white;margin:auto;">
-			<div>API Key Warning!</div>
-		</div>
-	</div>`,
-		trade_toolbar: (profile) => `
-		<div class="trade-header"><span>Trade offer with&nbsp;<a class="steam-highlight" target="_blank" href="https://steamcommunity.com/profiles/${profile.steamid}">${profile.personaname}</a></span></div>
-		<div id="trade-toolbar" class="trade_partner_info_block group">
-			<div class="body" style="text-align: center; font-size: 1.4em; color:white;margin:auto;">
-				<a class="button bpanel btn_active " data-target="partner"><span>Partner Info</span></a>
-				<a id="reputation-button" class="button bpanel hidden" data-target="reputation"><span>Reputation</span></a>
-				<!--<a class="button" id="open-partner-inventory" data-target="inventory"><span>Inventory</span></a>-->
-				<a id="warning-button" class="button bpanel hidden" data-target="warnings"><span>Warnings</span></a>
+	myProfileToolbar: () => {
+		return `<div id='sap-myProfile-toolbar' class='sap-myProfile-toolbar'>
+			<div class='container'>
+				<a id='save-user-profile-data'>
+					<img src='${chrome.extension.getURL('img/icons/save-solid.svg')}'>
+					<span>Save Profile Data</span>
+				</a>
+				<a id='load-user-profile-data'>
+					<img src='${chrome.extension.getURL('img/icons/download-solid.svg')}'>
+					<span>Load Profile Data</span>
+				</a>
 			</div>
-			<div class="info-box" id="trade-toolbar-partner">
-				<div class="partner-info-container">
-					<span><span class="${profile.is_friend ? `sap-good` : `sap-warning`}">${profile.is_friend ? `${profile.personaname} is a friend!` : `${profile.personaname} is NOT a friend!`}</span></span>
-				</div>
-				<div class="partner-info-container">
-					<span>Account level: <span class="friendPlayerLevel ${steam.level_class(profile.level)}">${profile.level}</span></span>
-				</div>
-				<div class="partner-info-container">
-					<span>Account created: <span class="steam-highlight">${profile.account_creation_date}</span></span>
-				</div>
-				<div class="partner-info-container">
-					<span>Account age: <span class="steam-highlight">${steam.account_age(profile.account_creation_date)}</span></span>
-				</div>
-			</div>
-			<div class="info-box hidden" id="trade-toolbar-reputation">
-				<div class="partner-info-container">
-					<span>Reputation: <span id="reputation-results"></span></span>
-				</div>
-				<div class="partner-info-container">
-					<span>Checked: <span id="reputation-last-check"></span></span>
-				</div>
-				<div class="partner-info-container">
-					<span><a class="button btn_secondary" target="_blank" href="https://rep.tf/${profile.steamid}">Check Rep.TF</a> <a class="button btn_secondary" target="_blank" href="https://steamrep.com/search?q=${profile.steamid}">Check SteamRep</a></span>
-				</div>
-			</div>
-			<div class="info-box hidden" id="trade-toolbar-inventory"></div>
-			<div class="info-box hidden" id="trade-toolbar-warnings"></div>
-		</div>`,
-		trade_toolbar_box: (text) => `<div class="partner-info-container"><span class="warning-text">${text}</span></div>`
-	},
-	profile: {
-		reputation_panel: (profile) => `<div id="reputation-panel" class="profile_customization">
-		<div id="reputation-panel-title" class="profile_customization_header ellipsis">${profile.personaname}'s Reputation</div>
-		<div class="profile_customization_block">
-			<div class="customtext_showcase">
-				<div class="showcase_content_bg showcase_notes">
-					<div style="padding:2px; display:block">
-						<p>
-							<b>SteamRep:</b> <a id="reputation-panel-steamrep" target="_blank" href="https://steamrep.com/profiles/${profile.steamid}">Loading...</a>
-						</p>
-						<p>
-							<b>Reports:</b> <a id="reputation-panel-pendingreports" target="_blank" href="https://steamrep.com/profiles/${profile.steamid}">Loading...</a>
-						</p>
-						<p>
-							<b>Perm Link:</b> <a id="reputation-panel-permlink" href="javascript:;" onclick="event.preventDefault(); let sel = window.getSelection(); let range = document.createRange(); range.selectNodeContents(this); sel.removeAllRanges(); sel.addRange(range); document.execCommand('copy')">https://steamcommunity.com/profiles/${profile.steamid}</a>
-						</p>
-						<p>
-							<b>SteamID64:</b> <input id="reputation-panel-steamid" type="text" style="text-align: center;" readonly onclick="this.select(); document.execCommand('copy')" value="${profile.steamid}"/>
-						</p>
-						
-						<div class="btn_container">
-	
-							<a id="reputation-panel-reptf" target="_blank" href="https://rep.tf/${profile.steamid}" class="btn_profile_action btn_medium">
-							<span>
-								<img src="https://rep.tf/favicon.ico"/>
-								<div>Rep.tf</div>
-							</span>
-							</a>
-	
-							<a id="reputation-panel-backpacktf" target="_blank" href="https://backpack.tf/profiles/${profile.steamid}" class="btn_profile_action btn_medium">
-							<span>
-								<img src="https://backpack.tf/favicon.ico" />
-								<div>Backpack.tf</div>
-							</span>
-
-							</a>
-	
-							<a id="reputation-panel-bazaartf" target="_blank" href="https://bazaar.tf/profiles/${profile.steamid}" class="btn_profile_action btn_medium">
-							<span>
-								<img src="https://bazaar.tf/favicon.ico"  />
-								<div>Bazaar.tf</div>
-							</span>
-							</a>
-	
-							<a id="reputation-panel-scraptf" target="_blank" href="https://scrap.tf/profile/${profile.steamid}" class="btn_profile_action btn_medium">
-							<span>
-								<img src="https://scrap.tf/favicon.ico"  />
-								<div>Scrap.tf</div>
-							</span>
-							</a>
-							
-						</div>
-						<div class="btn_container">
-							<a id="reputation-panel-marketplacetf" target="_blank" href="https://marketplace.tf/shop/${profile.steamid}" class="btn_profile_action btn_medium">
-							<span>	
-								<img src="https://marketplace.tf/favicon.ico"  />
-								<div>Marketplace.tf</div>
-							</span>
-							</a>
-
-							<a id="reputation-panel-steamiduk" target="_blank" href="https://steamid.eu/profile/${profile.steamid}" class="btn_profile_action btn_medium">
-							<span>
-								<img src="https://steamid.uk/favicon.ico"  />
-								<div>SteamID.uk</div>
-							</span>
-							</a>
-							<a id="reputation-panel-steamtrades" target="_blank" href="https://steamtrades.com/user/${profile.steamid}" class="btn_profile_action btn_medium">
-							<span>	
-								<img src="https://cdn.steamtrades.com/img/favicon.ico"  />
-								<div>Steam Trades</div>
-							</span>
-							</a>
-							<a id="reputation-panel-google" target="_blank" href="https://duckduckgo.com/?q=%22${profile.steamid}%22" class="btn_profile_action btn_medium">
-							<span>	
-								<img src="https://duckduckgo.com/favicon.ico"/>
-								<div>DuckDuckGo</div>
-							</span>
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>`,
-		buddy_button: `<div id="buddy-button" class="btn_profile_action btn_medium"><span style="display:flex; padding: 5px;"><img style="height: 20px;" src="${chrome.extension.getURL('img/icons/user.png')}"></span></div>`,
-		buddy_add_warning: (profile = { personaname: 'none', level: 0, steamid: 0 }) => `<div style="display:none; opacity:0" id="sap-buddy-confirm-overlay" class="sap-overlay">
-		<div class="overlay-content">
-			<div class="top-bar"></div>
-			<div class="title">Confirm Buddy</div>
-			<div class="profile-container">
-				<div class="image-container">
-					<img class="profile-icon" src="${profile.profile_picture}">
-					<img class="profile-icon frame" src="${profile.profile_frame}" alt="">
-				</div>
-
-				<div class="description">
-					<div>Persona: <span class="description-value">${profile.personaname}</span></div>
-					<div>Level: <span class="description-value">${profile.level}</span></div>
-					<div>SteamID: <span class="description-value">${profile.steamid}</span></div>
-				</div>
-			</div>
-			<div class="button-container">
-				<a class="button btn_good" id="confirm-buddy">Confirm</a>
-				<a class="button" id="close-buddy">Close</a>
-			</div>
-		</div>
-	</div>`
+		</div>`;
 	}
-}
+};

@@ -2,24 +2,24 @@
 	"update_url": "https://clients2.google.com/service/update2/crx",
 
 	"name": "Steam Account Protection",
-	"version": "3.4.0",
+	"version": "3.4.8",
 	"manifest_version": 2,
-	"description": "Help protect your Steam Account",
+	"description": "Steam account protection extension that shields you from a vast amount of threats.",
 	"background": {
-		"scripts": [ "main/background.js" ]
+		"scripts": [ "extension/background.js" ]
 	},
 	"icons": {
-		"512": "img/sap_512.png"
+		"1024": "img/sap_1024.png"
 	},
 	"content_scripts": [
 		{
-			"js": [ "main/helpers/utilities.js", "main/helpers/storage.js", "main/helpers/steam.js", "main/helpers/overlay.js", "main/trade_window.js", "main/profile.js", "main/helpers/html_effects.js", "main/helpers/profile_scanner.js", "main/api.js", "html/html_elements.js", "main/main.js" ],
+			"js": [ "html/html_elements.js", "/extension/helpers/util.js", "/extension/helpers/overlay.js", "/extension/helpers/profile_scanner.js", "/extension/libs/steamrep.js", "/extension/libs/steam.js", "/extension/libs/manncostore.js", "/extension/libs/bitskins.js", "/extension/libs/backpacktf.js", "/extension/libs/time.js", "/extension/storage.js", "/extension/profile.js", "/extension/tradewindow.js", "/extension/myprofile.js", "/extension/index.js" ],
 			"matches": [ "https://steamcommunity.com/dev/apikey", "https://steamcommunity.com/profiles/*", "https://steamcommunity.com/id/*", "https://steamcommunity.com/tradeoffer/*", "https://backpack.tf/api/IGetUsers/v3", "https://backpack.tf/api/IGetUsers/GetImpersonatedUsers", "https://marketplace.tf/api/Bots/GetBots/v2", "https://mannco.store/bots", "https://steamrep.com/api/beta4/reputation/*" ]
 		}
 	],
-	"permissions": [ "activeTab", "storage" ],
-	"web_accessible_resources": [ "img/*.png", "html/*" ],
+	"permissions": [ "storage" ],
+	"web_accessible_resources": [ "img/*.png", "img/*.svg", "html/*" ],
 	"browser_action": {
-		"default_icon": "img/sap_bad.png"
+		"default_icon": "img/sap_bad_1024.png"
 	}
 }
