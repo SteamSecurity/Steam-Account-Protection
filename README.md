@@ -12,6 +12,9 @@
   </p>
 </p>
 
+## Effective immediatly this repository is archived.
+Future developments will continue at https://gitlab.com/steamsecurity/Steam-Account-Protection
+
 ## Table of contents
 * [Overview](#overview)
 * [Setup](#setup)
